@@ -1,0 +1,38 @@
+---
+// src/layouts/BaseLayout.astro
+const { title, description, url = Astro.url.href } = Astro.props;
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description ?? 'Explore the Singerman Bibliography of Judaica Americana'} />
+    <meta name="keywords" content="Singerman, Judaica, Americana, Jewish Books, Bibliography, Hebrew, American Jewish History" />
+    <meta name="author" content="Singerman Project" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:site_name" content="Singerman Bibliography" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="canonical" href={url} />
+    <title>{title ? `${title} | Singerman Bibliography` : 'Singerman Bibliography of Judaica Americana'}</title>
+        <link rel="stylesheet" href="/src/styles/global.css">
+</head>
+        <body class="bg-gray-50 text-gray-900">
+        <header class="p-4 shadow bg-white">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <a href="/" class="text-xl font-bold text-blue-900">Singerman Bibliography</a>
+            </div>
+        </header>
+        <main class="max-w-7xl mx-auto px-4 py-8">
+            <slot />
+        </main>
+        <footer class="p-6 bg-white border-t mt-12 text-center text-sm text-gray-500">
+            © {new Date().getFullYear()} Singerman Bibliography Project. All rights reserved.
+        </footer>
+        </body>
+</html>
