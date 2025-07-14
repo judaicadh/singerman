@@ -9,9 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/netlify": "^6.5.0",
     "@astrojs/react": "^4.3.0",
     "@fontsource-variable/playfair-display": "^5.2.5",
-    "@tailwindcss/vite": "^4.1.7",
+    "@tailwindcss/vite": "^4.1.11",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "algoliasearch": "^5.25.0",
@@ -21,6 +22,6 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-instantsearch": "^7.15.7",
-    "tailwindcss": "^4.1.7"
+    "tailwindcss": "^4.1.11"
   }
 }
