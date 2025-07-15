@@ -21,21 +21,24 @@ type Item = {
 };
 import type { GetStaticPaths } from 'astro';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    return entries.map(entry => ({
-        params: { slug: entry.id },
+export async function getStaticPaths() {
+    const paths = entries.map(entry => ({
+        params: { slug: entry.id }
     }));
-};
-
+    console.log("Static paths generated:", paths);
+    return paths;
+}
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-    const items = entries.find(entry => entry.id === params.slug);
-    if (!items) return { notFound: true };
-    return { props: { items } };
+    const item = entries.find(entry => entry.id === params.slug);
+    if (!item) {
+        console.warn(`No item found for slug: ${params.slug}`);
+        return { notFound: true };
+    }
+    return { props: { item } };
 }
 // ✅ Type Astro.props
-const { items } = Astro.props as { items: Item };
-
+const { item } = Astro.props as { item: Item };
 // ─── Date Formatting ───────────────────────────────────────
 const formatDate = (start?: number, end?: number, fallback?: string) => {
     const startYear = start ? new Date(start * 1000).getUTCFullYear() : null;
@@ -44,29 +47,36 @@ const formatDate = (start?: number, end?: number, fallback?: string) => {
     return startYear || endYear || fallback || null;
 };
 
-const displayDate = formatDate(items?.startDate, items?.endDate, items?.year);
+const displayDate = formatDate(item?.startDate, item?.endDate, item?.year);
 
 ---
 
-<BaseLayout title={items.title}>
+<BaseLayout title={item.title}>
     <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{items.title}</h1>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{item.title}</h1>
 
-        {items.description && (
-                <p class="text-lg text-gray-700 dark:text-gray-300">{items.description}</p>
+        {item.description && (
+                <p class="text-lg text-gray-700 dark:text-gray-300">{item.description}</p>
         )}
 
+        {item.isDigitized ? (
+                <div class="aspect-w-16 aspect-h-9 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-inner p-4">
+                    <p class="text-center text-sm text-gray-600 dark:text-gray-400">IIIF Viewer goes here</p>
+                </div>
+        ) : (
+                <p class="text-sm text-gray-500">This item is not digitized.</p>
+        )}
         <section class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm border-t pt-6 border-gray-200 dark:border-gray-700">
-            {items.creator && <div><span class="font-semibold">Creator:</span> {items.creator}</div>}
+            {item.creator && <div><span class="font-semibold">Creator:</span> {item.creator}</div>}
             {displayDate && <div><span class="font-semibold">Date:</span> {displayDate}</div>}
-            {(items.language ?? []).length > 0 && (
+            {(item.language ?? []).length > 0 && (
                     <div>
-                        <span class="font-semibold">Language:</span> {items.language.join(', ')}
+                        <span class="font-semibold">Language:</span> {item.language.join(', ')}
                     </div>
             )}
-            {items.place && <div><span class="font-semibold">Place:</span> {items.place}</div>}
-            {items.collection && <div><span class="font-semibold">Collection:</span> {items.collection}</div>}
-            {items.locationNote && <div><span class="font-semibold">Libraries:</span> {items.locationNote}</div>}
+            {item.place && <div><span class="font-semibold">Place:</span> {item.place}</div>}
+            {item.collection && <div><span class="font-semibold">Collection:</span> {item.collection}</div>}
+            {item.locationNote && <div><span class="font-semibold">Libraries:</span> {item.locationNote}</div>}
         </section>
     </main>
 </BaseLayout>
