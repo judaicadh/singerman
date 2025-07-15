@@ -20,32 +20,35 @@ type Item = {
 };
 
 export async function getStaticPaths() {
-    return entries.map((entry) => ({
-        params: { slug: entry.id }, // ✅ using entry.id as the route slug
+    const paths = entries.map((entry) => ({
+        params: { slug: entry.id } // using `id` as slug
     }));
+    return paths;
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-    const item = entries.find((entry) => entry.id === params.slug); // ✅ match by id
+    const item = entries.find((entry) => entry.id === params.slug);
     if (!item) {
-        console.warn(`No item found for id: ${params.slug}`);
+        console.warn(`No item found for slug: ${params.slug}`);
         return { notFound: true };
     }
     return { props: { item } };
 }
 
-const { item } = Astro.props as { item: Item };
+const { item } = Astro.props as { item?: Item };
 
+// ─── Date Formatting ───────────────────────────────────────
 const formatDate = (start?: number, end?: number, fallback?: string) => {
     const startYear = start ? new Date(start * 1000).getUTCFullYear() : null;
     const endYear = end ? new Date(end * 1000).getUTCFullYear() : null;
     if (startYear && endYear && startYear !== endYear) return `${startYear}–${endYear}`;
-    return startYear || endYear || fallback || null;
+    return startYear?.toString() || endYear?.toString() || fallback || null;
 };
 
-const displayDate = formatDate(item.startDate, item.endDate, item.year);
+const displayDate = item ? formatDate(item.startDate, item.endDate, item.year) : null;
 ---
 
+{item ? (
 <BaseLayout title={item.title}>
     <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{item.title}</h1>
@@ -63,14 +66,29 @@ const displayDate = formatDate(item.startDate, item.endDate, item.year);
         )}
 
         <section class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm border-t pt-6 border-gray-200 dark:border-gray-700">
-            {item.creator && <div><span class="font-semibold">Creator:</span> {item.creator}</div>}
-            {displayDate && <div><span class="font-semibold">Date:</span> {displayDate}</div>}
-            {(item.language ?? []).length > 0 && (
-                    <div><span class="font-semibold">Language:</span> {item.language.join(', ')}</div>
+            {item.creator && (
+                    <div><span class="font-semibold">Creator:</span> {item.creator}</div>
             )}
-            {item.place && <div><span class="font-semibold">Place:</span> {item.place}</div>}
-            {item.collection && <div><span class="font-semibold">Collection:</span> {item.collection}</div>}
-            {item.locationNote && <div><span class="font-semibold">Libraries:</span> {item.locationNote}</div>}
+            {displayDate && (
+                    <div><span class="font-semibold">Date:</span> {displayDate}</div>
+            )}
+            {(item.language ?? []).length > 0 && (
+                    <div>
+                        <span class="font-semibold">Language:</span> {item.language.join(', ')}
+                    </div>
+            )}
+            {item.place && (
+                    <div><span class="font-semibold">Place:</span> {item.place}</div>
+            )}
+            {item.collection && (
+                    <div><span class="font-semibold">Collection:</span> {item.collection}</div>
+            )}
+            {item.locationNote && (
+                    <div><span class="font-semibold">Libraries:</span> {item.locationNote}</div>
+            )}
         </section>
     </main>
 </BaseLayout>
+        ) : (
+<p class="text-center text-red-600 font-semibold py-10">Item not found.</p>
+        )}
