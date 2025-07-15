@@ -44,7 +44,8 @@ const formatDate = (start?: number, end?: number, fallback?: string) => {
     return startYear || endYear || fallback || null;
 };
 
-const displayDate = formatDate(items.startDate, items.endDate, items.year);
+const displayDate = formatDate(items?.startDate, items?.endDate, items?.year);
+
 ---
 
 <BaseLayout title={items.title}>
