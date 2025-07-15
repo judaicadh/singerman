@@ -2,7 +2,6 @@
 import entries from '../../data/items.json';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// ─── Types ─────────────────────────────────────────────────
 type Item = {
     id: string;
     title: string;
@@ -19,27 +18,24 @@ type Item = {
     isDigitized?: boolean;
     latLng?: { lat: number; lng: number };
 };
-import type { GetStaticPaths } from 'astro';
 
 export async function getStaticPaths() {
-    const paths = entries.map(entry => ({
-        params: { slug: entry.id }
+    return entries.map((entry) => ({
+        params: { slug: entry.id }, // ✅ using entry.id as the route slug
     }));
-    console.log("Static paths generated:", paths);
-    return paths;
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-    const item = entries.find(entry => entry.id === params.slug);
+    const item = entries.find((entry) => entry.id === params.slug); // ✅ match by id
     if (!item) {
-        console.warn(`No item found for slug: ${params.slug}`);
+        console.warn(`No item found for id: ${params.slug}`);
         return { notFound: true };
     }
     return { props: { item } };
 }
-// ✅ Type Astro.props
+
 const { item } = Astro.props as { item: Item };
-// ─── Date Formatting ───────────────────────────────────────
+
 const formatDate = (start?: number, end?: number, fallback?: string) => {
     const startYear = start ? new Date(start * 1000).getUTCFullYear() : null;
     const endYear = end ? new Date(end * 1000).getUTCFullYear() : null;
@@ -47,8 +43,7 @@ const formatDate = (start?: number, end?: number, fallback?: string) => {
     return startYear || endYear || fallback || null;
 };
 
-const displayDate = formatDate(item?.startDate, item?.endDate, item?.year);
-
+const displayDate = formatDate(item.startDate, item.endDate, item.year);
 ---
 
 <BaseLayout title={item.title}>
@@ -66,13 +61,12 @@ const displayDate = formatDate(item?.startDate, item?.endDate, item?.year);
         ) : (
                 <p class="text-sm text-gray-500">This item is not digitized.</p>
         )}
+
         <section class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm border-t pt-6 border-gray-200 dark:border-gray-700">
             {item.creator && <div><span class="font-semibold">Creator:</span> {item.creator}</div>}
             {displayDate && <div><span class="font-semibold">Date:</span> {displayDate}</div>}
             {(item.language ?? []).length > 0 && (
-                    <div>
-                        <span class="font-semibold">Language:</span> {item.language.join(', ')}
-                    </div>
+                    <div><span class="font-semibold">Language:</span> {item.language.join(', ')}</div>
             )}
             {item.place && <div><span class="font-semibold">Place:</span> {item.place}</div>}
             {item.collection && <div><span class="font-semibold">Collection:</span> {item.collection}</div>}
