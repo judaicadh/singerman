@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
 import { algoliasearch } from 'algoliasearch';
-
+import dayjs from 'dayjs';
 // ─── 1. Resolve __dirname & load .env ───────────────────────────────────────────
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,18 +24,35 @@ const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_ADMIN_KEY);
 // ─── 3. File Paths and Settings ─────────────────────────────────────────────────
 const siteBaseUrl = 'https://singerman.judaicadhpenn.org/';
 const jsonFilePath = path.join(__dirname, '../data/items.json');
-const indexName = 'dev_singerman';
+const indexName = 'dev_Singerman';
+const parseYearRange = (dateStr) => {
+    if (!dateStr) return null;
+    const match = dateStr.match(/^(\d{4})(?:\D+(\d{4}))?$/);
+    if (!match) return null;
 
+    const startYear = parseInt(match[1], 10);
+    const endYear = match[2] ? parseInt(match[2], 10) : startYear;
+
+    return {
+        startDate: dayjs(`${startYear}-01-01`).unix(),
+        endDate: dayjs(`${endYear}-12-31`).unix()
+    };
+};
 // ─── 4. Format for Batch ────────────────────────────────────────────────────────
 const formatRecordsForBatch = (records) =>
-    records.map((record) => ({
-        action: 'partialUpdateObject',
-        body: {
-            objectID: record.id,
-            tags: record.tags || [],
-            url: `${siteBaseUrl}entry/${record.slug || record.id}`
-        }
-    }));
+    records.map((record) => {
+        const parsedDates = parseYearRange(record.date);
+        return {
+            action: 'partialUpdateObject',
+            body: {
+                objectID: record.id,
+                tags: record.tags || [],
+                url: `${siteBaseUrl}entry/${record.id}`,
+                startDate: record.startDate,
+                endDate: record.endDate,
+            }
+        };
+    });
 
 // ─── 5. Push Data to Algolia ────────────────────────────────────────────────────
 async function pushDataToAlgolia(records) {

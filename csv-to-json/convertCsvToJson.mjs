@@ -8,8 +8,11 @@ const __dirname = path.dirname(__filename);
 
 const csvFilePath = path.join(__dirname, './Singerman-Jan2024 (37).csv');
 const jsonFilePath = path.join(__dirname, '../src/data/items.json');
+
+// Helpers
 const parsePipeField = (value) =>
 	value ? value.split(' | ').map(v => v.trim()).filter(Boolean) : [];
+
 const parseMultiFields = (item, baseField, count = 20) => {
 	const values = [];
 	for (let i = 0; i < count; i++) {
@@ -21,6 +24,13 @@ const parseMultiFields = (item, baseField, count = 20) => {
 	}
 	return values.filter(Boolean);
 };
+
+const isValidTimestamp = (timestamp) => {
+	const minTimestamp = Math.floor(new Date("1300-01-01T00:00:00Z").getTime() / 1000);
+	const maxTimestamp = Math.floor(Date.now() / 1000);
+	return timestamp >= minTimestamp && timestamp <= maxTimestamp;
+};
+
 async function main() {
 	try {
 		const jsonArray = await csv({ separator: ',' }).fromFile(csvFilePath);
@@ -29,6 +39,18 @@ async function main() {
 			const titles = parseMultiFields(item, 'dcterms:title', 3);
 			const contributors = parseMultiFields(item, 'dcterms:contributor', 5);
 			const languages = parsePipeField(item['dcterms:language']);
+
+			// Parse date field containing Unix timestamps separated by "|"
+			const dateParts = (item['Date'] || '')
+				.split('|')
+				.map((d) => d.trim())
+				.filter(Boolean);
+
+			const startDateRaw = parseInt(dateParts[0], 10);
+			const endDateRaw = parseInt(dateParts[1] || dateParts[0], 10);
+
+			const startDate = isValidTimestamp(startDateRaw) ? startDateRaw : null;
+			const endDate = isValidTimestamp(endDateRaw) ? endDateRaw : null;
 
 			const lat = parseFloat(item['latitude']);
 			const lng = parseFloat(item['longitude']);
@@ -47,6 +69,8 @@ async function main() {
 				creatorUri: item['dcterms:creator ^^uri'] || '',
 				contributor: contributors,
 				year: item['dcterms:created'] || '',
+				startDate,
+				endDate,
 				description: item['dcterms:description'] || item['Description'] || '',
 				language: languages,
 				languageUri: item['dcterms:language uri'] || '',

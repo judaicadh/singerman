@@ -4,6 +4,8 @@ export interface Record {
     id: string;
     slug: string;
     title: string;
+    startDate?: number | null;
+    endDate?: number | null;
     alternateTitles: string[];
     creator?: string;
     creatorUri?: string;

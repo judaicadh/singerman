@@ -1,4 +1,89 @@
 ---
-export const prerender = false;
+import entries from '../../data/items.json';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
+export async function getStaticPaths() {
+    return entries.map(entry => ({
+        params: { slug: entry.id }  // we're using `id` as the slug
+    }));
+}
+
+export async function getStaticProps({ params }) {
+    const items = entries.find(entry => entry.id === params.slug);
+    if (!items) return { notFound: true };
+
+    // Date Formatting: move this *inside* getStaticProps
+    const formatDate = (start, end, fallback) => {
+        const startYear = start ? new Date(start * 1000).getUTCFullYear() : null;
+        const endYear = end ? new Date(end * 1000).getUTCFullYear() : null;
+        if (startYear && endYear && startYear !== endYear) return `${startYear}–${endYear}`;
+        return startYear || endYear || fallback || null;
+    };
+
+    const displayDate = formatDate(items.startDate, items.endDate, items.year);
+
+    return {
+        props: {
+            items,
+            displayDate
+        }
+    };
+}
+
+// ⬇ `items` and `displayDate` are now safely available here
+const { items, displayDate } = Astro.props;
 ---
+
+<BaseLayout title={items.title}>
+    <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{items.title}</h1>
+
+        {items.description && (
+                <p class="text-lg text-gray-700 dark:text-gray-300">{items.description}</p>
+        )}
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm border-t pt-6 border-gray-200 dark:border-gray-700">
+            {items.creator && <div><span class="font-semibold">Creator:</span> {items.creator}</div>}
+            {displayDate && <div><span class="font-semibold">Date:</span> {displayDate}</div>}
+            {items.language?.length > 0 && (
+                    <div><span class="font-semibold">Language:</span> {items.language.join(', ')}</div>
+            )}
+            {items.place && <div><span class="font-semibold">Place:</span> {items.place}</div>}
+            {items.collection && (
+                    <div><span class="font-semibold">Collection:</span> {items.collection}</div>
+            )}
+            {items.locationNote && (
+                    <div><span class="font-semibold">Libraries:</span> {items.locationNote}</div>
+            )}
+        </section>
+
+        {items.thumbnail && (
+                <div>
+                    <img src={items.thumbnail} alt="Thumbnail" class="rounded-xl shadow-md max-w-md" />
+                </div>
+        )}
+
+        <section class="space-y-2">
+            <h2 class="text-xl font-semibold">Digital Content</h2>
+            {items.isDigitized ? (
+                    <div class="aspect-w-16 aspect-h-9 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-inner p-4">
+                        <p class="text-center text-sm text-gray-600 dark:text-gray-400">IIIF Viewer goes here</p>
+                    </div>
+            ) : (
+                    <p class="text-sm text-gray-500">This item is not digitized.</p>
+            )}
+        </section>
+
+        {items.latLng?.lat && items.latLng?.lng && (
+                <section class="space-y-2">
+                    <h2 class="text-xl font-semibold">Location</h2>
+                    <iframe
+                            class="w-full h-72 rounded-xl border border-gray-200 dark:border-gray-700 shadow"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src={`https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_MAPS_API_KEY&q=${items.latLng.lat},${items.latLng.lng}`}>
+                    </iframe>
+                </section>
+        )}
+    </main>
+</BaseLayout>

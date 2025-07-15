@@ -11,17 +11,28 @@
   "dependencies": {
     "@astrojs/netlify": "^6.5.0",
     "@astrojs/react": "^4.3.0",
+    "@astrojs/ts-plugin": "^1.10.4",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@fontsource-variable/playfair-display": "^5.2.5",
+    "@headlessui/react": "^2.2.4",
+    "@heroicons/react": "^2.2.0",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.2.0",
+    "@netlify/blobs": "^10.0.5",
     "@tailwindcss/vite": "^4.1.11",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.6.0",
     "algoliasearch": "^5.25.0",
     "astro": "^5.11.1",
     "csvtojson": "^2.0.10",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-instantsearch": "^7.15.7",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "vite": "^7.0.4"
   }
 }
