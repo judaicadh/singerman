@@ -21,7 +21,7 @@ import HitCard from "./HitCard";
 import { Grid } from '@mui/material';
 
 import type {UiState} from "instantsearch.js";
-import {CurrentRefinementsPills} from "./CurrentRefinements.tsx";
+
 const fallbackMin = Math.floor(new Date("1700-01-01T00:00:00Z").getTime() / 1000); // -8520336000
 const fallbackMax = Math.floor(new Date("1900-12-31T23:59:59Z").getTime() / 1000); // -2208988801
 const indexName = 'dev_Singerman';
