@@ -62,13 +62,31 @@ import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png'
     </head>
         <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
         <header class="bg-white dark:bg-gray-900 shadow sticky top-0 z-30">
-            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16" aria-label="Site main navigation">
-                <div class="flex items-center gap-8">
-                    <a href="/" style="font-family: 'Spectral', sans-serif;" class="flex items-center gap-2 text-xl  font-bold text-blue-900 dark:text-blue-200 hover:text-blue-700 dark:hover:text-white transition-colors">
-                        Judaica Americana II
-                    </a>
-                    <a href="/search" class="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Browse</a>
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16" aria-label="Site main navigation">
+    <div class="flex items-center gap-2">
+    <a href="/" style="font-family: 'Spectral', sans-serif;" class="flex items-center gap-2 text-xl font-bold text-blue-900 dark:text-blue-200 hover:text-blue-700 dark:hover:text-white transition-colors">
+    Judaica Americana II
+    </a>
+    </div>
+    <!-- Hamburger button, visible on mobile only -->
+    <button
+    id="mobile-nav-toggle"
+    type="button"
+    class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 focus:outline-none sm:hidden"
+    aria-controls="mobile-menu"
+    aria-expanded="false"
+    aria-label="Toggle menu"
+    >
+    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+    <path class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+    d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+    </button>
+    <!-- Navigation links (hidden on mobile) -->
+    <div class="hidden sm:flex gap-8 items-center" id="main-nav-links">
+    <a href="/search" class="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Browse</a>
     <div class="relative">
+    <!-- About dropdown button (unchanged) -->
     <button
     id="about-dropdown-btn"
     type="button"
@@ -87,15 +105,58 @@ import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png'
     role="menu"
     >
     <a href="/about/introduction" class="block px-4 py-2 ...">Introduction</a>
-
     <a href="/about/foreword" class="block px-4 py-2 ...">Foreword</a>
     <a href="/about/acknowledgments" class="block px-4 py-2 ...">Acknowledgments</a>
     </div>
     </div>
-                    <a href="/help" class="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Help</a>
-
-                </div>
-            </nav>
+    <a href="/help" class="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Help</a>
+    </div>
+    </nav>
+    <!-- Mobile menu (hidden by default, shown when hamburger is active) -->
+    <div class="sm:hidden" id="mobile-menu" style="display: none;">
+    <div class="flex flex-col gap-2 py-2">
+    <a href="/search" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300">Browse</a>
+    <!-- About dropdown for mobile -->
+    <details>
+    <summary class="block px-4 py-2 text-gray-700 dark:text-gray-200 cursor-pointer select-none">
+    About
+    </summary>
+    <div class="pl-4">
+    <a href="/about/introduction" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300">Introduction</a>
+    <a href="/about/foreword" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300">Foreword</a>
+    <a href="/about/acknowledgments" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300">Acknowledgments</a>
+    </div>
+    </details>
+    <a href="/help" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300">Help</a>
+    </div>
+    </div>
+    <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+    // Hamburger toggle
+    const btn = document.getElementById('mobile-nav-toggle');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+        btn.addEventListener('click', () => {
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+            btn.setAttribute('aria-expanded', menu.style.display === 'block');
+        });
+    }
+    // About dropdown (desktop)
+    const aboutBtn = document.getElementById('about-dropdown-btn');
+    const aboutMenu = document.getElementById('about-dropdown-menu');
+    if (aboutBtn && aboutMenu) {
+        aboutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            aboutMenu.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+            if (!aboutBtn.contains(e.target) && !aboutMenu.contains(e.target)) {
+                aboutMenu.classList.add('hidden');
+            }
+        });
+    }
+});
+    </script>
     <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('about-dropdown-btn');
