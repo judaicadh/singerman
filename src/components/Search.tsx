@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { liteClient as algoliasearch } from 'algoliasearch/lite';
 
 import {
@@ -9,19 +9,19 @@ import {
     Pagination,
     Stats,
     ToggleRefinement,
-    Highlight, useRange, CurrentRefinements, HitsPerPage, Configure,
+    Highlight, useRange, CurrentRefinements, HitsPerPage, Configure, useInstantSearch,
 } from 'react-instantsearch';
-import DateRangeSlider from "./DateRangeSlider.tsx";
+import DateRangeSlider from "./DateRangeSlider";
 
 import { history } from 'instantsearch.js/es/lib/routers';
 import type { FC } from 'react';
 import type { RecordHit } from '../types/RecordHit';
 import { useMemo, useState, useEffect } from "react";
-import CustomRefinementList from "./CustomRefinementList.tsx";
-import HitCard from "./HitCard.tsx";
+import HitCard from "./HitCard";
 import { Grid } from '@mui/material';
 
 import type {UiState} from "instantsearch.js";
+import {CurrentRefinementsPills} from "./CurrentRefinements.tsx";
 const fallbackMin = Math.floor(new Date("1700-01-01T00:00:00Z").getTime() / 1000); // -8520336000
 const fallbackMax = Math.floor(new Date("1900-12-31T23:59:59Z").getTime() / 1000); // -2208988801
 const indexName = 'dev_Singerman';
@@ -35,15 +35,26 @@ const dateFields = [
 const normalizeToArray = (value: any): string[] =>
     Array.isArray(value) ? value : value ? [value] : [];
 type RouteState = {
-    query?: string;
-    page?: number;
-    author?: string[];
-    contributor?: string[];
-    place?: string[];
-    language?: string[];
-    collection?: string[];
-
+    [indexName: string]: {
+        query?: string;
+        page?: number;
+        refinementList?: {
+            author?: string[];
+            contributor?: string[];
+            place?: string[];
+            language?: string[];
+            collection?: string[];
+        };
+    };
 };
+
+const getQueryParam = (param: string) => {
+    if (typeof window === "undefined") return "";
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param) || "";
+};
+
+const query = getQueryParam('query');
 const slugify = (str: string): string =>
     str
         .normalize('NFD')
@@ -78,80 +89,80 @@ const deslugifyName = (slug: string): string =>
         .replace(/-/g, ' ')
         .replace(/\b\w/g, (l) => l.toUpperCase());
 
-// ─────────────────────────────────────────────────────────────
-// Routing Configuration
-// ─────────────────────────────────────────────────────────────
+
 const routing = {
     router: history({
-        createURL({ qsModule, location, routeState }) {
-            const baseUrl = location.pathname.split('/search')[0] + '/search';
-            const queryString = qsModule.stringify(routeState, {
-                addQueryPrefix: true,
-                arrayFormat: 'repeat',
-            });
-            return `${baseUrl}${queryString}`;
+        windowTitle({ category, query }) {
+            const queryTitle = query ? `Results for "${query}"` : 'Search';
+            return category ? `${category} – ${queryTitle}` : queryTitle;
         },
+        createURL({ qsModule, routeState, location }) {
+            const urlParts = location.href.match(/^(.*?)\/search/);
+            const baseUrl = `${urlParts ? urlParts[1] : ''}/`;
 
+            const queryParameters = {};
+            if (routeState.query) queryParameters.query = routeState.query;
+            if (routeState.page && routeState.page !== 1) queryParameters.page = routeState.page;
+            // Single or multiple
+            if (routeState.author?.length) queryParameters.author = routeState.author;
+            if (routeState.contributor?.length) queryParameters.contributor = routeState.contributor;
+            if (routeState.place?.length) queryParameters.place = routeState.place;
+            if (routeState.language?.length) queryParameters.language = routeState.language;
+            if (routeState.collection?.length) queryParameters.collection = routeState.collection;
+
+            const queryString = qsModule.stringify(queryParameters, {
+                addQueryPrefix: true,
+                arrayFormat: 'repeat', // key=val1&key=val2 (no [0]/[1])
+            });
+            return `${baseUrl}search/${queryString}`;
+        },
         parseURL({ qsModule, location }) {
-            const {
-                query = '',
-                page,
-                author = [],
-                contributor = [],
-                place = [],
-                language = [],
-                collection = [],
-            } = qsModule.parse(location.search.slice(1), { ignoreQueryPrefix: true });
-
+            const { query = '', page, author, contributor, place, language, collection } = qsModule.parse(
+                location.search.slice(1)
+            );
+            // Always arrays
+            const asArray = (v) => (Array.isArray(v) ? v : v ? [v] : []);
             return {
-                [indexName]: {
-                    query: decodeURIComponent(query as string),
-                    page: typeof page === 'string' ? Number(page) : 1,
-                    refinementList: {
-                        author: normalizeToArray(author).map(deslugify),
-                        contributor: normalizeToArray(contributor).map(deslugify),
-                        place: normalizeToArray(place).map(deslugify),
-                        language: normalizeToArray(language),
-                        collection: normalizeToArray(collection),
-                    },
-                },
+                query,
+                page,
+                author: asArray(author),
+                contributor: asArray(contributor),
+                place: asArray(place),
+                language: asArray(language),
+                collection: asArray(collection),
             };
         },
     }),
-
     stateMapping: {
-        stateToRoute(uiState: UiState): any {
-            const indexUiState = uiState[indexName] || {};
+        stateToRoute(uiState) {
+            const state = uiState['dev_Singerman'] || {};
             return {
-                query: indexUiState.query,
-                page: indexUiState.page,
-                author: (indexUiState.refinementList?.author || []).map(slugify),
-                contributor: (indexUiState.refinementList?.contributor || []).map(slugify),
-                place: (indexUiState.refinementList?.place || []).map(slugify),
-                language: indexUiState.refinementList?.language || [],
-                collection: (indexUiState.refinementList?.collection || []).map(slugify),
+                query: state.query ?? '',
+                page: state.page,
+                author: state.refinementList?.author ?? [],
+                contributor: state.refinementList?.contributor ?? [],
+                place: state.refinementList?.place ?? [],
+                language: state.refinementList?.language ?? [],
+                collection: state.refinementList?.collection ?? [],
             };
         },
-
-        routeToState(routeState: RouteState): UiState {
+        routeToState(routeState) {
             return {
-                [indexName]: {
+                dev_Singerman: {
                     query: routeState.query,
                     page: routeState.page,
                     refinementList: {
-                        author: (normalizeToArray(routeState.author) || []).map(deslugify),
-                        contributor: (normalizeToArray(routeState.contributor) || []).map(deslugify),
-                        place: (normalizeToArray(routeState.place) || []).map(deslugify),
-                        language: normalizeToArray(routeState.language) || [],
-                        collection: (normalizeToArray(routeState.collection) || []).map(deslugify),
+                        author: routeState.author ?? [],
+                        contributor: routeState.contributor ?? [],
+                        place: routeState.place ?? [],
+                        language: routeState.language ?? [],
+                        collection: routeState.collection ?? [],
                     },
                 },
             };
         },
     },
 };
-
-
 const searchClient = algoliasearch(
     'ZLPYTBTZ4R',
     'be46d26dfdb299f9bee9146b63c99c77'
@@ -161,6 +172,8 @@ const SearchApp: FC = () => {
     const [resetKey, setResetKey] = useState(Date.now());
     const [dateRange, setDateRange] = useState<{ min: number; max: number } | undefined>(undefined);
     const [dateFilterActive, setDateFilterActive] = useState(false);
+
+
     const handleReset = () => {
         setResetKey(Date.now());
         setDateFilterActive(false);
@@ -169,9 +182,12 @@ const SearchApp: FC = () => {
 
     return (
         <InstantSearch
+            key={query}
             indexName={indexName}
             searchClient={searchClient}
             routing={routing}
+
+
         >
             <Configure hitsPerPage={12} />
 
@@ -296,12 +312,12 @@ const SearchApp: FC = () => {
                     </div>
 
                 </aside>
-                <section className="md:col-span-4 space-y-6">
+                <section className="md:col-span-4 ">
                     <SearchBox
-                        placeholder="Search titles, authors, or Singerman number..."
+                        placeholder="Search titles, authors, or Singerman ID..."
                         searchAsYouType={true}
                         classNames={{
-                            root: 'p-3 shadow-sm',
+                            root: 'p-3 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700',
                             form: 'relative',
                             input:
                                 'block w-full pl-9 pr-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 rounded-md focus:ring-1',
@@ -309,7 +325,16 @@ const SearchApp: FC = () => {
                             resetIcon: 'hidden', // or use 'sr-only' if you want screen readers to still see it
                         }}
                     />
-                    <CurrentRefinements />
+                    <CurrentRefinements
+                        classNames={{
+                            root: 'flex flex-wrap gap-4 mt-2 ',
+                            list: 'flex flex-wrap gap-2 ',
+                            item: 'bg-blue-100 text-blue-800  text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300 flex items-center mb-2',
+                            label: 'font-semibold mr-1',
+                            category: 'p-2',
+                            delete: 'ml-1 text-blue-400 hover:text-blue-700 focus:outline-none cursor-pointer',
+                        }}
+                    />
                     <div className="flex items-center justify-between mb-4">
                         <Stats />
                         <HitsPerPage

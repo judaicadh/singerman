@@ -14,8 +14,15 @@ const description = "Explore Robert Singerman’s Judaica Americana II";
         </p>
 
         <!-- Search form that redirects to /search?q=... -->
-        <form action="/search" method="get" class="max-w-xl mx-auto">
-            <input
+        <form
+                action="/search"
+                method="GET"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    const query = e.target.query.value;
+                    window.location = `/search?query=${encodeURIComponent(query)}`;
+                }}
+        >            <input
                     type="search"
                     name="query"
                     placeholder="Search authors, titles, or topics..."
@@ -29,7 +36,7 @@ const description = "Explore Robert Singerman’s Judaica Americana II";
             <a href="/search" class="inline-block text-sm text-blue-700 hover:underline">
                 Browse All Records →
             </a>
-            <a href="/about" class="inline-block text-sm text-blue-700 hover:underline">
+            <a href="/about/introduction" class="inline-block text-sm text-blue-700 hover:underline">
                 About the Project →
             </a>
         </div>

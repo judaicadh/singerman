@@ -61,20 +61,20 @@ export default function HitCard({ hit }) {
                     {hit.isDigitized && (
                         <VerifiedIcon sx={{ color: 'darkblue', fontSize: 20 }} titleAccess="Digitized item" />
                     )}
-                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: "bold", fontSize: 20, font: "inherit" }}>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: "bold", fontSize: 20, fontFamily: "Karla" }}>
                         {hit.slug}
                     </Typography>
                 </div>
 
                 {/* Date */}
                 {dateDisplay && (
-                    <Typography variant="subtitle2" color="info.main" sx={{ mb: 1 , color: 'darkblue' }}>
+                    <Typography variant="subtitle2" color="info.main" sx={{ mb: 1 , color: 'darkblue', fontFamily: "Spectral"}}>
                         {dateDisplay}{hit.place && `, ${hit.place}`}
                     </Typography>
                 )}
                 {/* Description */}
                 {displayedDescription && (
-                    <Typography variant="body2" color="text.secondary" sx={{ font: "inherit", mb: 1 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontFamily: "Spectral", mb: 1 }}>
                         {displayedDescription}
                     </Typography>
                 )}
@@ -85,10 +85,10 @@ export default function HitCard({ hit }) {
                 <CardActions sx={{ justifyContent: 'flex-end' }}>
                     <Button
                         variant="outlined"
-                        color="darkblue"
+                        fontFamily= "Spectral"
                         size="medium"
                         href={`/entry/${hit.slug}`}
-                        sx={{ borderRadius: 2 }}
+                        sx={{ borderRadius: 2, fontFamily: "Karla", color:'darkblue' }}
                     >
                         View Entry
                     </Button>

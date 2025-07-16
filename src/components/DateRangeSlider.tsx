@@ -96,7 +96,7 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 		<div className="bg-white px-4 dark:bg-gray-900">
 			<Disclosure defaultOpen={true}>
 				{({ open }) => (
-					<>
+					<div>
 						<DisclosureButton
 							className="flex w-full justify-between items-center py-3 text-left text-gray-900 dark:text-gray-100 font-medium border-b border-gray-200 dark:border-gray-700">
 							<h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{title}</h3>
@@ -158,7 +158,7 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 								</button>
 							)}
 						</DisclosurePanel>
-					</>
+					</div>
 				)}
 			</Disclosure>
 		</div>
