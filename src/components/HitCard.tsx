@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import { Hits } from 'react-instantsearch';
 import type { Hit as AlgoliaHit } from 'instantsearch.js';
 import { Highlight } from 'react-instantsearch';
@@ -15,9 +13,11 @@ import {
 } from '@mui/material';
 
 type RecordHit = AlgoliaHit<{
-    id: string;
+    objectID: string;
+    slug: string;
     title: string;
-    creator?: string;
+    author?: string;
+    contributor: string;
     place?: string;
     year?: string | number;
     description?: string;
@@ -25,7 +25,6 @@ type RecordHit = AlgoliaHit<{
     startDate?: number;
     endDate?: number;
 }>;
-
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
@@ -37,6 +36,7 @@ const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: '#1A2027',
     }),
 }));
+
 function formatDateRange(hit: RecordHit): string | null {
     const start = hit.startDate ? new Date(hit.startDate * 1000).getFullYear() : null;
     const end = hit.endDate ? new Date(hit.endDate * 1000).getFullYear() : null;
@@ -47,6 +47,7 @@ function formatDateRange(hit: RecordHit): string | null {
 
     return null;
 }
+
 function HitItem({ hit }: { hit: RecordHit }) {
     const maxLength = 200;
     const [showMore, setShowMore] = React.useState(false);
@@ -58,45 +59,47 @@ function HitItem({ hit }: { hit: RecordHit }) {
             : hit.description?.slice(0, maxLength) + '…';
 
     return (
+        <Card
+            variant="outlined"
+            raised
+            sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+        >
+            <CardContent sx={{ flexGrow: 1 }}>
+                <Typography sx={{ color: 'text.primary', fontSize: 16, fontWeight: 'bold' }}>
+                    <Highlight hit={hit} attribute="title" />
+                </Typography>
 
-
-            <Card variant="outlined" raised={true} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-                <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography sx={{ color: 'text.primary', fontSize: 16, fontWeight: 'bold' }}>
-                        <Highlight hit={hit} attribute="id" />
+                    <Typography sx={{ color: 'text.secondary', mb: 1.5, fontSize: 14 , fontWeight: 'bold'}}>
+                        {hit.slug}
                     </Typography>
 
-                    {dateDisplay && (
-                        <Typography sx={{ color: 'text.secondary', mb: 1.5, fontSize: 14 }}>
-                            {dateDisplay}
-                        </Typography>
-                    )}
-                    <Typography variant="body2">
-                        {hit.title}
-
-
+                {dateDisplay && (
+                    <Typography sx={{ color: 'text.secondary', mb: 1.5, fontSize: 14 }}>
+                        {dateDisplay}
                     </Typography>
-
-                </CardContent>
-                {hit.url && (
-                    <CardActions>
-                        <Button variant={"outlined"} size="medium" href={hit.url} target="_blank" rel="noopener noreferrer">
-                            View Entry
-                        </Button>
-                    </CardActions>
                 )}
-            </Card>
 
+                {displayedDescription && (
+                    <Typography variant="body2">{displayedDescription}</Typography>
+                )}
+            </CardContent>
 
+            {hit.slug && (
+                <CardActions>
+                    <Button
+                        variant="outlined"
+                        size="medium"
+                        href={`/entry/${hit.slug}`}
+
+                    >
+                        View Entry
+                    </Button>
+                </CardActions>
+            )}
+        </Card>
     );
 }
 
 export default function HitCard() {
-    return (
-
-
-                <Hits hitComponent={HitItem} />
-
-
-    );
+    return <Hits hitComponent={HitItem} />;
 }

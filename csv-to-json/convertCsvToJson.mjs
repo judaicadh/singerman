@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const csvFilePath = path.join(__dirname, './Singerman-Jan2024 (37).csv');
+const csvFilePath = path.join(__dirname, './Singerman-Jan2024 (38).csv');
 const jsonFilePath = path.join(__dirname, '../src/data/items.json');
 
 // Helpers
@@ -34,12 +34,14 @@ const isValidTimestamp = (timestamp) => {
 async function main() {
 	try {
 		const jsonArray = await csv({ separator: ',' }).fromFile(csvFilePath);
+		console.log(`Parsed ${jsonArray.length} records from CSV`);
 
 		const formattedData = jsonArray.map((item, index) => {
 			const titles = parseMultiFields(item, 'dcterms:title', 3);
 			const contributors = parseMultiFields(item, 'dcterms:contributor', 5);
 			const languages = parsePipeField(item['dcterms:language']);
-
+			const authors = parsePipeField(item['dcterms:creator']);
+			const holdings = parsePipeField(item['sdo:itemLocation']);
 			// Parse date field containing Unix timestamps separated by "|"
 			const dateParts = (item['Date'] || '')
 				.split('|')
@@ -57,20 +59,15 @@ async function main() {
 
 			return {
 				id: item['dcterms:identifier'] || `record-${index}`,
-				slug:
-					item['slug'] ||
-					(titles[0] || item['dcterms:identifier'] || `record-${index}`)
-						.toLowerCase()
-						.replace(/[^a-z0-9]+/g, '-')
-						.replace(/(^-|-$)/g, ''),
+				slug: item['slug'],
 				title: titles[0] || '',
-				alternateTitles: titles.slice(1),
-				creator: item['dcterms:creator'] || '',
+				authors,
 				creatorUri: item['dcterms:creator ^^uri'] || '',
 				contributor: contributors,
 				year: item['dcterms:created'] || '',
 				startDate,
 				endDate,
+				iframe: item['dcterms:hasFormat'],
 				description: item['dcterms:description'] || item['Description'] || '',
 				language: languages,
 				languageUri: item['dcterms:language uri'] || '',
@@ -104,7 +101,7 @@ async function main() {
 				collection: item['dcterms:isPartOf'] || '',
 				goldmanTitle: item['Title (Goldman-Kinsberg)'] || '',
 				goldmanId: item['Goldman-Kinsberg ID'] || '',
-				locationNote: item['sdo:itemLocation'] || '',
+				holdings,
 				latLng: (!isNaN(lat) && !isNaN(lng)) ? { lat, lng } : null,
 				gettyId: item['Getty Thesaurus of Geographic Names ID'] || '',
 				thumbnail: item['thumbnail'] || '',
@@ -120,4 +117,7 @@ async function main() {
 	}
 }
 
-main();
+main().catch((err) => {
+	console.error('❌ Uncaught error in main():', err);
+	process.exit(1);
+});

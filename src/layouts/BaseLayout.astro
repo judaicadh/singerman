@@ -2,7 +2,8 @@
 // src/layouts/BaseLayout.astro
 const { title, description, url = Astro.url.href } = Astro.props;
 import "../styles/global.css";
-
+import "@fontsource-variable/playfair-display"; /* auto includes @font-face */
+import "@fontsource/merriweather";
 ---
 
 <html lang="en">
@@ -21,6 +22,7 @@ import "../styles/global.css";
     <meta name="twitter:title" content={title ?? "Robert Singerman’s Judaica Americana II"} />
     <meta name="twitter:description" content={description} />
     <link rel="canonical" href={url} />
+
     <title>{title ? `${title} | Robert Singerman’s Judaica Americana II` : `Robert Singerman’s Judaica Americana II by Judaica DH at Penn Libraries`}</title>
         </head>
         <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">        <header class="p-4 shadow bg-white">

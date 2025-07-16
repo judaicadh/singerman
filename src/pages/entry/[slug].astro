@@ -4,51 +4,60 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 type Item = {
     id: string;
+    slug: string;
     title: string;
     description?: string;
     creator?: string;
+    contributor?: string;
     startDate?: number;
     endDate?: number;
     year?: string;
     language?: string[];
     place?: string;
     collection?: string;
-    locationNote?: string;
+    notes?: string;
+    holding?: string;
     thumbnail?: string;
     isDigitized?: boolean;
+    iframe?: string;
     latLng?: { lat: number; lng: number };
 };
 
+// ✅ Get slug from Astro.params (in static mode)
+const { slug } = Astro.params;
+const item = entries.find((entry) => entry.slug === slug);
 export async function getStaticPaths() {
-    const paths = entries.map((entry) => ({
-        params: { slug: entry.id } // using `id` as slug
+    return entries.map((entry) => ({
+        params: { slug: entry.slug },
     }));
-    return paths;
+}
+if (!item) {
+    throw new Error(`❌ No item found for slug: ${slug}`);
 }
 
-export async function getStaticProps({ params }: { params: { slug: string } }) {
-    const item = entries.find((entry) => entry.id === params.slug);
-    if (!item) {
-        console.warn(`No item found for slug: ${params.slug}`);
-        return { notFound: true };
+const formatDate = (
+    start?: number,
+    end?: number,
+    fallbackYear?: string
+): string | null => {
+    const toYear = (ts?: number): number | null =>
+        typeof ts === 'number' && !isNaN(ts)
+            ? new Date(ts * 1000).getUTCFullYear()
+            : null;
+
+    const startYear = toYear(start);
+    const endYear = toYear(end);
+
+    if (startYear && endYear && startYear !== endYear) {
+        return `${startYear}–${endYear}`;
     }
-    return { props: { item } };
-}
 
-const { item } = Astro.props as { item?: Item };
-
-// ─── Date Formatting ───────────────────────────────────────
-const formatDate = (start?: number, end?: number, fallback?: string) => {
-    const startYear = start ? new Date(start * 1000).getUTCFullYear() : null;
-    const endYear = end ? new Date(end * 1000).getUTCFullYear() : null;
-    if (startYear && endYear && startYear !== endYear) return `${startYear}–${endYear}`;
-    return startYear?.toString() || endYear?.toString() || fallback || null;
+    return startYear?.toString() ?? endYear?.toString() ?? fallbackYear ?? null;
 };
 
-const displayDate = item ? formatDate(item.startDate, item.endDate, item.year) : null;
+const displayDate = formatDate(item.startDate, item.endDate, item.year);
 ---
 
-{item ? (
 <BaseLayout title={item.title}>
     <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{item.title}</h1>
@@ -57,38 +66,48 @@ const displayDate = item ? formatDate(item.startDate, item.endDate, item.year) :
                 <p class="text-lg text-gray-700 dark:text-gray-300">{item.description}</p>
         )}
 
-        {item.isDigitized ? (
-                <div class="aspect-w-16 aspect-h-9 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-inner p-4">
-                    <p class="text-center text-sm text-gray-600 dark:text-gray-400">IIIF Viewer goes here</p>
+
+        {item.iframe ? (
+                <div class="rounded-xl overflow-hidden shadow border border-gray-200 dark:border-gray-700">
+                    <div class="bg-white dark:bg-gray-900 p-2">
+                        <div
+                                class="w-full min-h-[600px] [&>iframe]:w-full [&>iframe]:min-h-[600px] [&>iframe]:rounded-lg"
+                                set:html={item.iframe}
+                        ></div>
+                    </div>
+                    <div class="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-sm text-center text-gray-600 dark:text-gray-300">
+                        Embedded digital viewer
+                    </div>
                 </div>
         ) : (
                 <p class="text-sm text-gray-500">This item is not digitized.</p>
         )}
-
         <section class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm border-t pt-6 border-gray-200 dark:border-gray-700">
-            {item.creator && (
-                    <div><span class="font-semibold">Creator:</span> {item.creator}</div>
-            )}
-            {displayDate && (
-                    <div><span class="font-semibold">Date:</span> {displayDate}</div>
-            )}
+            {item.creator && <div><span class="font-semibold">Creator:</span> {item.creator}</div>}
+            {displayDate && <div><span class="font-semibold">Date:</span> {displayDate}</div>}
             {(item.language ?? []).length > 0 && (
                     <div>
                         <span class="font-semibold">Language:</span> {item.language.join(', ')}
                     </div>
             )}
-            {item.place && (
-                    <div><span class="font-semibold">Place:</span> {item.place}</div>
-            )}
-            {item.collection && (
-                    <div><span class="font-semibold">Collection:</span> {item.collection}</div>
-            )}
-            {item.locationNote && (
-                    <div><span class="font-semibold">Libraries:</span> {item.locationNote}</div>
-            )}
+            {item.place && <div><span class="font-semibold">Place:</span> {item.place}</div>}
+            {item.collection && <div><span class="font-semibold">Collection:</span> {item.collection}</div>}
+            {item.contributor && <div><span class="font-semibold">Printer/Publisher:</span> {item.contributor}</div>}
+            {item.notes && <div><span class="font-semibold">Notes:</span> {item.notes}</div>}
+
+            {item.holding && <div><span class="font-semibold">Holding Locations:</span> {item.holding}</div>}
         </section>
+        <footer class="mt-12 border-t pt-6 text-sm text-gray-700 dark:text-gray-300">
+        <h2 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-200">Citation</h2>
+        <p>
+            {item.creator && `${item.creator}. `}
+            <em>{item.title}</em>.
+            {item.place && ` ${item.place}:`}
+            {item.contributor && ` ${item.contributor},`}
+            {item.year && ` ${item.year}. `}
+            From <em>Judaica Americana II</em>, compiled by Robert Singerman.
+            Hosted by <span class="italic">Judaica Digital Humanities at Penn Libraries</span>.
+        </p>
+    </footer>
     </main>
 </BaseLayout>
-        ) : (
-<p class="text-center text-red-600 font-semibold py-10">Item not found.</p>
-        )}

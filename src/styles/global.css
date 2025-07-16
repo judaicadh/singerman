@@ -1,9 +1,8 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/playfair-display";        /* contains its own @font‑face rules */
-
-
-
 @theme {
-    --font-serif: "playfair-display", sans-serif;
+
+    --default-font-family: "Merriweather", "sans-serif";
+    --font-display : "Playfair-Display", serif;
+    --font-heading: "Playfair-Display", "sans-serif";
 }

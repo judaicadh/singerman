@@ -47,9 +47,25 @@ const formatRecordsForBatch = (records) =>
             body: {
                 objectID: record.id,
                 tags: record.tags || [],
+                slug: record.slug,
                 url: `${siteBaseUrl}entry/${record.id}`,
                 startDate: record.startDate,
                 endDate: record.endDate,
+                year: record.year,
+                notes: record.notes,
+                description: record.description,
+                title: record.title,
+                goldmanId: record.goldmanId,
+                goldmanTitle: record.goldmanTitle,
+                shelfmark: record.shelfmark,
+                author: record.authors,
+                contributor: record.contributors,
+                holding: record.holdings,
+                thumbnail: record.thumbnail,
+                collection: record.collection,
+                place: record.place,
+                iframe: record.iframe,
+                language: record.language,
             }
         };
     });

@@ -36,7 +36,7 @@ const normalizeToArray = (value: any): string[] =>
 type RouteState = {
     query?: string;
     page?: number;
-    creator?: string[];
+    author?: string[];
     contributor?: string[];
     place?: string[];
     language?: string[];
@@ -123,11 +123,11 @@ const routing = {
             return {
                 query: indexUiState.query,
                 page: indexUiState.page,
-                creator: (indexUiState.refinementList?.creator || []).map(slugify),
+                author: (indexUiState.refinementList?.author || []).map(slugify),
                 contributor: (indexUiState.refinementList?.contributor || []).map(slugify),
                 place: (indexUiState.refinementList?.place || []).map(slugify),
                 language: indexUiState.refinementList?.language || [],
-                collection: indexUiState.refinementList?.collection || [],
+                collection: (indexUiState.refinementList?.collection || []).map(slugify),
             };
         },
 
@@ -137,11 +137,11 @@ const routing = {
                     query: routeState.query,
                     page: routeState.page,
                     refinementList: {
-                        creator: (normalizeToArray(routeState.creator) || []).map(deslugify),
+                        author: (normalizeToArray(routeState.author) || []).map(deslugify),
                         contributor: (normalizeToArray(routeState.contributor) || []).map(deslugify),
                         place: (normalizeToArray(routeState.place) || []).map(deslugify),
                         language: normalizeToArray(routeState.language) || [],
-                        collection: normalizeToArray(routeState.collection) || [],
+                        collection: (normalizeToArray(routeState.collection) || []).map(deslugify),
                     },
                 },
             };
@@ -237,12 +237,98 @@ const SearchApp: FC = () => {
                         </h2>
 
                 {/* Sidebar Filters */}
-                        <CustomRefinementList attribute="creator" title="Author"/>
+                        <RefinementList
+                            attribute="collection"
+                            title="Collection"
+                            searchable={false}
+                            showMore={false}
+                            classNames={{
+                                root: 'space-y-2 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
+                                label: 'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
+                                checkbox: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
+                                count:
+                                    'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
+                                noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
+                                list: 'space-y-1',
+                            }}
+                        />
+
+                        <div className="space-y-2 mt-2">
+                            <h2 className="text-md font-display font-semibold text-gray-800 dark:text-gray-100">
+                                Location
+                            </h2>
+
+                            <RefinementList
+                                attribute="place"
+                                searchable={true}
+                                searchablePlaceholder={"Search location"}
+                                showMore={true}
+                                classNames={{
+                                    root:
+                                        ' p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
+                                    label:
+                                        'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
+                                    checkbox:
+                                        'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
+                                    count:
+                                        'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
+                                    list: 'space-y-1',
+                                    noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
+
+                                    searchBox:
+                                        'relative w-full mb-2',
+                                    // wrapper for input and icon
+                                    searchInput:
+                                        'w-full pl-9 pr-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500',
+                                    searchIcon:
+                                        'absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none',
+
+                                    showMore:
+                                        'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
+                                }}
+                            />
+                        </div>
+                        <div className="space-y-2 mt-2">
+                            <h2 className="text-md font-display font-semibold text-gray-800 dark:text-gray-100">
+                                Author
+                            </h2>
+
+                            <RefinementList
+                                attribute="creator"
+                                searchable={true}
+                                searchablePlaceholder={"Search author"}
+                                showMore={true}
+                                classNames={{
+                                    root:
+                                        ' p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
+                                    label:
+                                        'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
+                                    checkbox:
+                                        'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
+                                    count:
+                                        'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
+                                    list: 'space-y-1',
+                                    noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
+
+                                    searchBox:
+                                        'relative w-full mb-2',
+                                    // wrapper for input and icon
+                                    searchInput:
+                                        'w-full pl-9 pr-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500',
+                                    searchIcon:
+                                        'absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none',
+
+                                    showMore:
+                                        'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
+                                }}
+                            />
+                        </div>
+                        <CustomRefinementList attribute="author" title="Author"/>
                         <DateRangeSlider
                             title="Date Range"
                             dateFields={['startDate', 'endDate']}
-                            minTimestamp={-8520336000} // 1700-01-01
-                            maxTimestamp={-2208988801} // 1900-12-31
+                            minTimestamp={-11676096000} // 1700-01-01
+                            maxTimestamp={31536000} // 1900-12-31
                             value={dateRange}
                             onChange={(newValue) => {
                                 setDateRange(newValue);
@@ -261,7 +347,7 @@ const SearchApp: FC = () => {
                 </aside>
                 <section className="md:col-span-4 space-y-6">
                     <SearchBox
-                        placeholder="Search titles, authors, or topics..."
+                        placeholder="Search titles, authors, or Singerman number..."
                         classNames={{
                             root: 'w-full',
                             input:
