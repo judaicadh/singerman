@@ -1,0 +1,38 @@
+Singerman uses various abbreviations in the Notes section to refer to specific texts. Those abbreviations are explained below.
+
+
+* **BAL**: Blanck, Jacob._Bibliography of American Literature_. New Haven: Yale University Press, 1955-90. 9 vols.
+* **Bloore**: Bloore, J. Stephen. "The Jew in American Dra­matic Literature, 1794-1930." Unpublished doctoral dissertation, New York University, 1950. ii, 504 leaves.
+* **Bristol**: Bristol, Roger Pattrell._Supplement to Charles Evans’ American Bibliography._Charlottes­ville: Published for the Bibliographical Society of America and the Bibliographical Society of the University of Virginia by the University Press of Virginia, 1970. xix, 636 p. A separate index volume was published in 1971.
+* **Broches**: Broches, Samuel. "The History of the Jewish Press in the State of Massachusetts (1882-­1938)."_Yorbuk Amopteyl=Annual of the Yiddish Scientific Institute_, vol. 2 (1939), pp. 219-­47. In Yiddish.
+* **Brody**: Brody, Fannie M. "The Hebrew Periodical Press in America, 1871-1931: A Bibliographical Sur­vey."_Publications of the American Jewish Historical Society_, vol. 33 (1934), pp. 127-70.
+* **Bruntjen**: Bruntjen, Scott, and Carol Rinderknecht Brunt­jen._A Checklist of American Imprints for 1831-33._Metuchen, N.J.: Scarecrow Press, 1975-79. 3 vols.
+* **Cahan**: Ab. Cahan Fund._Der Ab. Kahan-fond_... Edited by Mordechai W. Bernstein. New York, 1965. 64 p. Lists the microfilmed Yiddish periodicals held by the Ab. Cahan Research Center at the Hebrew University, Jerusalem.
+* **Coleman**: Coleman, Edward D._The Jew in English Drama; An Annotated Bibliography._New York: New York Public Library, 1943. xx, 237 p. Edited by Daniel C. Haskell.
+* **Cooper**: Cooper, Gayle._A Checklist of American Im­prints for 1830._Metuchen, N.J.: Scarecrow Press, 1972. 493 p.
+* **Deinard**: Deinard, Ephraim._Kohelet Amerika._St. Louis: Moinester Printing Co., 1926. 151, \[1\] p. Added title:_Koheleth America: Catalogue of Hebrew Books Printing in America from 1735­-1925_.
+* **Evans**: Evans, Charles._American Bibliography: A Chronological Dictionary of all Books, Pam­phlets and Periodical Publications Printed in the United States of America from the Genesis of Printing in 1639 down to and including the Year 1800._Chicago, 1903-34; Worcester, 1955-59. 14 vols.
+* **Freidus**: Freidus, Abraham Solomon. "A List of Jewish Periodicals Published in the United States."_American Jewish Year Book_, vol. 1 (1899), pp. 271-82.
+* **Goldman-Kinsberg**: Goldman, Yosef._Hebrew Printing in America 1736-1926: A History and Annotated Bibliography_. Research and Editing by Ari Kinsberg. Brooklyn: YG Books, 2006. 2 vols.
+* **Harap**: Harap, Louis._The Image of the Jew in American Literature: From Early Republic to Mass Immi__­__gration._Philadelphia: Jewish Publication Society of America, 1974. 586 p.
+* **Heskes**: Heskes, Irene._Yiddish American Popular Songs, 1895 to 1950. A Catalog Based on the Lawrence Marwick Roster of Copyright Entries._Washington: Library of Congress, 1992. xliii, 527 p.
+* **JE**:_The Jewish Encyclopedia_. New York: Funk and Wagnalls Co., 1901-06. 12 vols. "Periodicals," by Richard Gottheil and Willi­am Popper, vol. 9, pp. 602-40.
+* **Johannsen**: Johannsen, Albert._The House of Beadle and Adams and Its Dime and Nickel Novels; the Story of a Vanished Literature._Norman: University of Oklahoma Press, c1950-62. 3 vols.
+* **Kaganoff**: Kaganoff, Nathan. "Supplement III: Judaica Americana Printed Before 1851." In: Charles Berlin, ed._Studies in Jewish Bibliography, History and Literature in Honor of I. Edward Kiev_(New York, 1971), pp. 177-209.
+* **Klein**: Klein, Rose S. "References to Jews and Judaism in Popular Fiction Published in the United States Through 1850." Unpublished typescript (1976) held by the American Antiquarian Society, Worcester, Mass. Citations from this resource are limited in the present bibliography to the more sustained literary treatments.
+* **Marcus**: Marcus, Jacob Rader._Jewish Americana: A Cata­logue of Books and Articles by Jews or Relat­ing to Them Printed in the United States from the Earliest Days to 1850 and Found in the Library of the Hebrew Union College-Jewish Institute of Religion in Cincinnati._Mono­graphs of the American Jewish Archives, no. 1. Cincinnati: American Jewish Archives, 1954. 115 p.
+* **Meyer**: Meyer, Louis. "Tracts and Books for Jews, Pub­lished in America." In: Mildmay Mission to the Jews._A Complete Catalogue of Christian Tracts and Publications for Jewish Readers_… (London, 1905), pp. \[49\]-72.
+* **Rinderknecht**: Rinderknecht, Carol._A Checklist of American Imprints for 1834-1846_. Metuchen, N.J.: Scarecrow Press, 1982-97 (series suspended). The volume for 1834 was compiled by Carol Rinderknecht and Scott Bruntjen. The set, as projected, would extend the coverage through 1875. As of 2019, the last volume issued (in 1997) covered the year 1846.
+* **Rosenbach**: Rosenbach, Abraham S. W._An American Jewish Bibliography, being a List of Books and Pamphlets by Jews or Relatin__g__to Them, Printed in the United States from the Estab­lishment of the Press in the Colonies until 1850._New York: American Jewish Historical Society, 1926. 486 p. Issued as no. 26 of the_Publications of the American Jewish Historical Society._
+* **S & S**: Shaw, Ralph R., and Richard H. Shoemaker._American Bibliography: A Preliminary Check­list for 1801-19._New York: Scarecrow Press, 1958-63. 19 vols., plus three supplementary index volumes, 1965-66.
+* **Sendrey**: Sendrey, Alfred._Bibliography of Jewish Music._New York: Columbia University Press, 1951. xli, 404 p.
+* **Shipton-Mooney**: Shipton, Clifford Kenyon, and James E. Mooney._National Index of American Imprints Throuqh 1800; The Short-Title Evans._Worcester: American Antiquarian Society, 1969. 2 vols.
+* **Shoemaker**: Shoemaker, Richard H._A Checklist of American Imprints for 1820-29._New York, then Metuchen, N.J.: Scarecrow Press, 1964-71. 10 vols., plus two supplementary index volumes, 1972-73. Shoemaker was assisted on the volumes for 1826-29 by Gayle Cooper.
+* **Starkman**: Starkman, Moshe Yochanan. "Chicago Yiddish Press." In: Simon Rawidowicz, ed._The Chicago Pinkas_(Chicago, 1952), pp. 69-78 (Hebrew section). In Hebrew. Signed: Moshe Hezkuni (Starkman).
+* **Steinberg**: Steinberg, Abraham H. "Jewish Characters in the American Novel to 1900." Unpublished doctoral dissertation, New York University, 1956. v, 297 leaves.
+* **Tierkel**: Tierkel, David Bear. "Bibliography of the Yiddish Press of Philadelphia." In:_Pinkes_(American Branch of the Yiddish Scientific Institute), vol. 1 (1927/28), pp. 260-62. In Yiddish. Author also known as David Baer Tierkel, David Ber Tirkel, or Dov-Ber Tirkel.
+* **Weissberger**: Weissberger, Sidney J. "The Rise and Decline of the Yiddish-American Press." Unpublished doctoral dissertation, Syracuse University, 1972. x, 661 leaves. "A Century of the Yiddish-American Press: A Selective Chronology" on leaves 584-625.
+* **Wolf**: Wolf, Edwin. "Some Unrecorded American Judaica Printed Before 1851." In:_Essays in American Jewish History, to Commemorate the Tenth Anniversary of the Founding of the American Jewish Archives_...(Cincinnati, 1958), pp. 187-245.
+* **Wright I**: Wright, Lyle Henry._American Fiction, 1774­-1850: A Contribution Toward a Bibliography_. Second Revised Edition. San Marino: Hunting­ton Library, 1969. xviii, 411 p.
+* **Wright II**: Wright, Lyle Henry._American Fiction, 1851-1875: A Contribution Toward a Bibliography._San Marino: Huntington Library, 1965. xviii, 438 p.
+* **Wright III**: Wright, Lyle Henry._American Fiction, 1876-1900: A Contribution Toward a Bibliography._San Marino: Huntington Library, 1966. xix, 683 p.
