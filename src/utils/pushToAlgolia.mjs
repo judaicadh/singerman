@@ -64,8 +64,11 @@ const formatRecordsForBatch = (records) =>
                 thumbnail: record.thumbnail,
                 collection: record.collection,
                 place: record.place,
+                isDigitized: record.isDigitized,
                 iframe: record.iframe,
-                language: record.language,
+                language: record.languages,
+                languagetitle: record.languagetitle,
+                asterix: record.asterix,
             }
         };
     });

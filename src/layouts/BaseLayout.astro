@@ -1,9 +1,11 @@
 ---
 // src/layouts/BaseLayout.astro
 const { title, description, url = Astro.url.href } = Astro.props;
+import '@fontsource/karla';
+import '@fontsource/spectral';
 import "../styles/global.css";
-import "@fontsource-variable/playfair-display"; /* auto includes @font-face */
-import "@fontsource/merriweather";
+import '@fontsource-variable/karla';
+import '@fontsource/spectral';
 import { Image } from 'astro:assets';
 import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png';
 
@@ -62,7 +64,7 @@ import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png'
         <header class="bg-white dark:bg-gray-900 shadow sticky top-0 z-30">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16" aria-label="Site main navigation">
                 <div class="flex items-center gap-8">
-                    <a href="/" class="flex items-center gap-2 text-xl font-bold text-blue-900 dark:text-blue-200 hover:text-blue-700 dark:hover:text-white transition-colors">
+                    <a href="/" style="font-family: 'Spectral', sans-serif;" class="flex items-center gap-2 text-xl  font-bold text-blue-900 dark:text-blue-200 hover:text-blue-700 dark:hover:text-white transition-colors">
                         Judaica Americana II
                     </a>
                     <a href="/search" class="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Browse</a>

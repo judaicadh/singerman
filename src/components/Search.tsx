@@ -8,6 +8,7 @@ import {
     RefinementList,
     Pagination,
     Stats,
+    ToggleRefinement,
     Highlight, useRange, CurrentRefinements, HitsPerPage, Configure,
 } from 'react-instantsearch';
 import DateRangeSlider from "./DateRangeSlider.tsx";
@@ -95,7 +96,7 @@ const routing = {
             const {
                 query = '',
                 page,
-                creator = [],
+                author = [],
                 contributor = [],
                 place = [],
                 language = [],
@@ -107,7 +108,7 @@ const routing = {
                     query: decodeURIComponent(query as string),
                     page: typeof page === 'string' ? Number(page) : 1,
                     refinementList: {
-                        creator: normalizeToArray(creator).map(deslugify),
+                        author: normalizeToArray(author).map(deslugify),
                         contributor: normalizeToArray(contributor).map(deslugify),
                         place: normalizeToArray(place).map(deslugify),
                         language: normalizeToArray(language),
@@ -150,64 +151,12 @@ const routing = {
     },
 };
 
-// ─────────────────────────────────────────────────────────────
-// Algolia Setup
-// ─────────────────────────────────────────────────────────────
+
 const searchClient = algoliasearch(
     'ZLPYTBTZ4R',
     'be46d26dfdb299f9bee9146b63c99c77'
 );
 
-// ─────────────────────────────────────────────────────────────
-// Result Hit Component
-// ─────────────────────────────────────────────────────────────
-const Hit: FC<{ hit: RecordHit }> = ({ hit }) => (
-    <div className="bg-white border border-gray-200 shadow-sm rounded-2xl p-5 min-h-[160px] flex flex-col justify-between hover:shadow-md transition-all">
-        <div className="space-y-1">
-            {hit.title && (
-                <h2 className="text-xl font-semibold text-blue-900 leading-tight">
-                    <Highlight hit={hit} attribute="title" />
-                </h2>
-            )}
-            <dl className="text-sm text-gray-700">
-                {hit.creator && (
-                    <div>
-                        <dt className="inline font-medium">Author:</dt>{' '}
-                        <dd className="inline">{hit.creator}</dd>
-                    </div>
-                )}
-                {hit.year && (
-                    <div>
-                        <dt className="inline font-medium">Year:</dt>{' '}
-                        <dd className="inline">{hit.year}</dd>
-                    </div>
-                )}
-                {hit.place && (
-                    <div>
-                        <dt className="inline font-medium">Place:</dt>{' '}
-                        <dd className="inline">{hit.place}</dd>
-                    </div>
-                )}
-            </dl>
-        </div>
-
-        {hit.url && (
-            <div className="pt-3">
-                <a
-                    href={hit.url}
-                    className="text-sm font-medium text-blue-600 hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    View Record ↗
-                </a>
-            </div>
-        )}
-    </div>
-);
-// ─────────────────────────────────────────────────────────────
-// Main Search UI
-// ─────────────────────────────────────────────────────────────
 const SearchApp: FC = () => {
     const [resetKey, setResetKey] = useState(Date.now());
     const [dateRange, setDateRange] = useState<{ min: number; max: number } | undefined>(undefined);
@@ -224,20 +173,23 @@ const SearchApp: FC = () => {
             searchClient={searchClient}
             routing={routing}
         >
-            <Configure hitsPerPage={8} />
-            <CurrentRefinements />
-            <Stats />
+            <Configure hitsPerPage={12} />
+
+
 
             <div className="grid grid-cols-1 md:grid-cols-6 gap-8">
                 {/* Sidebar Filters */}
                 <aside className="space-y-6 md:col-span-2">
                     {/* Wrap each group in its own “card” */}
                     <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
-                        <h2 className="text-base font-semibold text-gray-900 dark:text-white mb-4">
+                        <h1 className="text-base text-xl font-semibold text-gray-900 dark:text-white mb-4">
                             Filter
-                        </h2>
+                        </h1>
 
-                {/* Sidebar Filters */}
+                        {/* Sidebar Filters */}
+                        <h2 className="text-md font-display font-semibold text-gray-800 dark:text-gray-100">
+                            Collection
+                        </h2>
                         <RefinementList
                             attribute="collection"
                             title="Collection"
@@ -249,36 +201,34 @@ const SearchApp: FC = () => {
                                 checkbox: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
                                 count:
                                     'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
-                                noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
+                                noResults: 'text-sm  dark:text-gray-400 px-2 py-1 italic',
                                 list: 'space-y-1',
                             }}
                         />
 
                         <div className="space-y-2 mt-2">
                             <h2 className="text-md font-display font-semibold text-gray-800 dark:text-gray-100">
-                                Location
+                                Author/Editor
                             </h2>
 
                             <RefinementList
-                                attribute="place"
+                                attribute="author"
                                 searchable={true}
-                                searchablePlaceholder={"Search location"}
+                                searchablePlaceholder="Search Author/Editor"
                                 showMore={true}
                                 classNames={{
-                                    root:
-                                        ' p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
-                                    label:
-                                        'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
-                                    checkbox:
-                                        'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
-                                    count:
-                                        'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
+                                    root: 'p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
+                                    label: 'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
+                                    checkbox: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
+                                    count: 'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
                                     list: 'space-y-1',
-                                    noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
-                                    searchBox:
-                                        'relative w-full mb-2',
-                                    showMore:
-                                        'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
+                                    noResults: 'text-sm dark:text-gray-400 px-2 py-1 italic',
+
+                                    // --- Style the input box ---
+                                    searchBox: 'relative w-full mb-2', // container of the input
+
+
+                                    showMore: 'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
                                 }}
                             />
                         </div>
@@ -288,25 +238,23 @@ const SearchApp: FC = () => {
                             </h2>
 
                             <RefinementList
-                                attribute="author"
+                                attribute="place"
                                 searchable={true}
-                                searchablePlaceholder={"Search location"}
+                                searchablePlaceholder="Search location"
                                 showMore={true}
                                 classNames={{
-                                    root:
-                                        ' p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
-                                    label:
-                                        'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
-                                    checkbox:
-                                        'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
-                                    count:
-                                        'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
+                                    root: 'p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
+                                    label: 'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
+                                    checkbox: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
+                                    count: 'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
                                     list: 'space-y-1',
-                                    noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
-                                    searchBox:
-                                        'relative w-full mb-2',
-                                    showMore:
-                                        'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
+                                    noResults: 'text-sm dark:text-gray-400 px-2 py-1 italic',
+
+                                    // --- Style the input box ---
+                                    searchBox: 'relative w-full mb-2', // container of the input
+
+
+                                    showMore: 'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
                                 }}
                             />
                         </div>
@@ -323,29 +271,55 @@ const SearchApp: FC = () => {
                                 setDateFilterActive(true);
                             }}
                         />
+                        <div className="space-y-2 mt-3">
 
+                        <h2 className="text-md font-display font-semibold text-gray-800 dark:text-gray-100">
+                            Language
+                        </h2>
+                        <RefinementList
+                            attribute="language"
+                            title="Language"
+                            searchable={false}
+                            showMore={false}
+                            classNames={{
+                                root: 'space-y-2 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm',
+                                label: 'flex items-center justify-between gap-2 text-sm font-medium text-gray-900 dark:text-gray-100',
+                                checkbox: 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600',
+                                count:
+                                    'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
+                                noResults: 'text-sm  dark:text-gray-400 px-2 py-1 italic',
+                                list: 'space-y-1',
+                            }}
+                        />
 
-
+                        </div>
                     </div>
 
                 </aside>
                 <section className="md:col-span-4 space-y-6">
                     <SearchBox
                         placeholder="Search titles, authors, or Singerman number..."
+                        searchAsYouType={true}
                         classNames={{
-                            root: 'w-full',
+                            root: 'p-3 shadow-sm',
+                            form: 'relative',
                             input:
-                                'w-full rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500',
+                                'block w-full pl-9 pr-3 py-2 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 rounded-md focus:ring-1',
+                            submitIcon: 'absolute top-2.5 left-2 w-5 h-5 fill-slate-400 text-slate-400 pointer-events-none',
+                            resetIcon: 'hidden', // or use 'sr-only' if you want screen readers to still see it
                         }}
                     />
                     <CurrentRefinements />
-                    <Stats />
-                    <HitsPerPage
-                        items={[
-                            { label: '8 hits per page', value: 8, default: true },
-                            { label: '16 hits per page', value: 16 },
-                        ]}
-                    />
+                    <div className="flex items-center justify-between mb-4">
+                        <Stats />
+                        <HitsPerPage
+                            items={[
+                                { label: '12 hits per page', value: 12, default: true },
+                                { label: '50 hits per page', value: 50 },
+                                { label: '100 hits per page', value: 100 },
+                            ]}
+                        />
+                    </div>
 
                     <Hits
                         hitComponent={HitCard}
@@ -353,7 +327,19 @@ const SearchApp: FC = () => {
                             list: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4',
                         }}
                     />
-                    <Pagination />
+                    <Pagination
+                        classNames={{
+                            root: "flex justify-center items-center gap-2 mt-6",
+                            list: "flex flex-row gap-2",
+                            item: "inline-block",
+                            link: `px-3 py-1 rounded-md font-medium text-base transition-colors
+      hover:underline hover:text-blue-700 dark:hover:text-blue-300
+      aria-current:underline aria-current:text-blue-700 aria-current:dark:text-blue-300
+    `,
+                            selectedItem: "font-bold underline text-blue-700 dark:text-blue-300",
+                            disabledItem: "opacity-50 cursor-not-allowed",
+                        }}
+                    />
                 </section>
 
                 {/* Results */}

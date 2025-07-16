@@ -11,11 +11,14 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "plugins": [
       {
         "name": "@astrojs/ts-plugin"
-      },
+      }
     ]
   },
+
 
 }

@@ -62,6 +62,7 @@ async function main() {
 				slug: item['slug'],
 				title: titles[0] || '',
 				authors,
+				asterix: item['sdo:claimReviewed'],
 				creatorUri: item['dcterms:creator ^^uri'] || '',
 				contributor: contributors,
 				year: item['dcterms:created'] || '',
@@ -69,9 +70,9 @@ async function main() {
 				endDate,
 				iframe: item['dcterms:hasFormat'],
 				description: item['dcterms:description'] || item['Description'] || '',
-				language: languages,
-				languageUri: item['dcterms:language uri'] || '',
+				languages,
 				place: item['dcterms:spatial'] || '',
+				languagetitle: item['Language (Title)'],
 				placeUri: item['dcterms:spatial ^^uri'] || '',
 				kind: item['Kind'] || '',
 				type: item['Type'] || '',
@@ -92,6 +93,7 @@ async function main() {
 					}).filter(([_, v]) => v)
 				),
 				isDigitized: Boolean(
+					item['iframe'] ||
 					item['Internet Archive'] ||
 					item['HathiTrust'] ||
 					item['Google Books'] ||

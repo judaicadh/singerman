@@ -2,9 +2,36 @@
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 @source "../../node_modules/flowbite";
-@theme {
 
-    --default-font-family: "Merriweather", "sans-serif";
-    --font-display : "Playfair-Display", serif;
-    --font-heading: "Playfair-Display", "sans-serif";
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Spectral", serif;
+}
+
+
+body {
+    font-family: 'Karla Variable', sans-serif;
+}
+.ais-RefinementList-searchBox input[type="search"] {
+    padding-left: 2rem !important;
+    margin-bottom: 0.5rem;
+    background: #f8fafc;
+    border-radius: 0.75rem;
+    border: 1px solid #bae6fd;
+    font-size: 1.2em;
+}
+.ais-RefinementList-searchBox svg {
+    left: 0.5rem;
+    top: 50%;
+    transform: translateY(-75%);
+    position: absolute;
+    color: slategray; /* slate-400 */
+    width: 1em;
+    height: 1em;
+    pointer-events: none;
+}
+.ais-RefinementList-searchBox {
+    position: relative;
+}
+.ais-RefinementList-searchBox .ais-SearchBox-reset {
+    display: none !important;
 }
