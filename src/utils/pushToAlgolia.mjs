@@ -60,7 +60,7 @@ const formatRecordsForBatch = (records) =>
                 shelfmark: record.shelfmark,
                 author: record.authors,
                 contributor: record.contributors,
-                holding: record.holdings,
+                holdings: record.holdings,
                 thumbnail: record.thumbnail,
                 collection: record.collection,
                 place: record.place,

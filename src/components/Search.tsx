@@ -41,6 +41,7 @@ type RouteState = {
     place?: string[];
     language?: string[];
     collection?: string[];
+
 };
 const slugify = (str: string): string =>
     str
@@ -274,15 +275,8 @@ const SearchApp: FC = () => {
                                         'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
                                     list: 'space-y-1',
                                     noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
-
                                     searchBox:
                                         'relative w-full mb-2',
-                                    // wrapper for input and icon
-                                    searchInput:
-                                        'w-full pl-9 pr-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500',
-                                    searchIcon:
-                                        'absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none',
-
                                     showMore:
                                         'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
                                 }}
@@ -290,13 +284,13 @@ const SearchApp: FC = () => {
                         </div>
                         <div className="space-y-2 mt-2">
                             <h2 className="text-md font-display font-semibold text-gray-800 dark:text-gray-100">
-                                Author
+                                Location
                             </h2>
 
                             <RefinementList
-                                attribute="creator"
+                                attribute="author"
                                 searchable={true}
-                                searchablePlaceholder={"Search author"}
+                                searchablePlaceholder={"Search location"}
                                 showMore={true}
                                 classNames={{
                                     root:
@@ -309,21 +303,15 @@ const SearchApp: FC = () => {
                                         'ml-auto inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-full bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200',
                                     list: 'space-y-1',
                                     noResults: 'text-sm text-gray-500 dark:text-gray-400 px-2 py-1 italic',
-
                                     searchBox:
                                         'relative w-full mb-2',
-                                    // wrapper for input and icon
-                                    searchInput:
-                                        'w-full pl-9 pr-2 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500',
-                                    searchIcon:
-                                        'absolute left-2 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 pointer-events-none',
-
                                     showMore:
                                         'text-sm text-blue-600 dark:text-blue-400 hover:underline mt-2 disabled:text-gray-400 dark:disabled:text-gray-600 disabled:cursor-not-allowed',
                                 }}
                             />
                         </div>
-                        <CustomRefinementList attribute="author" title="Author"/>
+
+
                         <DateRangeSlider
                             title="Date Range"
                             dateFields={['startDate', 'endDate']}
@@ -335,10 +323,6 @@ const SearchApp: FC = () => {
                                 setDateFilterActive(true);
                             }}
                         />
-                        <CustomRefinementList attribute="place" title="Location"/>
-                        <CustomRefinementList attribute="contributor" title="Printer/Publisher"/>
-
-
 
 
 

@@ -4,6 +4,9 @@ const { title, description, url = Astro.url.href } = Astro.props;
 import "../styles/global.css";
 import "@fontsource-variable/playfair-display"; /* auto includes @font-face */
 import "@fontsource/merriweather";
+import { Image } from 'astro:assets';
+import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png';
+
 ---
 
 <html lang="en">
@@ -21,21 +24,117 @@ import "@fontsource/merriweather";
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title ?? "Robert Singerman’s Judaica Americana II"} />
     <meta name="twitter:description" content={description} />
+    <script type="application/ld+json">
+        {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": getSchemaType(item.collection),
+            "name": item.title,
+            "author": item.author || item.creator,
+            "contributor": item.contributor,
+            "inLanguage": Array.isArray(item.language) ? item.language.join(', ') : item.language,
+            "datePublished": item.year || (item.startDate ? new Date(item.startDate * 1000).getUTCFullYear() : undefined),
+            "locationCreated": item.place,
+            "description": item.description || item.notes,
+            "publisher": "Judaica Digital Humanities at Penn Libraries",
+            "identifier": item.id,
+            "isAccessibleForFree": true,
+            "image": item.thumbnail ? `${item.thumbnail}` : undefined,
+        "accessMode": item.isDigitized ? "online" : undefined,
+        "holdingArchive": Array.isArray(item.holdings) ? item.holdings : undefined,
+        "url": item.url,
+        "isPartOf": {
+        "@type": "Book",
+        "name": "Judaica Americana II",
+        "author": { "@type": "Person", "name": "Robert Singerman" },
+        "url": "https://singerman.judaicadhpenn.org"
+        }
+        }, null, 2)}
+    </script>
+
+        <link rel="sitemap" href="/sitemap-index.xml" />
+
     <link rel="canonical" href={url} />
+    <script is:inline src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
     <title>{title ? `${title} | Robert Singerman’s Judaica Americana II` : `Robert Singerman’s Judaica Americana II by Judaica DH at Penn Libraries`}</title>
-        </head>
-        <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">        <header class="p-4 shadow bg-white">
-            <div class="max-w-7xl mx-auto flex justify-between items-center">
-                <a href="/" class="text-xl font-bold text-blue-900">Judaica Americana II by Robert Singerman</a>
-            </div>
+    </head>
+        <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+        <header class="bg-white dark:bg-gray-900 shadow sticky top-0 z-30">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16" aria-label="Site main navigation">
+                <div class="flex items-center gap-8">
+                    <a href="/" class="flex items-center gap-2 text-xl font-bold text-blue-900 dark:text-blue-200 hover:text-blue-700 dark:hover:text-white transition-colors">
+                        Judaica Americana II
+                    </a>
+                    <a href="/search" class="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Browse</a>
+    <div class="relative">
+    <button
+    id="about-dropdown-btn"
+    type="button"
+    class="inline-flex items-center text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus:outline-none"
+    aria-haspopup="true"
+    aria-expanded="false"
+    >
+    About
+    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M6 8l4 4 4-4"/>
+    </svg>
+    </button>
+    <div
+    id="about-dropdown-menu"
+    class="absolute left-0 mt-2 min-w-[180px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 hidden"
+    role="menu"
+    >
+    <a href="/about/introduction" class="block px-4 py-2 ...">Introduction</a>
+
+    <a href="/about/foreword" class="block px-4 py-2 ...">Foreword</a>
+    <a href="/about/acknowledgments" class="block px-4 py-2 ...">Acknowledgments</a>
+    </div>
+    </div>
+                    <a href="/help" class="text-base font-medium text-gray-700 dark:text-gray-200 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">Help</a>
+
+                </div>
+            </nav>
+    <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('about-dropdown-btn');
+    const menu = document.getElementById('about-dropdown-menu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        menu.classList.toggle('hidden');
+    });
+    // Optional: Click outside to close
+    document.addEventListener('click', (e) => {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+});
+    </script>
         </header>
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <slot />
         </main>
-        <footer class="p-6 bg-white dark:bg-gray-800 border-t mt-12 text-center text-sm text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} <span class="italic">Robert Singerman’s <i>Judaica Americana II</i></span><br />
-            Curated and maintained by <span class="font-medium">Judaica Digital Humanities at Penn Libraries</span>.
+
+        <footer
+                class="p-6 bg-white dark:bg-gray-900 border-t mt-12 text-sm text-gray-700 dark:text-gray-300"
+                aria-label="Site footer for Judaica Americana II and Penn Libraries"
+        >
+            <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div class="flex justify-center sm:justify-start">
+                    <Image
+                            src={JudaicaLogo}
+                            alt="Penn Libraries Logo"
+                            class="h-14 w-auto   dark:bg-gray-800"
+                            aria-label="Penn Libraries logo"
+                    />
+                </div>
+                <div class="text-center sm:text-right flex-1">
+                    <span class="italic">Robert Singerman’s <i>Judaica Americana II</i></span><br />
+                    Maintained by <span class="font-medium">Judaica Digital Humanities at Penn Libraries</span>.<br />
+
+                </div>
+            </div>
         </footer>
         </body>
 </html>

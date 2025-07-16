@@ -6,6 +6,7 @@ type Item = {
     id: string;
     slug: string;
     title: string;
+    author: string;
     description?: string;
     creator?: string;
     contributor?: string;
@@ -16,13 +17,26 @@ type Item = {
     place?: string;
     collection?: string;
     notes?: string;
-    holding?: string;
+    holdings?: string[];
     thumbnail?: string;
     isDigitized?: boolean;
     iframe?: string;
+    url?: string;
     latLng?: { lat: number; lng: number };
 };
-
+const getSchemaType = (collection) => {
+    if (!collection) return "Book";
+    const lower = collection.toLowerCase();
+    if (
+        lower.includes("periodical") ||
+        lower.includes("serial") ||
+        lower.includes("journal") ||
+        lower.includes("newspaper")
+    ) {
+        return "Periodical";
+    }
+    return "Book";
+};
 // ✅ Get slug from Astro.params (in static mode)
 const { slug } = Astro.params;
 const item = entries.find((entry) => entry.slug === slug);
@@ -60,11 +74,7 @@ const displayDate = formatDate(item.startDate, item.endDate, item.year);
 
 <BaseLayout title={item.title}>
     <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{item.title}</h1>
-
-        {item.description && (
-                <p class="text-lg text-gray-700 dark:text-gray-300">{item.description}</p>
-        )}
+        <h1 class="text-xl md:text-xl font-bold tracking-tight">{item.title}</h1>
 
 
         {item.iframe ? (
@@ -82,32 +92,52 @@ const displayDate = formatDate(item.startDate, item.endDate, item.year);
         ) : (
                 <p class="text-sm text-gray-500">This item is not digitized.</p>
         )}
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm border-t pt-6 border-gray-200 dark:border-gray-700">
-            {item.creator && <div><span class="font-semibold">Creator:</span> {item.creator}</div>}
+        <section class="mt-12 border-t pt-6 text-sm text-gray-700 dark:text-gray-300">
+
+        <h2 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-200">Metadata</h2>
+
+        <section vocab="https://schema.org/"
+                 typeof={
+                     item.type === "Serial" || item.type === "Periodical"
+                         ? "Periodical"
+                         : item.type === "Article"
+                             ? "Article"
+                             : "Book"
+                 }
+                 resource={item.url} class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm  ">
+            {item.author && <div><span class="font-semibold">Author:</span> {item.author}</div>}
             {displayDate && <div><span class="font-semibold">Date:</span> {displayDate}</div>}
-            {(item.language ?? []).length > 0 && (
+
+            {item.place && <div><span class="font-semibold">Place of Publication:</span> {item.place}</div>}
+            {item.contributor && <div><span class="font-semibold">Printer/Publisher:</span> {item.contributor}</div>}
+            {Array.isArray(item.language) && item.language.length > 0 && (
                     <div>
                         <span class="font-semibold">Language:</span> {item.language.join(', ')}
                     </div>
             )}
-            {item.place && <div><span class="font-semibold">Place:</span> {item.place}</div>}
-            {item.collection && <div><span class="font-semibold">Collection:</span> {item.collection}</div>}
-            {item.contributor && <div><span class="font-semibold">Printer/Publisher:</span> {item.contributor}</div>}
+
+            {Array.isArray(item.holdings) && item.holdings.length > 0 && (
+                    <div>
+
+                        <span property="holdingArchive" class="font-semibold">Holding Locations:</span> {item.holdings.join(', ')}
+                    </div>
+            )}
             {item.notes && <div><span class="font-semibold">Notes:</span> {item.notes}</div>}
 
-            {item.holding && <div><span class="font-semibold">Holding Locations:</span> {item.holding}</div>}
+        </section>
         </section>
         <footer class="mt-12 border-t pt-6 text-sm text-gray-700 dark:text-gray-300">
-        <h2 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-200">Citation</h2>
-        <p>
-            {item.creator && `${item.creator}. `}
-            <em>{item.title}</em>.
-            {item.place && ` ${item.place}:`}
-            {item.contributor && ` ${item.contributor},`}
-            {item.year && ` ${item.year}. `}
-            From <em>Judaica Americana II</em>, compiled by Robert Singerman.
-            Hosted by <span class="italic">Judaica Digital Humanities at Penn Libraries</span>.
-        </p>
-    </footer>
+            <h2 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-200">Citation</h2>
+            <p>
+                {item.creator && `${item.creator}. `}
+                <em>{item.title}</em>.
+                {item.place && ` ${item.place}:`}
+                {item.contributor && ` ${item.contributor},`}
+                {item.year && ` ${item.year}. `}
+                From <em>Judaica Americana II</em>, compiled by Robert Singerman.
+                Hosted by <span class="italic">Judaica Digital Humanities at Penn Libraries</span>.
+            </p>
+        </footer>
+
     </main>
 </BaseLayout>

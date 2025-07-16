@@ -75,6 +75,7 @@ async function main() {
 				placeUri: item['dcterms:spatial ^^uri'] || '',
 				kind: item['Kind'] || '',
 				type: item['Type'] || '',
+				notes: item['Notes'] || '',
 				formatLinks: parseMultiFields(item, 'dcterms:hasFormat', 3),
 				archiveOrgId: item['archive.org id'] || '',
 				internetArchive: item['Internet Archive'] || '',
