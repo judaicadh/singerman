@@ -157,23 +157,7 @@ import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png'
     }
 });
     </script>
-    <script is:inline>
-    document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('about-dropdown-btn');
-    const menu = document.getElementById('about-dropdown-menu');
-    if (!btn || !menu) return;
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        menu.classList.toggle('hidden');
-    });
-    // Optional: Click outside to close
-    document.addEventListener('click', (e) => {
-        if (!btn.contains(e.target) && !menu.contains(e.target)) {
-            menu.classList.add('hidden');
-        }
-    });
-});
-    </script>
+
         </header>
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <slot />
