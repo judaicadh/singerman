@@ -1,7 +1,7 @@
 ---
 import entries from '../../data/items.json';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
+import { slugify } from '../../utils/slugify.js';
 type Item = {
     id: string;
     asterix: string;
@@ -21,7 +21,7 @@ type Item = {
     collection?: string;
     notes?: string;
     holdings?: string[];
-    thumbnail?: string;
+    thumbnail: string;
     isDigitized?: boolean;
     iframe?: string;
     url?: string;
@@ -144,10 +144,25 @@ const displayDate = formatDate(item.startDate, item.endDate, item.year);
                         </div>
                 )}
 
-                {item.authors &&  (
+
+                {item.authors && item.authors.length > 0 && (
                         <div>
-                            <span class="font-bold underline">Author/Editor:</span>
-                            {item.authors.join(', ')}
+                            <span class="font-bold underline">Author/Editor:</span>{' '}
+                            {item.authors.map((author, index) => {
+                                const slug = slugify(author);
+                                const isLast = index === item.authors.length - 1;
+                                return (
+                                        <>
+                                            <a
+                                                    href={`/author/${slug}`}
+                                                    class="text-blue-600 dark:text-blue-400 hover:underline"
+                                            >
+                                                {author}
+                                            </a>
+                                            {!isLast && ', '}
+                                        </>
+                                );
+                            })}
                         </div>
                 )}
                 {item.place && (
@@ -157,7 +172,16 @@ const displayDate = formatDate(item.startDate, item.endDate, item.year);
                 )}
                 {Array.isArray(item.holdings) && item.holdings.length > 0 && (
                         <div>
-                            <span property="holdingArchive" class="font-bold underline">Holdings:</span> {item.holdings.join(', ')}
+                            <span property="holdingArchive" class="font-bold underline">Holdings:</span>{' '}
+                            {item.holdings.map((h, i) => {
+                                const isLast = i === item.holdings.length - 1;
+                                return (
+                                        <>
+                                            <a href={`/holding/${slugify(h)}`} class="text-blue-600 dark:text-blue-400 hover:underline">{h}</a>
+                                            {!isLast && ', '}
+                                        </>
+                                );
+                            })}
                         </div>
                 )}
                 {item.title && (

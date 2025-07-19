@@ -1,0 +1,78 @@
+---
+export const prerender = true;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import items from '../../data/items.json';
+import { slugify } from '../../utils/slugify.js';
+
+export async function getStaticPaths() {
+    const holdingSlugs = items.flatMap((item) =>
+        (item.holdings || []).map((holding) => ({
+            params: { slug: slugify(holding) }
+        }))
+    );
+
+    const uniquePaths = Array.from(new Set(holdingSlugs.map((p) => JSON.stringify(p))))
+        .map((p) => JSON.parse(p));
+
+    return uniquePaths;
+}
+
+const { slug } = Astro.params;
+
+const matchingItems = items.filter((item) =>
+    (item.holdings || []).some((h) => slugify(h) === slug)
+);
+
+if (matchingItems.length === 0) {
+    throw new Error(`No items found for holding slug: ${slug}`);
+}
+
+const holdingName = matchingItems
+    .flatMap((item) => item.holdings || [])
+    .find((h) => slugify(h) === slug) ?? slug;
+
+const title = `Holding: ${holdingName}`;
+const metaDescription = `Explore items held by ${holdingName} in the Kaplan Collection.`;
+const url = `https://singerman.judaicadhpenn.org/holding/${slug}`;
+---
+
+<BaseLayout title={title} description={metaDescription}>
+    <Fragment slot="headContent">
+        <meta name="title" content={title} />
+        <meta name="description" content={metaDescription} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={url} />
+        <meta name="twitter:card" content="summary" />
+        <script type="application/ld+json">
+            {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": holdingName,
+                "url": url,
+                "mainEntityOfPage": url
+            })}
+        </script>
+    </Fragment>
+
+    <section class="py-8">
+        <div class="max-w-5xl mx-auto px-4">
+            <h1 class="text-2xl font-semibold mb-6">Holding Location: {holdingName}</h1>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {matchingItems.map((item) => (
+                        <a href={`/entry/${item.slug}`} class="block border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            {item.thumbnail ? (
+                                    <img src={item.thumbnail} alt={item.title} class="w-full h-40 object-contain rounded mb-2" />
+                            ) : (
+                                    <div class="w-full h-40 bg-gray-100 flex items-center justify-center text-gray-500 rounded mb-2">No Image</div>
+                            )}
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{item.title}</h2>
+                            <p class="text-sm text-gray-600 mt-1 dark:text-gray-300 line-clamp-2">{item.description || 'No description available.'}</p>
+                        </a>
+                ))}
+            </div>
+        </div>
+    </section>
+</BaseLayout>
