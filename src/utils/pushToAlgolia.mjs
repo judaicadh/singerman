@@ -83,6 +83,7 @@ async function pushDataToAlgolia(records) {
             batchWriteParams: { requests }
         });
 
+
         console.log('✅ Batch update successful:', response);
     } catch (error) {
         console.error('❌ Error during batch update:', error.message, error.stack);
