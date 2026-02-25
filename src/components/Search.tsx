@@ -23,7 +23,9 @@ import HitListItem from "./HitCard";
 import type {UiState} from "instantsearch.js";
 
 import { Button } from '@mui/material';
-
+const SCHOLAR_RED = '#b91c1c';
+const SCHOLAR_BLACK = '#1a1a1a';
+const SCHOLAR_PAPER = '#FCFAf7';
 const fallbackMin = Math.floor(new Date("1700-01-01T00:00:00Z").getTime() / 1000); // -8520336000
 const fallbackMax = Math.floor(new Date("1900-12-31T23:59:59Z").getTime() / 1000); // -2208988801
 const indexName = 'dev_Singerman';
@@ -222,89 +224,88 @@ const SearchApp: FC = () => {
     return (
         <InstantSearch indexName={indexName} searchClient={searchClient} routing={routing}>
             <Configure hitsPerPage={12} />
+
+            {/* Research List Button: Styled in Scholar Black */}
             <div className="flex justify-end px-4">
                 <Button
                     onClick={() => setListOpen(true)}
                     startIcon={<BookmarkAddIcon />}
-                    sx={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1000 }}
+                    sx={{
+                        position: 'fixed', bottom: 24, right: 24, zIndex: 1000,
+                        bgcolor: SCHOLAR_BLACK,
+                        borderRadius: '8px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        fontSize: '0.75rem',
+                        fontWeight: 900,
+                        '&:hover': { bgcolor: SCHOLAR_RED }
+                    }}
                     variant="contained"
-                    color="secondary"
                 >
-                    My Research List ({savedHits.length})
+                    Research List ({savedHits.length})
                 </Button>
             </div>
+
             <div className="mx-auto max-w-7xl px-4">
-                {/* Top bar */}
-                <div className="sticky top-0 z-40 bg-gray-50/80 backdrop-blur-md py-4 border-b border-gray-200 -mx-4 px-4 mb-4">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+                {/* Sticky Header: Parchment backdrop with Red bottom border */}
+                <div className="bg-[#FCFAf7] py-8 border-b-4 border-[#b91c1c] -mx-4 px-4 mb-10">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
                         <div className="flex-1">
                             <SearchBox
-                                placeholder="Search titles, authors, or Singerman ID..."
+                                placeholder="Search by Title, Author, or Singerman ID..."
                                 searchAsYouType
                                 classNames={{
                                     root: "group",
                                     form: "relative",
-                                    input: "block w-full pl-10 pr-3 py-2.5 bg-white border border-slate-300 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 rounded-lg shadow-sm transition-all",
-                                    submitIcon: "absolute top-3 left-3 w-4 h-4 fill-slate-400 group-focus-within:fill-blue-600 transition-colors",
+                                    // Removed blue rings, replaced with Scholar Black border
+                                    input: "block w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 placeholder-gray-400 focus:outline-none focus:border-[#1a1a1a] rounded-lg shadow-sm transition-all font-serif italic text-lg",
+                                    submitIcon: "absolute top-4 left-4 w-5 h-5 fill-gray-400 group-focus-within:fill-[#b91c1c] transition-colors",
                                     resetIcon: "hidden",
                                 }}
                             />
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-4">
                             <Stats
                                 translations={{
-                                    rootElementText({ nbHits, processingTimeMS }) {
+                                    rootElementText({ nbHits }) {
                                         return `${nbHits.toLocaleString()} records found`;
                                     },
                                 }}
                                 classNames={{
-                                    text: "text-xs font-medium text-slate-500 uppercase tracking-wider font-[Karla]"
+                                    text: "text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] font-[Karla]"
                                 }}
                             />
                             <button
                                 type="button"
                                 onClick={() => setFiltersOpen(true)}
-                                className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 hover:border-blue-300 transition-all"
+                                className="inline-flex items-center gap-2 rounded-lg border-2 border-[#1a1a1a] bg-white px-5 py-2.5 text-xs font-black text-[#1a1a1a] uppercase tracking-widest hover:bg-[#b91c1c] hover:text-white hover:border-[#b91c1c] transition-all shadow-sm"
                             >
-                               {/* You can import a simple SVG here */}
-                                Filters
+                                Filter Archive
                             </button>
                         </div>
                     </div>
                 </div>
-                {/* Chips + controls */}
+
+                {/* Refinement Chips: Red/Parchment style */}
                 <CurrentRefinements
                     classNames={{
-                        root: "flex flex-wrap gap-2 mt-3",
+                        root: "flex flex-wrap gap-2 mb-6",
                         list: "flex flex-wrap gap-2",
-                        item:
-                            "bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300 flex items-center",
-                        label: "font-semibold mr-1",
-                        delete: "ml-1 text-blue-400 hover:text-blue-700 focus:outline-none cursor-pointer",
+                        item: "bg-white border border-[#b91c1c] text-[#b91c1c] text-[10px] font-black uppercase tracking-tighter px-3 py-1 rounded flex items-center shadow-sm",
+                        label: "mr-1 opacity-60",
+                        delete: "ml-2 hover:text-black cursor-pointer",
                     }}
                 />
 
-                <div className="flex items-center justify-between mb-4 mt-2">
-                    <Stats />
-                    <HitsPerPage
-                        items={[
-                            { label: "12 hits per page", value: 12, default: true },
-                            { label: "50 hits per page", value: 50 },
-                            { label: "100 hits per page", value: 100 },
-                        ]}
-                    />
-                </div>
-
-                {/* Results */}
+                {/* Results: Removed blue highlight, using the custom HitCard spine effect */}
                 <Hits
                     classNames={{
-                        root: "mt-6 bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm",
+                        root: "bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm",
                         list: "divide-y divide-gray-100",
-                        emptyRoot: "p-12 text-center bg-white border border-dashed border-gray-300 rounded-xl"
+                        emptyRoot: "p-20 text-center bg-white border border-dashed border-gray-300 rounded-xl font-serif italic text-gray-400"
                     }}
-                    // Use the hitComponent prop with an arrow function to pass extra props
-                    hitComponent={({ hit }) => ( // Destructure hit here
+                    hitComponent={({ hit }) => (
                         <HitListItem
                             hit={hit}
                             onSave={toggleSave}
@@ -313,183 +314,219 @@ const SearchApp: FC = () => {
                     )}
                 />
 
+                {/* Pagination: Scholarly red underlined style */}
                 <Pagination
                     classNames={{
-                        root: "flex justify-center items-center gap-2 mt-6",
-                        list: "flex flex-row gap-2",
-                        item: "inline-block",
-                        link: `px-3 py-1 rounded-md font-medium text-base transition-colors
-              hover:underline hover:text-blue-700 dark:hover:text-blue-300
-              aria-current:underline aria-current:text-blue-700 aria-current:dark:text-blue-300`,
-                        selectedItem: "font-bold underline text-blue-700 dark:text-blue-300",
-                        disabledItem: "opacity-50 cursor-not-allowed",
+                        root: "flex justify-center items-center gap-2 mt-12 pb-12",
+                        list: "flex flex-row gap-4",
+                        link: "text-sm font-black uppercase tracking-widest text-gray-400 hover:text-[#b91c1c] transition-colors",
+                        selectedItem: "text-[#b91c1c] border-b-2 border-[#b91c1c]",
+                        disabledItem: "opacity-20",
                     }}
                 />
             </div>
-            {/* DRAWER 1: Filters (Keep this separate) */}
-            {filtersOpen && (
-                <div className="fixed inset-0 z-50">
-                    <button className="absolute inset-0 bg-black/30" onClick={() => setFiltersOpen(false)} />
-                    <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white p-6 shadow-xl overflow-y-auto">
-                        <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xl font-bold font-[Karla]">Filters</h2>
-                            <button onClick={() => setFiltersOpen(false)} className="text-gray-400 hover:text-black">Close</button>
-                        </div>
-                        <div className="space-y-6">
-                                <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">Collection</h3>
-                                <RefinementList attribute="collection" classNames={{
-                                    label: "flex items-center gap-2 py-1 cursor-pointer group",
-                                    checkbox: "rounded border-slate-300 text-blue-600 focus:ring-blue-500",
-                                    labelText: "text-sm text-slate-600 group-hover:text-slate-900 font-[Karla]",
-                                    count: "ml-auto text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-mono",
-                                    noResults: "text-sm italic text-slate-400 py-2",
-                                    showMore: "text-xs font-bold text-blue-600 uppercase tracking-tighter mt-2 hover:text-blue-800"
-                                }} searchable={false} showMore={false} />
 
-                                {/* Author */}
-                                <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">Author/Editor</h3>
-                                <RefinementList attribute="author" classNames={{
-                                    label: "flex items-center gap-2 py-1 cursor-pointer group",
-                                    checkbox: "rounded border-slate-300 text-blue-600 focus:ring-blue-500",
-                                    labelText: "text-sm text-slate-600 group-hover:text-slate-900 font-[Karla]",
-                                    count: "ml-auto text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-mono",
-                                    noResults: "text-sm italic text-slate-400 py-2",
-                                    showMore: "text-xs font-bold text-blue-600 uppercase tracking-tighter mt-2 hover:text-blue-800",
-                                    root: "mb-3",
-                                    searchBox: "flex items-center gap-2 py-1 cursor-pointer group",
+            {/* DRAWER: Filters - Updated with Scholar Red accents */}
+            {/* DRAWER: Filters - Mobile Optimized */}
+            <div
+                className={`fixed inset-0 z-50 transition-all duration-300 ${
+                    filtersOpen ? 'visible opacity-100' : 'invisible opacity-0'
+                }`}
+            >
+                {/* Backdrop */}
+                <button
+                    className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    onClick={() => setFiltersOpen(false)}
+                />
 
-                                 }} searchable searchablePlaceholder="Search Author/Editor" showMore />
-
-                                {/* Location */}
-                                <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">Location</h3>
-                                <RefinementList attribute="place" classNames={{
-                                    label: "flex items-center gap-2 py-1 cursor-pointer group",
-                                    checkbox: "rounded border-slate-300 text-blue-600 focus:ring-blue-500",
-                                    labelText: "text-sm text-slate-600 group-hover:text-slate-900 font-[Karla]",
-                                    count: "ml-auto text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-mono",
-                                    noResults: "text-sm italic text-slate-400 py-2",
-                                    showMore: "text-xs font-bold text-blue-600 uppercase tracking-tighter mt-2 hover:text-blue-800"
-                                }} searchable searchablePlaceholder="Search location" showMore />
-
-                                {/* Date range */}
-                                <DateRangeSlider
-                                    title="Date Range"
-                                    dateFields={["startDate", "endDate"]}
-                                    minTimestamp={-11676096000}
-                                    maxTimestamp={31536000}
-                                    // ...your props
-                                />
-
-                                {/* Language */}
-                                <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">Language</h3>
-                                <RefinementList attribute="language" classNames={{
-                                    label: "flex items-center gap-2 py-1 cursor-pointer group",
-                                    checkbox: "rounded border-slate-300 text-blue-600 focus:ring-blue-500",
-                                    labelText: "text-sm text-slate-600 group-hover:text-slate-900 font-[Karla]",
-                                    count: "ml-auto text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full font-mono",
-                                    noResults: "text-sm italic text-slate-400 py-2",
-                                    showMore: "text-xs font-bold text-blue-600 uppercase tracking-tighter mt-2 hover:text-blue-800"
-                                }} searchable={false} showMore={false} />
+                <div
+                    className={`absolute right-0 top-0 h-full w-full md:max-w-md bg-[#FCFAf7] p-6 md:p-8 shadow-2xl overflow-y-auto border-l-0 md:border-l-8 border-[#b91c1c] transition-transform duration-300 transform ${
+                        filtersOpen ? 'translate-x-0' : 'translate-x-full'
+                    }`}
+                >
+                    <div className="flex items-center justify-between mb-8">
+                        <h2 className="text-xl md:text-2xl font-serif font-bold">Search Filters</h2>
+                        <button
+                            onClick={() => setFiltersOpen(false)}
+                            className="p-2 -mr-2 text-gray-400 hover:text-black"
+                        >
+                            <span className="text-[10px] font-black uppercase tracking-widest">Close ✕</span>
+                        </button>
                     </div>
+                    <div className="space-y-6">
+                        <h3 className="text-sm font-semibold text-gray-800 dark:text-gray-100">Collection</h3>
+                        <RefinementList attribute="collection" classNames={{
+                            label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
+                            checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
+                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            searchBox: "mb-4",
+                        }} searchable={false} showMore={false} />
+
+                        {/* Author */}
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-[#b91c1c] mb-4 border-b pb-2">
+                            Author/Editor
+                        </h3>
+                        <RefinementList attribute="author" classNames={{
+                            label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
+                            checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
+                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            searchBox: "mb-4",
+
+                        }} searchable searchablePlaceholder="Search Author/Editor" showMore />
+                        {/* Author */}
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-[#b91c1c] mb-4 border-b pb-2">
+                            Printer/Publisher
+                        </h3>
+                        <RefinementList attribute="contributor" classNames={{
+                            label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
+                            checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
+                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            searchBox: "mb-4",
+
+                        }} searchable searchablePlaceholder="Search Printer/Publisher" showMore />
+                        {/* Date */}
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-[#b91c1c] mb-4 border-b pb-2">
+                            Date
+                        </h3>
+                        <DateRangeSlider
+                            title="Date Range"
+                            dateFields={["startDate", "endDate"]}
+                            minTimestamp={-11676096000}
+                            maxTimestamp={31536000}
+                            // ...your props
+                        />
+                        {/* Location */}
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-[#b91c1c] mb-4 border-b pb-2">
+                            Location
+                        </h3>
+                        <RefinementList attribute="place" classNames={{
+                            label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
+                            checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
+                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            searchBox: "mb-4",
+                        }} searchable searchablePlaceholder="Search location" showMore />
+
+
+
+                        {/* Language */}
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-[#b91c1c] mb-4 border-b pb-2">
+                            Language
+                        </h3>
+                        <RefinementList attribute="language" classNames={{
+                            label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
+                            checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
+                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            searchBox: "mb-4",
+                        }} searchable={false} showMore={false} />
+                    </div>
+
+
+
+
+                    </div>
+
                 </div>
-                </div>
-            )}
+
             {/* 2. RESEARCH LIST DRAWER - Moved outside the filter conditional */}
             {listOpen && (
-                <div className="fixed inset-0 z-[60]">
-                    <button className="absolute inset-0 bg-black/40" onClick={() => setListOpen(false)} />
-                    <div className="absolute right-0 top-0 h-full w-full max-w-lg bg-white shadow-2xl p-6 flex flex-col h-full">
-                        <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-2xl font-bold font-[Spectral]">My Research List</h2>
-                            <button onClick={() => setListOpen(false)} className="text-gray-500 hover:text-black text-2xl">✕</button>
+                <div className="fixed inset-0 z-[1001] flex justify-end"> {/* High z-index */}
+                    <button
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        onClick={() => setListOpen(false)}
+                    />
+
+                    <div className="relative h-full w-full sm:max-w-md md:max-w-lg bg-[#FCFAf7] shadow-2xl flex flex-col border-t-8 sm:border-t-0 sm:border-l-8 border-[#b91c1c] transition-transform duration-300">
+
+                        {/* Drawer Header */}
+                        <div className="p-4 md:p-6 border-b border-gray-200 bg-white flex items-center justify-between">
+                            <div>
+                                <h2 className="text-lg md:text-xl font-serif font-bold text-black">My Research List</h2>
+                                <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mt-1">
+                                    {savedHits.length} {savedHits.length === 1 ? 'Record' : 'Records'} Collected
+                                </p>
+                            </div>
+                            <button onClick={() => setListOpen(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                                <span className="text-xs md:text-sm font-black uppercase tracking-widest text-gray-400 hover:text-black">Close ✕</span>
+                            </button>
                         </div>
 
-                        {savedHits.length === 0 ? (
-                            <div className="text-center py-20 text-gray-400 italic">
-                                No items saved to your bibliography yet.
-                            </div>
-                        ) : (
-                            <div className="flex flex-col h-full overflow-hidden">
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    sx={{ mb: 4, py: 1.5, fontWeight: 700, borderRadius: 2 }}
-                                    onClick={() => exportToRIS(savedHits)}
-                                >
-                                    Export {savedHits.length} {savedHits.length === 1 ? 'Item' : 'Items'} to RIS
-                                </Button>
-
-                                {savedHits.map((hit) => (
-                                    <div
-                                        key={hit.slug}
-                                        className="py-5 flex gap-4 items-start group border-b border-gray-100 last:border-0 hover:bg-slate-50/50 transition-colors px-2 -mx-2 rounded-lg"
-                                    >
-                                        {/* 1. ID Indicator - Subtle & Small */}
-                                        <div className="flex-shrink-0 w-12 pt-0.5">
-                                            <span className="text-[10px] font-black font-[Karla] text-slate-400 block leading-none mb-1">ID</span>
-                                            <span className="text-xs font-bold font-[Karla] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">
-                {hit.slug}
-            </span>
-                                        </div>
-
-                                        {/* 2. Bibliographic Details */}
-                                        <div className="flex-grow min-w-0">
-                                            <h4 className="font-bold text-[15px] font-[Spectral] text-slate-900 leading-snug mb-1 group-hover:text-blue-800 transition-colors">
-                                                {hit.title}
-                                            </h4>
-
-                                            <div className="flex flex-wrap items-center gap-x-2 text-[13px] font-[Karla] text-slate-500">
-                <span className="font-semibold text-slate-700">
-                    {hit.author || hit.contributor || 'Anonymous'}
-                </span>
-                                                {hit.year && (
-                                                    <>
-                                                        <span className="text-slate-300">•</span>
-                                                        <span>{hit.year}</span>
-                                                    </>
-                                                )}
-                                                {hit.place && (
-                                                    <>
-                                                        <span className="text-slate-300">•</span>
-                                                        <span className="italic">{hit.place}</span>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        {/* 3. Actions */}
-                                        <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {/* Content Area */}
+                        <div className="flex-grow overflow-y-auto p-4 md:p-6 space-y-4">
+                            {savedHits.length === 0 ? (
+                                <div className="text-center py-20">
+                                    <BookmarkAddIcon sx={{ fontSize: 48, color: '#e5e7eb', mb: 2 }} />
+                                    <p className="text-gray-400 italic font-serif">Your bibliography is currently empty.</p>
+                                </div>
+                            ) : (
+                                savedHits.map((hit) => (
+                                    <div key={hit.slug} className="group bg-white p-4 rounded border border-gray-200 shadow-sm hover:border-[#b91c1c] transition-all relative flex flex-col">
+                                        {/* Hit Badge & Delete */}
+                                        <div className="flex justify-between items-start mb-3">
+                                <span className="text-[10px] font-mono font-bold text-[#b91c1c] bg-red-50 px-2 py-0.5 rounded border border-red-100">
+                                    #{hit.id || hit.slug}
+                                </span>
                                             <button
                                                 onClick={() => toggleSave(hit)}
-                                                className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full transition-all"
+                                                className="p-1 text-gray-300 hover:text-red-600 transition-all sm:opacity-0 sm:group-hover:opacity-100"
                                                 title="Remove from list"
                                             >
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
                                             </button>
                                         </div>
-                                    </div>
-                                ))}
 
-                                <div className="mt-6 pt-4 border-t border-gray-100">
-                                    <p className="text-xs text-gray-400 mb-4 text-center">
-                                        Tip: RIS files can be imported directly into Zotero, EndNote, and Mendeley.
-                                    </p>
-                                    <Button
-                                        fullWidth
-                                        color="error"
-                                        size="small"
-                                        onClick={() => {
-                                            setSavedHits([]);
-                                            localStorage.removeItem('singerman_bookmarks');
-                                        }}
-                                    >
-                                        Clear Entire List
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
+                                        <h4 className="font-serif italic text-base leading-snug text-gray-900 mb-2">{hit.title}</h4>
+
+                                        <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wide flex flex-wrap gap-x-2 mb-4">
+                                            <span className="text-gray-700">{hit.author || hit.contributor || 'Anonymous'}</span>
+                                            {hit.year && <span>• {hit.year}</span>}
+                                            {hit.place && <span className="italic">• {hit.place}</span>}
+                                        </div>
+
+                                        {/* View Entry Button */}
+                                        <a
+                                            href={`/entry/${hit.slug}`}
+                                            className="w-full text-center py-2 border border-gray-200 rounded text-[10px] font-black uppercase tracking-widest text-gray-600 hover:bg-[#b91c1c] hover:text-white hover:border-[#b91c1c] transition-all"
+                                        >
+                                            View Full Entry
+                                        </a>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+
+                        {/* Footer Actions */}
+                        {/* Fixed Footer: Clean separation for Export RIS */}
+                        <div className="p-4 md:p-6 bg-white border-t border-gray-200 sticky bottom-0">
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                onClick={() => exportToRIS(savedHits)}
+                                disabled={savedHits.length === 0}
+                                sx={{
+                                    bgcolor: SCHOLAR_BLACK,
+                                    fontWeight: 900,
+                                    letterSpacing: '0.1em',
+                                    py: 2,
+                                    borderRadius: '6px',
+                                    '&:hover': { bgcolor: SCHOLAR_RED }
+                                }}
+                            >
+                                Export RIS
+                            </Button>
+                            <button
+                                onClick={() => { setSavedHits([]); localStorage.removeItem('singerman_bookmarks'); }}
+                                className="w-full text-center mt-4 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-red-600 transition-colors"
+                            >
+                                Clear Entire List
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

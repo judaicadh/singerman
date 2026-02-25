@@ -527,7 +527,7 @@
     "year": "1701",
     "startDate": -8488800000,
     "endDate": -8488800000,
-    "iframe": "",
+    "iframe": "<iframe src=\"https://archive.org/embed/bim_eighteenth-century_wednesday-january-1-17_sewall-samuel-chief-ju_1701\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
     "description": "Sewall, Samuel. Wednesday. January 1. 1701. A Little Before Break-a-day at Boston of the Massachusets [sic]. [Boston: Printed by Bartholomew Green and John Allen, 1701]. broadside.",
     "languages": [
       "English"
@@ -538,7 +538,9 @@
     "kind": "",
     "type": "",
     "notes": "Sewall’s religious poem honoring the new century contains: \"From hard’ned JEWS the Vail remove, Let them their Martyr’d JESUS love; And Homage unto Him afford, Because He is their Rightful LORD\" (quoted text is taken from Kenneth Silverman, ed. Colonial American Poetry (New York, 1968), p. 215, copied in turn from Sewall’s Proposals Touching the Accomplishment of Prophesies Humbly Offered (Boston, 1713), leaf following p. 12. Evans 1023 is the source for the imprint.",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/bim_eighteenth-century_wednesday-january-1-17_sewall-samuel-chief-ju_1701\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -3786,7 +3788,7 @@
     "slug": "0052",
     "title": "The law given at Sinai",
     "authors": [
-      "Dawes, Thomas"
+      "Dawes, Thomas, 1757-1825"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -5528,7 +5530,7 @@
     "slug": "supp1042",
     "title": "Historical collections of the Indians in New England",
     "authors": [
-      "Gookin, Daniel"
+      "Gookin, Daniel, 1612-1687"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -6507,7 +6509,7 @@
     "slug": "0084",
     "title": "A friendly address to the Jews",
     "authors": [
-      "Bicheno, James"
+      "Bicheno, J. (James), -1831"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -7286,7 +7288,7 @@
     "slug": "0097",
     "title": "Miscellaneous works, prose and poetical",
     "authors": [
-      "Linn, John Blair"
+      "Linn, John Blair, 1777-1804"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -9089,7 +9091,7 @@
     "slug": "0119",
     "title": "The dealings of God with Israel and America",
     "authors": [
-      "Johnson, John Barent"
+      "John Barent Johnson"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -12651,7 +12653,7 @@
     "slug": "0160",
     "title": "The Whole World Governed by a Jew; or, The Government of the Second Adam, as King and Priest; Described from the Scriptures. Delivered March 4, 1805, the Evening after the Election of the President & Vice-President.",
     "authors": [
-      "Smith, Elias"
+      "Smith, Elias, 1769-1846"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -14814,7 +14816,7 @@
     "slug": "0187",
     "title": "Three Sermons on Election: Containing a Description, of 1. The Election of Christ. 2. The Election of Angels. 3. The Election of the Patriarchs. 4. The Election of the Jewish Nation. 5. The Election of the Prophets. 6. The Election of the Apostles. 7. The Election of Saints. …",
     "authors": [
-      "Smith, Elias"
+      "Smith, Elias, 1769-1846"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -25868,7 +25870,7 @@
     "slug": "supp0068",
     "title": "The Religious Principles, and Forms of Government, of the following Denominations: Friends, Hopkinsians, Episcopalians, Lutherans, Universalists, Baptists, Jews, Seceders, Methodists, Catholics, Presbyterians, United Brethren, Swedenborgians, Congregationalists, Dutch Reformed. Collected from Authentic Sources.",
     "authors": [
-      "Ogilvie, James G"
+      "Ogilvie, James G."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -28012,7 +28014,7 @@
     "slug": "0360",
     "title": "Supreme Court of the United States. The United States, Appellant, vs. Moses E. Levy ... Jos. M. White, for Appellee.",
     "authors": [
-      "White, Joseph M"
+      "Joseph M. White"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -33057,7 +33059,7 @@
     "slug": "0430",
     "title": "To the friends of Israel",
     "authors": [
-      "Simon, Erasmus"
+      "Simon, Erasmus H"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -34942,7 +34944,7 @@
     "slug": "0450",
     "title": "[Invitation, December 26, 1827, to a meeting for organizing a new society for charitable purposes; Solomon Seixas, President].",
     "authors": [
-      "New York. Hebra Hased Vaamet."
+      "New York. Hebra Hased Vaamet"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -39247,7 +39249,7 @@
     "slug": "0496",
     "title": "[Announcement, March 15, 1830, on the formation of a committee to establish an auxiliary “Society of the Ladies”].",
     "authors": [
-      "New York. Hebra Hased Vaamet."
+      "New York. Hebra Hased Vaamet"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -39298,7 +39300,7 @@
     "slug": "0497",
     "title": "The Committee appointed ... to confer with the Committee of Hebra Gamelut Hased, having performed that duty, Submit the following Preamble and Resolutions ... Isaac B. Seixas, Chairman Committee",
     "authors": [
-      "New York. Hebra Hased Vaamet."
+      "New York. Hebra Hased Vaamet"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -39512,7 +39514,7 @@
     "slug": "0501",
     "title": "Constitution and By-laws of the Hebra Biker [!] Houlam, &c. &c.",
     "authors": [
-      "Philadelphia. Hebrew Society for the Visitation of the Sick and Mutual Assistance."
+      "Philadelphia. Hebrew Society for the Visitation of the Sick and Mutual Assistance"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -46202,7 +46204,7 @@
     "slug": "supp1178",
     "title": "The Right of Colored People to Education, Vindicated. Letters to Andrew T. Judson, Esq. and others in Canterbury, remonstrating with them on Their Unjust and Unjustifiable Procedure relative to Miss Crandall and Her School for Colored Females.",
     "authors": [
-      "May, Samuel Joseph"
+      "May, Samuel J. (Samuel Joseph), 1797-1871"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -47920,7 +47922,7 @@
     "slug": "0592",
     "title": "A Layman’s Apology, for the Appointment of Clerical Chaplains by the Legislature of the State of New-York, in a Series of Letters addressed to Thomas Herttell, Member of Assembly, for the City of New-York, 1833. Originally Published in the Washington County Post, Salem, under the Signa-ture of Sherlock. To which are added Notes and Illustrations, by the Author.",
     "authors": [
-      "Southwick, Solomon"
+      "Southwick, Solomon, 1773-1839"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -48751,7 +48753,7 @@
     "slug": "supp1191",
     "title": "Fanaticism. By the Author of Natural History of Enthusiasm ...",
     "authors": [
-      "[Taylor, Isaac]"
+      "Taylor, Isaac"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -50411,7 +50413,7 @@
     "slug": "supp1199",
     "title": "Jehovah Unveiled; or, The Character of the Jewish Deity Delineated. To which is prefixed a Letter to the Bishop of Llandaff. By a Tradesman.",
     "authors": [
-      "[Skinner, William]"
+      "Skinner, William"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -55960,7 +55962,7 @@
     "slug": "supp0161",
     "title": "The Triennial Sermon, before the Bishops, Clergy and Laity, Constituting the Board of Missions of the Protestant Episcopal Church in the United States of America, Preached in St. Stephens Church, Philadelphia, Thursday Evening, September 6, 1838.",
     "authors": [
-      "Otey, James Hervey"
+      "Otey, James Hervey, 1800-1863"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -63462,7 +63464,7 @@
     "slug": "0761",
     "title": "Twelve Sermons delivered in the New Temple of the Israelites at Hamburgh. Translated from the German by Anna Maria Goldsmid. First American Edition.",
     "authors": [
-      "Salomon, Gotthold"
+      "Salomon, Gotthold, 1784-1862"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -65801,7 +65803,7 @@
     "slug": "0792",
     "title": "Eloquence of Nature and other Poems",
     "authors": [
-      "Phelps, Sylvanus Dryden"
+      "Sylvanus Dryden Phelps"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -66917,7 +66919,7 @@
     "slug": "supp1263",
     "title": "Pictorial Guide to the Falls of Niagara: A Manual for Visiters, giving an Account of this Stupendous Natural Wonder; and all the Objects of Curiosity in Its Vicinity; with every Historical Incident of Interest. ... Illustrated by Numerous Maps, Charts, and Engravings, from Original Surveys and Designs. The Illustrations designed and engraved by J. W. Orr.",
     "authors": [
-      "Orr, John William"
+      "Orr, John William, 1815-1887"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -67217,7 +67219,7 @@
     "slug": "supp1269",
     "title": "The History of the Jews, from the Taking of Jerusalem by Titus, to the Present Time; Containing an Account of Their Wanderings, Persecutions, Commercial Enterprises and Literary Exertions: with an Account of the various Efforts made for Their Conversion. Second American, from the First Edinburgh Edition. Greatly enlarged by the Publisher with much Recent and Valuable Information, with a Preface by William Jenks, D.D.",
     "authors": [
-      "[Huie, James A.]"
+      "Huie, James A"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -68101,7 +68103,7 @@
     "slug": "0816",
     "title": "Constitution and By-laws of the Congregation [Bene Yeshurun] B’nai Jeshurun in the City of New-York.",
     "authors": [
-      "New York. B'nai Jeshurun Congregation"
+      "New York. B’nai Jeshurun Congregation."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -68569,7 +68571,7 @@
     "slug": "0825",
     "title": "The True Heirs of the Abrahamic Inheritance; or Jewish Restoration Disproved",
     "authors": [
-      "Plumb, David"
+      "Plumb, David, 1810-1889"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -71585,7 +71587,7 @@
     "slug": "0861",
     "title": "Resolved, That this Board will neither sell nor let, the Seats in the Synagogue, to any persons, other than electors ... for the ensuing year, until the Suits now pending in the Court of Chancery, and Supreme Court, shall have been disposed of ... Edward Heilbuth, Clerk.",
     "authors": [
-      "New York. B'nai Jeshurun Congregation"
+      "New York. B’nai Jeshurun Congregation."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -72253,7 +72255,7 @@
     "slug": "0873",
     "title": "Critical Exposition of Baptism; Embracing the Mosaic Baptisms; Jewish Traditionary Baptisms; John's Baptism and Christian Baptism: Clearly establishing the Scriptural Authority of Affusion and Sprinkling and of Infant Baptism",
     "authors": [
-      "Sawyer, Leicester Ambrose"
+      "Sawyer, Leicester A. (Leicester Ambrose), 1807-1898"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -75356,7 +75358,7 @@
     "slug": "0906",
     "title": "The Land of Sinim; or, An Exposition of Isaiah xlix. 12. Together with a Brief Account of the Jews and Christians in China. By a Missionary in China.",
     "authors": [
-      "Lowrie, Walter Macon"
+      "Lowrie, Walter M. (Walter Macon), 1819-1847"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -83965,7 +83967,7 @@
     "slug": "supp1320",
     "title": "The History of the Jews from the Babylonian Captivity to the Present Time; containing Their Conquests, Dispersions, Wanderings, Persecutions, Commercial Enterprises, Literature, Manners, Customs, and Forms of Worship, with an Account of the various Efforts made for Their Conversion. Compiled from the most Authentic Sources. With a Preface by William Jenks, D.D.",
     "authors": [
-      "[Huie, James A.]"
+      "Huie, James A"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -86346,7 +86348,7 @@
     "slug": "1046",
     "title": "Ida Norman; or Trials and Their Uses",
     "authors": [
-      "Phelps, Almira (Hart) Lincoln"
+      "Phelps, Lincoln, Mrs., 1793-1884"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -87209,7 +87211,7 @@
     "slug": "supp0239",
     "title": "Remarks of Hon. Lewis Cass, of Michigan, on the Propriety of Sending a Minister to the Papal States. Delivered in the Senate of the United States, March 21, 1848",
     "authors": [
-      "Cass, Lewis"
+      "Cass, Lewis, 1782-1866"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -87722,7 +87724,7 @@
     "slug": "supp1330",
     "title": "The History of the Jews from the Babylonian Captivity to the Present Time; containing Their Conquests, Dispersions, Wanderings, Persecutions, Commercial Enterprises, Literature, Manners, Customs, and Forms of Worship, with an Account of the various Efforts made for Their Conversion. Compiled from the most Authentic Sources. With a Preface by William Jenks, D.D.",
     "authors": [
-      "[Huie, James A.]"
+      "Huie, James A"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -89946,7 +89948,7 @@
     "slug": "1095",
     "title": "A Collection from the Miscellaneous Writings of Nathaniel Peabody Rogers. Second Edition.",
     "authors": [
-      "Rogers, Nathaniel Peabody"
+      "Rogers, Nathaniel Peabody, 1794-1846"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -91074,7 +91076,7 @@
     "slug": "supp1342",
     "title": "The Old Judge; or, Life in a Colony. By Judge Haliburton ... Complete in One Volume.",
     "authors": [
-      "[Haliburton, Thomas Chandler]"
+      "Haliburton, Thomas Chandler"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -91124,7 +91126,7 @@
     "slug": "supp1343",
     "title": "Memoirs of the Rev. Walter M. Lowrie, Missionary to China. Edited by His Father.",
     "authors": [
-      "Lowrie, Walter Macon"
+      "Lowrie, Walter M. (Walter Macon), 1819-1847"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -91274,7 +91276,7 @@
     "slug": "supp1346",
     "title": "Outlines of a New System of Physiognomy. Illustrated by Numerous Engravings, indicating the Location of the Signs of the Different Mental Faculties. ...",
     "authors": [
-      "Redfield, James W"
+      "Redfield, James W."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -93138,7 +93140,7 @@
     "slug": "1137",
     "title": "The Bible and Civil Government in a Course of Lectures",
     "authors": [
-      "Mathews, James McFarlane"
+      "Mathews, J. M. (James McFarlane), 1785-1870"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -94781,7 +94783,7 @@
     "slug": "1166",
     "title": "[Solicitation of building funds, April 8, 1850; Jacob Stone, President]",
     "authors": [
-      "Syracuse, N. Y. Society of Concord"
+      "Syracuse, N.Y. Society of Concord"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -98323,7 +98325,7 @@
     "goldmanTitle": "",
     "goldmanId": "",
     "holdings": [
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "LU",
       "NNG",
       "NNJ",
@@ -100765,7 +100767,7 @@
     "slug": "supp1382",
     "title": "\"The Joy of the Law.\" In: The Odd-Fellows’ Offering for 1851",
     "authors": [
-      "Noah, Manuel Mordecai"
+      "Noah, Mordecai Manuel"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -100865,7 +100867,7 @@
     "slug": "supp1384",
     "title": "Our Country for the Sake of the World. A Sermon in behalf of the American Home Missionary Society, preached in the Cities of New York and Brooklyn, May, 1851.",
     "authors": [
-      "Riddle, David Hunter"
+      "Riddle, D. H. (David Hunter), 1805-1888"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -102438,7 +102440,7 @@
     "slug": "1334",
     "title": "The Miser’s Heir; or The Young Millionaire",
     "authors": [
-      "Myers, Peter Hamilton"
+      "Myers, P. Hamilton (Peter Hamilton), 1812-1878"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -108387,7 +108389,7 @@
     "slug": "supp1408",
     "title": "Comparative Physiognomy; or, Resemblances between Men and Animals ... Illustrated by 330 Engravings.",
     "authors": [
-      "Redfield, James W"
+      "Redfield, James W."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -109270,7 +109272,7 @@
     "slug": "supp1451",
     "title": "Newport Illustrated, in a Series of Pen & Pencil Sketches. By the Editor of the Newport Mercury. Engravings by Whitney, Jocelyn & Annin, N.Y.",
     "authors": [
-      "[Mason, George Champlin]"
+      "Mason, George Champlin"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -109896,7 +109898,7 @@
     "slug": "supp1458",
     "title": "Rome Against the Bible, and the Bible Against Rome; or, Pharisaism, Jewish and Papal. ...",
     "authors": [
-      "Plumer, William S"
+      "Plumer, William S. (William Swan), 1802-1880"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -111094,7 +111096,7 @@
     "slug": "1368",
     "title": "Emma de Lissau: A Narrative of Striking Vicissitudes and Peculiar Trials, with Notes, Illustrative of the Manners and Customs of the Jews. By the Author of \"Sophia de Lissau,\" \"Miriam and Rosette,\" &c. Complete from the Sixth London Edition.",
     "authors": [
-      "Bristow, Amelia"
+      "Amelia Bristow"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -116096,7 +116098,7 @@
     "slug": "supp1427",
     "title": "Loose Papers; or, Facts gathered during Eight Years’ Residence in Ireland, Scotland, England, France, and Germany ...",
     "authors": [
-      "Nicholson, Asenath Hatch"
+      "Nicholson, Asenath, 1792-1855"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -117582,7 +117584,7 @@
     "slug": "1316",
     "title": "Speech of Mr. Cass, of Michigan, delivered in the Senate of the United States, May 15, 1854, on the Subject of the Religious Rights of American Citizens Residing or Traveling in Foreign Countries.",
     "authors": [
-      "Cass, Lewis"
+      "Cass, Lewis, 1782-1866"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -124622,7 +124624,7 @@
     "slug": "supp1516",
     "title": "Dealings with the Dead. By a Sexton of the Old School.",
     "authors": [
-      "[Sargent, Lucius Manlius]"
+      "Sargent, Lucius Manlius"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -127115,7 +127117,7 @@
     "slug": "1507",
     "title": "Messiah’s Reign; or The Future Blessedness of the Church and the World",
     "authors": [
-      "Ramsey, William"
+      "Ramsay, William"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -129139,7 +129141,7 @@
     "slug": "supp1548",
     "title": "Memoir of Mrs. Julia H. Scott; with Her Poems, and Selections from Her Prose. By Mrs. C. M. Sawyer.",
     "authors": [
-      "Scott, Julia H"
+      "Scott, Julia H., 1809-1842"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -131237,7 +131239,7 @@
     "slug": "1552",
     "title": "Moses Mendelssohn; oder Ein Blick in ein schönes herrlich vollendetes Menschenleben",
     "authors": [
-      "Salomon, Gotthold"
+      "Salomon, Gotthold, 1784-1862"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -146583,7 +146585,7 @@
     "slug": "supp1631",
     "title": "A List of Editions of the Holy Scriptures and Parts thereof, Printed in America Previous to 1860: with Introduction and Bibliographical Notes.",
     "authors": [
-      "O’Callaghan, Edmund Bailey"
+      "O'Callaghan, E.B. (Edmund Bailey), 1797-1880"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -149784,7 +149786,7 @@
     "slug": "1773",
     "title": "The Desert and the Promised Land: A Sermon",
     "authors": [
-      "Hale, Edward Everett"
+      "Edward Everett Hale"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -152220,7 +152222,7 @@
     "slug": "supp1653",
     "title": "The Desert and the Promised Land. A Sermon.",
     "authors": [
-      "Hale, Edward Everett"
+      "Edward Everett Hale"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -152320,7 +152322,7 @@
     "slug": "supp1655",
     "title": "The Works of Douglas Jerrold. With an Introductory Memoir by His Son W. Blanchard Jerrold.",
     "authors": [
-      "Jerrold, Douglas William"
+      "Jerrold, Walter, 1865-1929"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -153386,7 +153388,7 @@
     "slug": "1821",
     "title": "Crusoe’s Island: A Ramble in the Footsteps of Alexander Selkirk. With Sketches of Adventure in California and Washoe.",
     "authors": [
-      "Browne, John Ross"
+      "Browne, J.Ross (John Ross), 1821-1875"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -157042,7 +157044,7 @@
     "slug": "supp1679",
     "title": "Melbourne House. By the Author of \"The Wide, Wide World.\"",
     "authors": [
-      "[Warner, Susan]"
+      "Warner, Susan"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -160263,7 +160265,7 @@
     "slug": "1917",
     "title": "The Last Captivity: A Sermon preached before the Protestant Episcopal Association, of the Diocese of Pennsylvania for Promoting Christianity among the Jews, at Grace Church, Philadelphia, Sunday Evening, Dec. 11th, 1864.",
     "authors": [
-      "Schenck, Noah Hunt"
+      "Schenck, Noah Hunt, 1825-1885"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -163860,7 +163862,7 @@
     "slug": "supp1697",
     "title": "Recollections of Persons and Events, chiefly in the City of New York: being Selections from His Journal",
     "authors": [
-      "Mathews, James McFarlane"
+      "Mathews, J. M. (James McFarlane), 1785-1870"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -164780,7 +164782,7 @@
     "slug": "supp1718",
     "title": "An American Family in Germany. Illustrated by the Author.",
     "authors": [
-      "Browne, John Ross"
+      "Browne, J.Ross (John Ross), 1821-1875"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -179695,7 +179697,7 @@
     "slug": "2129",
     "title": "Predigt. Andächtige Gottesgemeinde!",
     "authors": [
-      "Hahn, Aaron"
+      "Hahn, Aaron 1848-1932"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -179745,7 +179747,7 @@
     "slug": "2130",
     "title": "[U-beḥartah be-ḥayim]. Predigt, gehalten im Gotteshause der Gemeinde Rodeph Schalom am Sabbath Reeh.",
     "authors": [
-      "Hahn, Aaron"
+      "Hahn, Aaron 1848-1932"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -181125,7 +181127,7 @@
     "slug": "2156",
     "title": "Details of an Unpaid Claim on France for 24000000 Francs Guaranteed by the Parole of Napoleon III",
     "authors": [
-      "Parrish, Robert Austin"
+      "Parrish, Robert-Austin"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -181448,7 +181450,7 @@
     "slug": "2162",
     "title": "Reminiscences of Felix Mendelssohn-Bartholdy. A Social and Artistic Biography. Translated from the German by Lady Wallace. With Additional Letters addressed to English Correspondents.",
     "authors": [
-      "Polko, Elise Vogel"
+      "Polko, Elise, 1823-1899."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -186909,7 +186911,7 @@
     "slug": "2238",
     "title": "Kaatskill and other Poems",
     "authors": [
-      "Roosevelt, Silas Weir"
+      "Roosevelt, S. Weir (Silas Weir), 1823-1870"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -189297,7 +189299,7 @@
     "slug": "supp1846",
     "title": "What the Wood Whispers to Itself. Translated from the German of Gustav von Putlitz by E. E. H. With Illustrations by Elisabeth Murray.",
     "authors": [
-      "Putlitz, Gustav, Heinrich Gans, Edler Herr von und zu"
+      "Putlitz, Gustav Heinrich Gans zu 1821-1890"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -198654,7 +198656,7 @@
     "slug": "supp0497",
     "title": "Constitution and By-laws of the Congergation B’nai J’hudah of Kansas City, Missouri. Incorporated June 14, 1872.",
     "authors": [
-      "Kansas City, Mo. Congregaton B’nai Jehudah"
+      "Kansas City, Mo. Congregation B'nai Jehudah"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -201782,7 +201784,7 @@
     "slug": "2410",
     "title": "Mariamne being the Third of the Tragedies of Jewish and Biblical History and the Second in Continuation of Volume VI of the Dramatic Series of",
     "authors": [
-      "Osborn, Laughton"
+      "Osborn, Laughton, 1809-1878"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -204201,7 +204203,7 @@
     "slug": "supp1913",
     "title": "Memoir of Samuel Joseph May",
     "authors": [
-      "May, Samuel Joseph"
+      "May, Samuel J. (Samuel Joseph), 1797-1871"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -210570,7 +210572,7 @@
     "slug": "supp1998",
     "title": "Our Place among Infinities. A Series of Essays contrasting Our Little Abode in Space and Time with the Infinities Around Us. To which are added Essays on the Jewish Sabbath and Astrology ...",
     "authors": [
-      "Proctor, Richard Anthony"
+      "Proctor, Richard A. (Richard Anthony), 1837-1888"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -218722,7 +218724,7 @@
     "slug": "supp0521",
     "title": "Miriam and Rosette; or, The Trials of Faith. A Jewish Narrative. By the author of \"Emma de Lissau,\" etc., etc. New Edition, with Illustrations.",
     "authors": [
-      "Bristow, Amelia"
+      "Amelia Bristow"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -224275,7 +224277,7 @@
     "slug": "2553",
     "title": "[Peri ʻets ha-daʻat]. The Rational Ju­daism in Queries and Answers.",
     "authors": [
-      "Hahn, Aaron"
+      "Hahn, Aaron 1848-1932"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -226858,7 +226860,7 @@
     "slug": "2577",
     "title": "The True Tabernacle. A Series of Lectures on the Jewish Tabernacle. Illustrated.",
     "authors": [
-      "Needham, George Carter"
+      "Needham, George Carter, 1840-"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -233530,7 +233532,7 @@
     "slug": "2773",
     "title": "[Sefer ʻokre harim]. The Rabbinical Dialectics. A History of the Dialecticians and Dialectics of the Mishnah and Talmud.",
     "authors": [
-      "Hahn, Aaron"
+      "Hahn, Aaron 1848-1932"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -237355,7 +237357,7 @@
     "year": "1879",
     "startDate": -2871676800,
     "endDate": -2871676800,
-    "iframe": "",
+    "iframe": "<iframe src=\"https://archive.org/embed/somemistakesmose00ingeuoft\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
     "description": "Ingersoll, Robert Green. Some Mistakes of Moses. ... Washington, D.C.: C. P. Farrell, 1879. 278 p., [8] p. of adv.",
     "languages": [
       "English"
@@ -237366,7 +237368,9 @@
     "kind": "",
     "type": "",
     "notes": "A freethought perspective. Embossed on the back cover is a notice dated Oct. 1, 1879, with Ingersoll’s signature, \"This is the only correct edition of 'Some Mistakes of Moses'\" Frequently reissued.",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/somemistakesmose00ingeuoft\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -244139,7 +244143,7 @@
     "slug": "supp0607",
     "title": "Woman in All Lands. Her Domestic, Social and Intellectual Condition, interspersed with Strange Scenes, Customs, Romances, etc. From the German of A. von Schweiger-Lerchenfeld, by A. S. Meyrick. Illustrated by over 800 Artistic Engravings.",
     "authors": [
-      "Schweiger-Lerchenfeld, Amand, Freiherr von"
+      "Schweiger-Lerchenfeld, Amand, Freiherr von, 1846-1910"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -252146,7 +252150,7 @@
     "slug": "3301",
     "title": "“Denk und Dank.” Gewidmet Sir Moses Montefiore, hundertsen Geburtstage.",
     "authors": [
-      "Spitz, Moritz"
+      "Moritz Spitz American rabbi (1848–1920)"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -256814,7 +256818,7 @@
     "slug": "supp2243",
     "title": "Rochester: A Story Historical.",
     "authors": [
-      "Parker, Jenny Marsh"
+      "Parker, Jenny Marsh, 1836-1913"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -257137,7 +257141,7 @@
     "slug": "supp2246",
     "title": "Bible Folk-Lore: A Study in Comparative Mythology. By the Author of \"Rabbi Jeshua.\" ...",
     "authors": [
-      "[Rogers, James Edwin Thorold]"
+      "Rogers, James Edwin Thorold"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -257608,7 +257612,7 @@
     "slug": "supp2251",
     "title": "[Pamphlet about the Chanukah-Christmas controversy].",
     "authors": [
-      "Spitz, Moritz"
+      "Moritz Spitz American rabbi (1848–1920)"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -261156,7 +261160,7 @@
     "slug": "3336",
     "title": "History of the Arguments for the Existence of God",
     "authors": [
-      "Hahn, Aaron"
+      "Hahn, Aaron 1848-1932"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -261520,7 +261524,7 @@
     "holdings": [
       "CLolC",
       "CRivL",
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "IAurC",
       "MiBsA",
       "MiEM",
@@ -265059,7 +265063,7 @@
     "slug": "3371",
     "title": "Order of Service at the Dedication of the Synagogue of the Congregation “B’nai Jeshurun,” of Madison Avenue, Wednesday, March 25th, 1885, 9th Nissan, 5645.",
     "authors": [
-      "New York. B'nai Jeshurun Congregation"
+      "New York. B’nai Jeshurun Congregation."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -269121,7 +269125,7 @@
     "slug": "supp0686",
     "title": "Grandpa’s Stories; or, Home Talks out of the Wonderful Book. A Series of One Hundred Delightful Fireside Stories in which Grandpa Goodwin Narrates the Most Wonderful Occurences Recorded in the Sacred Volume in a Manner to Charm the Young Folks by the Real Romance They Contain, and at the same Time Sow the Good Wheat of Divine Truth in Fertile Soil. Richly Illustrated.",
     "authors": [
-      "Peltz, George A"
+      "Peltz, George A."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -276020,7 +276024,7 @@
     "slug": "3178",
     "title": "The Great Pyramid: Observatory, Tomb, and Temple. With Illustrations.",
     "authors": [
-      "Proctor, Richard Anthony"
+      "Proctor, Richard A. (Richard Anthony), 1837-1888"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -277176,7 +277180,7 @@
     "holdings": [
       "AJHS",
       "DLC",
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "INS",
       "MWalB",
       "MiU",
@@ -279581,7 +279585,7 @@
     "slug": "supp2193",
     "title": "Russian Nihilism and Exile Life in Siberia. A Graphic and Chronological History of Russia’s Bloody Nemesis, and a Description of Exile Life in all Its True but Horrifying Phases, being the Results of a Tour through Russia and Siberia made by the Author ... Illustrated with over 200 Engravings.",
     "authors": [
-      "Buel, James William"
+      "Buel, James William, 1849-1920"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -282553,7 +282557,7 @@
     "holdings": [
       "ALT",
       "DLC",
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "MB",
       "NCH"
     ],
@@ -287464,7 +287468,7 @@
     "slug": "supp2291",
     "title": "Studies of Family Life: A Contribution to Social Science.",
     "authors": [
-      "Devas, Charles Stanton"
+      "Charles Stanton Devas"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -291694,7 +291698,7 @@
     "slug": "3525",
     "title": "A Common Ground for Field and Ingersoll",
     "authors": [
-      "Dembitz, Lewis N"
+      "Dembitz, Lewis Naphtali"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -291966,7 +291970,7 @@
     "slug": "3285",
     "title": "The late Dr. Eduard Lasker. Speech of Hon. Thomas P. Ochiltree, of Texas, in the House of Representatives, Wednesday, March 19, 1884",
     "authors": [
-      "Ochiltree, Thomas Peck"
+      "Thomas P. Ochiltree"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -297937,7 +297941,7 @@
     "slug": "supp2318",
     "title": "Prisoners of Poverty. Women Wage-Workers, Their Trades and Their Lives.",
     "authors": [
-      "Campbell, Helen Stuart"
+      "Campbell, Helen, 1839-1918"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -299086,7 +299090,7 @@
     "slug": "supp2341",
     "title": "[Appeal, New York, Oct. 12, 1887, on letterhead of The Menorah, to the B’nai B’rith membership for \"material support\" to sustain the magazine, one that fulfills the Order’s mission of intellectual advancement].",
     "authors": [
-      "Peixotto, Benjamin F"
+      "Peixotto, Benjamin F. (Benjamin Franklin), 1834-1890"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -299487,7 +299491,7 @@
     "slug": "supp2349",
     "title": "San Francisco Society: Its Characters and Characteristics [by] Watson.",
     "authors": [
-      "[Watson, Mary]"
+      "Watson, Mary"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -306156,7 +306160,7 @@
     "slug": "3729",
     "title": "New York City: Opportunities and Resources for Christian Work",
     "authors": [
-      "Parkhurst, Charles Henry"
+      "Parkhurst, Charles Henry, 1842-1933"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -307885,7 +307889,7 @@
     "slug": "supp0035",
     "title": "Why Pat was a Democrat, and other Campaign Arguments, in Verse.",
     "authors": [
-      "Woodside, John W"
+      "Woodside, John W., 1838-"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -311534,7 +311538,7 @@
     "slug": "supp2399",
     "title": "Why Pat was a Democrat, and other Campaign Arguments, in Verse.",
     "authors": [
-      "Woodside, John W"
+      "Woodside, John W., 1838-"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -319258,7 +319262,7 @@
     "slug": "supp2462",
     "title": "History of Portland, Oregon, with Illustrations and Biographical Sketches of Prominent Citizens and Pioneers.",
     "authors": [
-      "Scott, Harvey Whitefield"
+      "Scott, Harvey W. (Harvey Whitefield), 1838-1910"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -331924,7 +331928,7 @@
     "slug": "4257",
     "title": "Delilah",
     "authors": [
-      "Odell, Samuel W"
+      "Odell, Samuel W., 1864-1948"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -332041,7 +332045,7 @@
     "slug": "4258",
     "title": "Samson: An Historical Romance",
     "authors": [
-      "Odell, Samuel W"
+      "Odell, Samuel W., 1864-1948"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -333383,7 +333387,7 @@
     "slug": "4271",
     "title": "Mary Magdalen: A Chronicle",
     "authors": [
-      "Saltus, Edgar Evertson"
+      "Saltus, Edgar, 1855-1921"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -334275,7 +334279,7 @@
     "slug": "4279",
     "title": "Menstruation: A Brief Summary of the Theories of the Ancients with Special Reference to the Views held by the Talmudists",
     "authors": [
-      "Spivak, Charles David"
+      "Spivak, C. D. (Charles D.), 1861-1927"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -335030,7 +335034,7 @@
     "slug": "4286",
     "title": "[Ḥuke Artsot ha-Berit, ve-­Keri’at deror shel yoshevehen ...]",
     "authors": [
-      "Eisenstein, J.D."
+      "Eisenstein, J. D."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -336509,7 +336513,7 @@
     "slug": "supp0586",
     "title": "Ta-ra-ra Boom-der-é.",
     "authors": [
-      "Sayers, Henry J"
+      "Sayers, Henry-J. 1854-1932"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -340243,7 +340247,7 @@
     "slug": "supp2491",
     "title": "Jewish Colonization in Palestine. Its Origin, Causes, Condition and Prospects.",
     "authors": [
-      "New York. Choveve Zion Association"
+      "New York. Chovevai Zion Association"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -340737,7 +340741,7 @@
     "slug": "supp2501",
     "title": "Ta-ra-ra Boom-der-é.",
     "authors": [
-      "Sayers, Henry J"
+      "Sayers, Henry-J. 1854-1932"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -341252,7 +341256,7 @@
     "slug": "3895",
     "title": "“The B’nai B’rith: Its Mission and the Necessity for its Existence and Perpetuity.” 0ration delivered at Temple Emanu-El, Birmingham, Ala., Before the District Grand Lodge No. 7, I. O. B. B.",
     "authors": [
-      "Chapman, Edward M"
+      "Chapman, Edward M."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -352185,7 +352189,7 @@
     "slug": "supp2518",
     "title": "Darkness and Daylight; or, Lights and Shadows of New York Life. A Woman’s Story of Gospel, Temperance, Mission, and Rescue Work \"In His Name\" ... With an Introduction by Rev. Lyman Abbott, D.D. Supplemented by a Journalist’s Description of Little- known Phases of New York Life; and a Famous Detective’s Thirty Years’ Experiences and Observations, by Col. Thomas W. Knox and Inspector Thomas Byrnes ... Illustrated with Two Hundred and Fifty-two Engravings from Photographs ...",
     "authors": [
-      "Campbell, Helen Stuart"
+      "Campbell, Helen, 1839-1918"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -352285,7 +352289,7 @@
     "slug": "supp2520",
     "title": "Oration by Rev. Dr. E. M. Chapman, Of Dallas Lodge No. 197, I.O.B.B. of Dallas, Texas, and Essay by Rev. Sam’l Ullman, of Birmingham Lodge No. 368, I.O.B.B., of Birmingham, Alabama. Delivered at Temple Emanuel, During the Convention of District Grand Lodge No. 7, I.O.B.B. Held in Birmingham, Ala. May 22nd, 1892. N. O.",
     "authors": [
-      "Chapman, Edward M"
+      "Chapman, Edward M."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -353578,7 +353582,7 @@
     "slug": "supp2546",
     "title": "[Kol shavʻat bat ʻami me-erets merḥakim].",
     "authors": [
-      "New York. Choveve Zion Association"
+      "New York. Chovevai Zion Association"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -359078,7 +359082,7 @@
     "slug": "4544",
     "title": "A Collection of the Principal Melodies of the Synagogue from the Earliest Time to the Present",
     "authors": [
-      "Kaiser, Alois, and William Sparger, comp"
+      "Kaiser, Alois| Sparger, William, comp"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -360866,7 +360870,7 @@
     "goldmanTitle": "",
     "goldmanId": "",
     "holdings": [
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "ICMB",
       "NN",
       "NNUT",
@@ -364042,7 +364046,7 @@
     "goldmanTitle": "",
     "goldmanId": "",
     "holdings": [
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "ICN",
       "MBC"
     ],
@@ -366273,7 +366277,7 @@
     "goldmanTitle": "",
     "goldmanId": "",
     "holdings": [
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "ICN",
       "MBC"
     ],
@@ -366538,7 +366542,7 @@
     "slug": "supp2599",
     "title": "The \"Black Hole\"; or, The Missionary Experience of a Girl in the Slums of Chicago, 1891-1892 ...",
     "authors": [
-      "[Divers, Vivia H.]"
+      "Divers, Vivia H"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -366742,7 +366746,7 @@
     "slug": "supp2603",
     "title": "A Book of Facts. Mosaic History of the Hebrews Analyzed. Also The Irresistable Conflict in Religion in the Present Day. In Two Parts. With Quotations from many Eminent Divines. By One of the People.",
     "authors": [
-      "[Clemens, Augustine Ducas]"
+      "Clemens, Augustine Ducas"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -367048,7 +367052,7 @@
     "slug": "supp2609",
     "title": "Young Folks’ Story Book. Edited by Pansy. With Nearly One Hundred Illustrations.",
     "authors": [
-      "[Alden, Isabella Macdonald], ed"
+      "Alden, Isabella Macdonald, ed"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -368760,7 +368764,7 @@
     "slug": "4643",
     "title": "[Di russishe shpyonen in Bulgaryen. Historisher roman, fray bearbaytet fun Ben Poyres].",
     "authors": [
-      "Bukanski, Maks, tran"
+      "Bukanski, Maks"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -375442,7 +375446,7 @@
     "slug": "4763",
     "title": "Enthralled: A Story of International Life setting forth the Curious Circumstances concerning Lord Cloden and Oswald Quain",
     "authors": [
-      "Saltus, Edgar Evertson"
+      "Saltus, Edgar, 1855-1921"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -378629,7 +378633,7 @@
     "slug": "supp2620",
     "title": "Sequel to the Parliament of Religions, by Eben Malcolm Sutcliffe.",
     "authors": [
-      "[Souvielle, Eliza Madelina]"
+      "Souvielle, Eliza Madelina"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -378787,7 +378791,7 @@
     "slug": "supp2623",
     "title": "[Ketav ha-hartumim ve-ketav ...].",
     "authors": [
-      "Rosenberg, Abraham Hayyim"
+      "Rosenberg, Abraham Ḥayyim, 1838-1928"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -381390,7 +381394,7 @@
     "slug": "4813",
     "title": "[Der getoyfter yungel. Oys dem englishen fun Bukanski. Tsveyte oyflage]",
     "authors": [
-      "Bukanski, Maks, tran"
+      "Bukanski, Maks"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -396985,7 +396989,7 @@
     "slug": "5023",
     "title": "Sabbath Af­ternoon Service. Hebrew Orphan Asylum, Brooklyn.",
     "authors": [
-      "Hebrew Orphan Asylum, Brooklyn"
+      "Brooklyn. Hebrew Orphan Asylum"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -399170,7 +399174,7 @@
     "slug": "5062",
     "title": "The Wrestler of Philippi: A Tale of the Early Christians. Sabbath Library, vol. 9, no. 291.",
     "authors": [
-      "Newberry, Fannie Ellsworth"
+      "Newberry, Fannie E. (Fannie Ellsworth), 1848-1942"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -399775,7 +399779,7 @@
     "slug": "5073",
     "title": "[Eyn ershter may in tsvantsigsten yohrhundert; oder, Di kumende revolutsyon ...]",
     "authors": [
-      "Rosenzweig, Leo"
+      "Rosenzweig, Leo, 1869-1916"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -399831,7 +399835,7 @@
     "slug": "5074",
     "title": "[Di tsavoe fun R. Tsvi Menakhem; oder, Der driter testament]",
     "authors": [
-      "Rosenzweig, Leo"
+      "Rosenzweig, Leo, 1869-1916"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -400499,7 +400503,7 @@
     "slug": "5086",
     "title": "Sabbath Music. Complete Evenning and Morning Service, According to the Union Prayer Book. For Soprano, Alto, Tenor and Bass, with an Organ Accompaniment.",
     "authors": [
-      "Schlesinger, Sebastian Benson"
+      "Schlesinger, Sebastian Benson 1837-1917"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -404298,7 +404302,7 @@
     "slug": "supp2715",
     "title": "Sheshano; oder, Der richter fon Jericho. Opera, in 4 acts, with prologue.",
     "authors": [
-      "Shaykevitsh, Naḥum-Me’ir"
+      "Shaykevitsh, Nahum-Me’ir"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -404348,7 +404352,7 @@
     "slug": "supp2716",
     "title": "Haman der Zweiter; oder, Der komisher hersher. Comedy in 5 acts and 8 tableux.",
     "authors": [
-      "Shaykevitsh, Naḥum-Me’ir"
+      "Shaykevitsh, Nahum-Me’ir"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -417714,7 +417718,7 @@
     "slug": "supp0940",
     "title": "Frank Merriwell’s Ride for Life; or, Foiling the Train Destroyers. By the Author of \"FRANK MERRIWELL.\" Tip Top Weekly, vol. 1, no. 54; April 24, 1897.",
     "authors": [
-      "Standish, Burt L"
+      "Standish, Burt L., 1866-1945"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -429251,7 +429255,7 @@
     "slug": "5463",
     "title": "[Otsar ha-shemot asher be-kitve ha-kodesh]",
     "authors": [
-      "Rosenberg, Abraham Hayyim"
+      "Rosenberg, Abraham Ḥayyim, 1838-1928"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -429746,7 +429750,7 @@
     "holdings": [
       "CtY",
       "FU",
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "ICU",
       "MH",
       "NN",
@@ -433262,7 +433266,7 @@
     "slug": "supp0969",
     "title": "Frank Merriwell’s Cruise; or, Pleasure and Peril Afloat. The Merriwell Series, no. 26.",
     "authors": [
-      "Standish, Burt L"
+      "Standish, Burt L., 1866-1945"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -434977,7 +434981,7 @@
     "slug": "supp2843",
     "title": "Fairy Tales by the Brothers Grimm. With Sixty-five Illustrations.",
     "authors": [
-      "[Grimm, Jacob]|[Grimm, Wilhelm]"
+      "Grimm, Jacob|Grimm, Wilhelm"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -444744,7 +444748,7 @@
     "slug": "5663",
     "title": "Memorial Service for the Day of Atonement, according to the Union Prayer Book. For 4 Voices and an Organ Accompaniment. Composed and published by",
     "authors": [
-      "Schlesinger, Sebastian Benson"
+      "Schlesinger, Sebastian Benson 1837-1917"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -447474,7 +447478,7 @@
     "slug": "supp0983",
     "title": "The Jew of Chamant. A Romance of Crime. ... By Ivan Trepoff.",
     "authors": [
-      "Gossip, George Hatfield Dingley"
+      "Gossip, George Hatfield Dingley, 1841-1907"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -448092,7 +448096,7 @@
     "slug": "supp2862",
     "title": "A Life for Liberty. Anti-Slavery and other Letters of Sallie Holley. Edited with Introductory Chapters by John White Chadwick. With Illustrations.",
     "authors": [
-      "Holley, Sallie"
+      "Holley, Sallie, 1818-1893"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -448591,7 +448595,7 @@
     "slug": "supp2872",
     "title": "A Nemesis of Misgovernment. Authorized by J. W. Buel. The Author Undertook a Journey of Research to the Countries of Europe for the Purpose of Observing the Different Conditions resulting from the various Forms of Republican, Monarchical, and Empirical Governments ... Illustrated.",
     "authors": [
-      "Buel, James William"
+      "Buel, James William, 1849-1920"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -449041,7 +449045,7 @@
     "slug": "supp2881",
     "title": "Thanksgiving service",
     "authors": [
-      "New York. B'nai Jeshurun Congregation"
+      "New York. B’nai Jeshurun Congregation."
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -451152,7 +451156,7 @@
     "slug": "5708",
     "title": "Hebrew Yarns and Dialect Humor. Comprising Original and Selected Laughable Dialect Stories, Comic Situations, Witty Sayings and Rare Anecdotes",
     "authors": [
-      "Carey, Thomas Joseph"
+      "Carey, T. J. (Thomas Joseph), 1853-"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -457708,7 +457712,7 @@
     "slug": "5827",
     "title": "The Phoenix. A Drama in Four Acts.",
     "authors": [
-      "Nobles, Milton"
+      "Nobles, Milton, 1847-1924"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -461857,7 +461861,7 @@
     "slug": "supp0929",
     "title": "[Dos doktor-bukh: allerhand krankheyten und zayere heylungen geshildert und behandelt fir yeden menshen vos veys nit in a noyth vi tsu helfen. Bearbeytet nokh di greste professoren]",
     "authors": [
-      "Landes, Leonard"
+      "Landes, Leonard, 1870-"
     ],
     "asterix": "*",
     "creatorUri": "",
@@ -463861,7 +463865,7 @@
     "slug": "supp2945",
     "title": "Eccentricities of Genius. Memories of Famous Men and Women of the Platform and Stage.",
     "authors": [
-      "Pond, James Burton"
+      "Pond, James B. (James Burton), 1838-1903"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -463911,7 +463915,7 @@
     "slug": "supp2946",
     "title": "Early New York Houses, with Historical & Genealogical Notes. Photographs of Old Houses & Original Illustrations by C. G. Moller, Jr. In Ten Parts.",
     "authors": [
-      "Pelletreau, William Smith"
+      "Pelletreau, William S. (William Smith), 1840-1918"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -464408,7 +464412,7 @@
     "slug": "supp2956",
     "title": "Wooings and Weddings in Many Climes",
     "authors": [
-      "Miln, Louise Jordan"
+      "Louise Jordan Miln"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -465071,7 +465075,7 @@
     "slug": "supp2969",
     "title": "A Royal Enchantress. The Romance of the Last Queen of the Berbers. With Illustrations by B. Martin Justice.",
     "authors": [
-      "Dessar, Leo Charles"
+      "Dessar, Leo Charles, 1847-1924"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -465617,7 +465621,7 @@
     "slug": "supp0036",
     "title": "The Gracious Proclamation of Emmanuel the King of Kings, to all Nations, Languages, and People under Heaven, Greeting. To which is added, The Burning Bush, The Jewish and Christian Jubilee, The Man of Sin, The Origin of Evil, &c. &c.",
     "authors": [
-      "Fenn, James"
+      "Fenn, James, 1745-1824"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -467781,7 +467785,7 @@
     "goldmanTitle": "",
     "goldmanId": "",
     "holdings": [
-      "Emmaus Bible College (Dubuque, Ia)",
+      "Emmaus University",
       "NN",
       "PU (LKCAJS)"
     ],
@@ -468410,7 +468414,7 @@
     "slug": "2180",
     "title": "The Pilgrim (Le Juif errant). The Words by Béranger. Imitated in English by H. F. Chorley.",
     "authors": [
-      "Gounod, Charles Francois"
+      "Gounod, Charles, 1818-1893."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -468677,7 +468681,7 @@
     "slug": "2186",
     "title": "The Painter of Ghent: A Play in One Act. Ames’ Series of Standard and Minor Drama, no. 29.",
     "authors": [
-      "Jerrold, Douglas William"
+      "Jerrold, Walter, 1865-1929"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -470531,7 +470535,7 @@
     "slug": "2867",
     "title": "Down with the Jews! Meeting of the Society for Suppressing the Jewish Race. A terrible plot against the chosen people.",
     "authors": [
-      "Marks, Harry H"
+      "Harry Marks"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -473052,7 +473056,7 @@
     "slug": "3900",
     "title": "באנקראט דער אדער ;װעלטען צעהן מיט הונדערט דרײ",
     "authors": [
-      "Ehrenkranz, Benjamin Wolf"
+      "Ehrenkranz, Benjamin Zeeb, -1883"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -476971,7 +476975,7 @@
     "slug": "3997",
     "title": "[Der shtodt moser; oder, Begroben kvures khamer. Bearbaytet fun Yitshok Rabinovits]",
     "authors": [
-      "Smolenskin, Perez"
+      "Smolenskin, Perez, 1842-1885"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -477026,7 +477030,7 @@
     "slug": "3998",
     "title": "[Der shvindler; oder, Di frayd fun a khonef. Bearbaytet fun Yitskhok Rabinovits]",
     "authors": [
-      "Smolenskin, Perez"
+      "Smolenskin, Perez, 1842-1885"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -486873,7 +486877,7 @@
     "slug": "S102",
     "title": "A Course of Lectures by ... under the auspices of the Sunday Lecture Society of Cleveland.",
     "authors": [
-      "Hahn, Aaron"
+      "Hahn, Aaron 1848-1932"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -490742,7 +490746,7 @@
     "slug": "S178",
     "title": "Jewish Enquirer.",
     "authors": [
-      "Heller, Maximillian"
+      "Heller, Maximilian"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -505996,7 +506000,7 @@
     "slug": "S483",
     "title": "Baltimor fraye presse.",
     "authors": [
-      "Barondess, Joseph"
+      "Barondess, Joseph, 1867-1928"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -517352,7 +517356,7 @@
     "slug": "suppS103",
     "title": "Nathanael. Jahrg.",
     "authors": [
-      "Strack, Hermann L"
+      "Strack, Hermann Leberecht, 1848-1922"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -519187,7 +519191,7 @@
     "slug": "supp3046",
     "title": "The political state of Italy",
     "authors": [
-      "Lyman, Theodore"
+      "Lyman, Theodore, 1792-1849"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -520050,7 +520054,7 @@
     "slug": "supp3063",
     "title": "Abraham: The Typical Life of Faith",
     "authors": [
-      "Breed, David Riddle"
+      "Breed, David R. (David Riddle), 1848-1931"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -520164,7 +520168,7 @@
     "startDate": null,
     "endDate": null,
     "iframe": "",
-    "description": "\"Judaism,\" as it is believed by Israelites. [New York:\n                   American Society for Meliorating the Condition of\n                   the Jews, 185-?]. 8 p.",
+    "description": "\"Judaism,\" as it is believed by Israelites. [New York:\n      American Society for Meliorating the Condition of\n      the Jews, 185-?]. 8 p.",
     "languages": [
       "English"
     ],
@@ -520214,7 +520218,7 @@
     "startDate": -3060979200,
     "endDate": -3060979200,
     "iframe": "",
-    "description": "Punshon, William Morley. Lectures and Sermons. \n              Boston: Estes and Lauriat, [Preface, 1873]. 378 p.",
+    "description": "Punshon, William Morley. Lectures and Sermons. \n Boston: Estes and Lauriat, [Preface, 1873]. 378 p.",
     "languages": [
       "English"
     ],
@@ -520415,7 +520419,7 @@
     "slug": "supp3070",
     "title": "Lyrical Recitations. ...",
     "authors": [
-      "Ward, Samuel"
+      "Ward, Samuel A., 1847-1903"
     ],
     "asterix": "",
     "creatorUri": "",
@@ -520674,7 +520678,7 @@
     "startDate": -5459270400,
     "endDate": -5459270400,
     "iframe": "",
-    "description": "The Syren, or Vocal Enchantress: Being a Collection\n               of the Newest and Most Admired Miscellaneous,-\n               Pathetic, and Passionate,-Anacreontic and Jovial,\n               Comic, Ingenious, and Witty,-Sea, Hunting, and\n               Masonic Songs. Selected from the Most Approved\n               Sentimental, Humorous, and Ingenious Publications;\n               including All the Best Songs of Dibdin Edwin, &c.\n               Wilmington, [Del.]: Printed by Bonsal and Niles, 1797.\n               various pagings.",
+    "description": "The Syren, or Vocal Enchantress: Being a Collection\n  of the Newest and Most Admired Miscellaneous,-\n  Pathetic, and Passionate,-Anacreontic and Jovial,\n  Comic, Ingenious, and Witty,-Sea, Hunting, and\n  Masonic Songs. Selected from the Most Approved\n  Sentimental, Humorous, and Ingenious Publications;\n  including All the Best Songs of Dibdin Edwin, &c.\n  Wilmington, [Del.]: Printed by Bonsal and Niles, 1797.\n  various pagings.",
     "languages": [
       "English"
     ],
@@ -520725,7 +520729,7 @@
     "startDate": -5143824000,
     "endDate": -5143824000,
     "iframe": "",
-    "description": "Wild, Thomas. The Budget of Mirth, being a Choice\n               Collection of the Most Approved and Fashionable Songs.\n               ... Boston: Printed by Snelling and Simons, 1807.\n               108 p.",
+    "description": "Wild, Thomas. The Budget of Mirth, being a Choice\n  Collection of the Most Approved and Fashionable Songs.\n  ... Boston: Printed by Snelling and Simons, 1807.\n  108 p.",
     "languages": [
       "English"
     ],
@@ -520778,7 +520782,7 @@
     "startDate": -3187209600,
     "endDate": -3187209600,
     "iframe": "",
-    "description": "Fawcett, Owen. Owen Fawcett’s Paul Pry Songster. \n               Containing All the Popular Songs as Sung by Owen \n               Fawcett, the Favorite Comedian of the Walnut Street\n               Theatre, Philadelphia. Philadelphia: A. Winch,                       \n               [c1869]. 72 p.",
+    "description": "Fawcett, Owen. Owen Fawcett’s Paul Pry Songster. \n  Containing All the Popular Songs as Sung by Owen \n  Fawcett, the Favorite Comedian of the Walnut Street\n  Theatre, Philadelphia. Philadelphia: A. Winch,          \n  [c1869]. 72 p.",
     "languages": [
       "English"
     ],
@@ -520830,7 +520834,7 @@
     "startDate": -3060979200,
     "endDate": -3060979200,
     "iframe": "",
-    "description": "Riley, J. W. The World’s Empire, passing from Prophecy\n               to History. Compiled from a series of Lectures, \n               delivered by J. W. Riley, in the West, during the \n               Great Rebellion of 1860 to 1865. Indianapolis: Journal \n               Company, Printers, 1873. 413 p.",
+    "description": "Riley, J. W. The World’s Empire, passing from Prophecy\n  to History. Compiled from a series of Lectures, \n  delivered by J. W. Riley, in the West, during the \n  Great Rebellion of 1860 to 1865. Indianapolis: Journal \n  Company, Printers, 1873. 413 p.",
     "languages": [
       "English"
     ],
@@ -520884,7 +520888,7 @@
     "startDate": null,
     "endDate": null,
     "iframe": "",
-    "description": "Duprez, Charles H., and Lew Benedict. Chas. H. Duprez\n               and Benedict’s Famous Minstrels Songster. Containing\n               a Large and New Collection of Songs as Sung by This\n               Famous Minstrel Company on Their Tour Throughout the\n               United States. Together with All of the Latest and\n               Most Popular Songs of the Day. Examine the Contents.\n               [Favorite Dime Song Book, 200]. New York: New York \n               Popular Publishing Co., [188-?]. 60 p., [4] p. of adv.",
+    "description": "Duprez, Charles H., and Lew Benedict. Chas. H. Duprez\n  and Benedict’s Famous Minstrels Songster. Containing\n  a Large and New Collection of Songs as Sung by This\n  Famous Minstrel Company on Their Tour Throughout the\n  United States. Together with All of the Latest and\n  Most Popular Songs of the Day. Examine the Contents.\n  [Favorite Dime Song Book, 200]. New York: New York \n  Popular Publishing Co., [188-?]. 60 p., [4] p. of adv.",
     "languages": [
       "English"
     ],
@@ -520923,7 +520927,7 @@
     "slug": "supp3080",
     "title": "McElroy & Devere’s Latest Songster. Containing a collection of Dutch, Negro, Irish, Hebrew, Sentimental, Motto, Semi-Comic, and Comic Songs and Dances, suitable for any Entertainment. Examine the Contents. [Casket of Gems, 140].",
     "authors": [
-      "McElroy, Matt, and George M. Devere"
+      "McElroy, Matt| Devere, George M."
     ],
     "asterix": "",
     "creatorUri": "",
@@ -520934,7 +520938,7 @@
     "startDate": null,
     "endDate": null,
     "iframe": "",
-    "description": "McElroy, Matt, and George M. Devere. McElroy & Devere’s\n               Latest Songster. Containing a collection of Dutch, \n               Negro, Irish, Hebrew, Sentimental, Motto, Semi-Comic,\n               and Comic Songs and Dances, suitable for any \n               Entertainment. Examine the Contents. [Casket of Gems,\n               140]. New York: New York Popular Publishing Co.,\n               [188-?]. 61 p., [3] p. of adv.",
+    "description": "McElroy, Matt, and George M. Devere. McElroy & Devere’s\n  Latest Songster. Containing a collection of Dutch, \n  Negro, Irish, Hebrew, Sentimental, Motto, Semi-Comic,\n  and Comic Songs and Dances, suitable for any \n  Entertainment. Examine the Contents. [Casket of Gems,\n  140]. New York: New York Popular Publishing Co.,\n  [188-?]. 61 p., [3] p. of adv.",
     "languages": [
       "English"
     ],
@@ -520983,7 +520987,7 @@
     "startDate": null,
     "endDate": null,
     "iframe": "",
-    "description": "Wesley Brothers’ Long and Short of It Songster, containing\n               a great collection of these very funny artists’ best \n               songs as sung by them with great success in all the\n               principal theatres of the Union. [Favorite Dime Song\n               Book, 126]. New York: New York Popular Publishing Co., \n               [188-?]. 60 p., [4] p. of adv.",
+    "description": "Wesley Brothers’ Long and Short of It Songster, containing\n  a great collection of these very funny artists’ best \n  songs as sung by them with great success in all the\n  principal theatres of the Union. [Favorite Dime Song\n  Book, 126]. New York: New York Popular Publishing Co., \n  [188-?]. 60 p., [4] p. of adv.",
     "languages": [
       "English"
     ],
@@ -521034,7 +521038,7 @@
     "startDate": -2524521600,
     "endDate": -2524521600,
     "iframe": "",
-    "description": "Quigg, Lemuel Ely. Tin-Types Taken in the Streets of New\n               York. A Series of Stories and Sketches Portraying Many\n               Singular Phases of Metropolitan Life. With Fifty-three\n               Illustrations by Harry Beard. New York: Cassell\n               Publishing Co., [c1890]. 297 p.",
+    "description": "Quigg, Lemuel Ely. Tin-Types Taken in the Streets of New\n  York. A Series of Stories and Sketches Portraying Many\n  Singular Phases of Metropolitan Life. With Fifty-three\n  Illustrations by Harry Beard. New York: Cassell\n  Publishing Co., [c1890]. 297 p.",
     "languages": [
       "English"
     ],
@@ -521082,7 +521086,7 @@
     "startDate": -4133980800,
     "endDate": -4133980800,
     "iframe": "",
-    "description": "Elton’s Out-and-Outer Comic Songster. New York: [Printed\n               by Robert H. Elton], [1839?]. 140 p., [3] p. of contents.",
+    "description": "Elton’s Out-and-Outer Comic Songster. New York: [Printed\n  by Robert H. Elton], [1839?]. 140 p., [3] p. of contents.",
     "languages": [
       "English"
     ],
@@ -521132,7 +521136,7 @@
     "startDate": -3881520000,
     "endDate": -3881520000,
     "iframe": "",
-    "description": "Sawyer, Frederic W. A Plea for Amusements. ... New York:\n               D. Appleton; Philadelphia: George S. Appleton, 1847.\n               iv, 320 p.",
+    "description": "Sawyer, Frederic W. A Plea for Amusements. ... New York:\n  D. Appleton; Philadelphia: George S. Appleton, 1847.\n  iv, 320 p.",
     "languages": [
       "English"
     ],
@@ -521180,7 +521184,7 @@
     "startDate": null,
     "endDate": null,
     "iframe": "",
-    "description": "Gorton’s Original New Orleans Minstrel Songster. \n               Containing Many New and Popular Songs, Recitations, \n               and Musical Sketches, as done by This Company. New \n               York: New York Popular Publishing Co., [188-?]. 59 p.,\n               [3] p. of adv.",
+    "description": "Gorton’s Original New Orleans Minstrel Songster. \n  Containing Many New and Popular Songs, Recitations, \n  and Musical Sketches, as done by This Company. New \n  York: New York Popular Publishing Co., [188-?]. 59 p.,\n  [3] p. of adv.",
     "languages": [
       "English"
     ],
@@ -522001,8 +522005,8 @@
     "year": "1891",
     "startDate": -2492985600,
     "endDate": -2492985600,
-    "iframe": "",
-    "description": "Mutchmore, Samuel Alexander. The Moghul, Mongol, Mikado, \n        and Missionary: Essays, Discussions, Art Criticisms,\n        Political Institutions, History, Religions, Railway\n        Systems, Fortifications and Defences of India,\n        Afghanistan, China and Japan. Philadelphia: Presbyterian\n        Publishing Co., 1891. 2 vols. in 1.",
+    "iframe": "<iframe src=\"https://archive.org/embed/moghulmongolmika00mutc\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
+    "description": "Mutchmore, Samuel Alexander. The Moghul, Mongol, Mikado, and Missionary: Essays, Discussions, Art Criticisms, Political Institutions, History, Religions, Railway Systems, Fortifications and Defences of India, Afghanistan, China and Japan. Philadelphia: Presbyterian Publishing Co., 1891. 2 vols. in 1.",
     "languages": [
       "English"
     ],
@@ -522012,7 +522016,9 @@
     "kind": "",
     "type": "",
     "notes": "The few references to the Jews tend to be hostile and\n      prejudiced. See, for instance, \"Jew Shylocks\" (vol. 1, \n      p. 286), or the author’s retelling of the golden calf \n      (Ex. 32:20) reduced to \"drinkable conditions\" and the \n      \"pestering Jews ... retching, gagging, and twisting in \n      their inwards [innards?], getting a full dose of the \n      consequences of their idolatry\" (vol. 1, p. 252).\n        With respect to the Jews found at Yokohama, Japan, \"The \n      ubiquitous Jew is here working and doing after his \n      stereotyped way\" (vol. 2, p. 259, most likely an oblique\n      reference to loansharking; compare with vol. 1, p. 186, \n      about dowry money borrowed by parents in India from the \n      usurious \"sons of Jacob\").",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/moghulmongolmika00mutc\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -522052,7 +522058,7 @@
     "startDate": -4260211200,
     "endDate": -4260211200,
     "iframe": "",
-    "description": "Watson, Richard. Sermons and Sketches of Sermons. New-\n          York: Published by B. Waugh and T. Mason, for the                      \n          Methodist Episcopal Church, 1835. 2 vols.",
+    "description": "Watson, Richard. Sermons and Sketches of Sermons. New-York: Published by B. Waugh and T. Mason, for the Methodist Episcopal Church, 1835. 2 vols.",
     "languages": [
       "English"
     ],
@@ -522102,7 +522108,7 @@
     "startDate": -2997907200,
     "endDate": -2997907200,
     "iframe": "",
-    "description": "Dunn, Nathaniel. Satan Chained: A Poem. ... New York:\n         The author, 1875. viii, [11]-313 p.",
+    "description": "Dunn, Nathaniel. Satan Chained: A Poem. ... New York: The author, 1875. viii, [11]-313 p.",
     "languages": [
       "English"
     ],
@@ -522153,8 +522159,8 @@
     "year": "1885",
     "startDate": -2682288000,
     "endDate": -2682288000,
-    "iframe": "",
-    "description": "Hutton, Lawrence. Literary Landmarks of London. Boston:\n         James R. Osgood & Co., 1885. x, 361 p.",
+    "iframe": "<iframe src=\"https://archive.org/embed/londonlandmarks00huttrich\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
+    "description": "Hutton, Lawrence. Literary Landmarks of London. Boston: James R. Osgood & Co., 1885. x, 361 p.",
     "languages": [
       "English"
     ],
@@ -522164,7 +522170,9 @@
     "kind": "",
     "type": "",
     "notes": "Contains sections devoted to Benjamin Disraeli (pp. 86-\n       89) and Isaac D’Israeli (pp. 89-90).\n         Frequently reissued.",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/londonlandmarks00huttrich\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -522204,7 +522212,7 @@
     "startDate": -3723753600,
     "endDate": -3723753600,
     "iframe": "",
-    "description": "Waters, Reuben D. A Treatise, by Reuben D. Waters, on \n             the Town of Calais and Vicinity, with some Sketches \n             of Jewish, Pagan, Mahometan, and Other Religions; \n             Character of Bonaparte, Columbus, and Notaries. [Calais, \n             Vt.]: Published for the Author, 1852. 31 p.",
+    "description": "Waters, Reuben D. A Treatise, by Reuben D. Waters, on the Town of Calais and Vicinity, with some Sketches of Jewish, Pagan, Mahometan, and Other Religions;Character of Bonaparte, Columbus, and Notaries. [Calais, Vt.]: Published for the Author, 1852. 31 p.",
     "languages": [
       "English"
     ],
@@ -522260,7 +522268,7 @@
     "startDate": -3218832000,
     "endDate": -3218832000,
     "iframe": "<iframe src=\"https://archive.org/embed/manualofforeignm00lowr\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
-    "description": "Lowrie, John Cameron. A Manual of the Foreign Missions of\n            the Presbyterian Church in the United States of America.\n            [Third ed.]. New York: William Rankin, Jr., 1868. 359 p.",
+    "description": "Lowrie, John Cameron. A Manual of the Foreign Missions of the Presbyterian Church in the United States of America.[Third ed.]. New York: William Rankin, Jr., 1868. 359 p.",
     "languages": [
       "English"
     ],
@@ -522311,8 +522319,8 @@
     "year": "1895",
     "startDate": -2366755200,
     "endDate": -2366755200,
-    "iframe": "",
-    "description": "Hood, James Walker. One Hundred Years of the African\n            Methodist Episcopal Zion Church; or, The Centennial of\n            African Methodism. New York: A.M.E. Zion Book Concern,\n            1895. xxii, 695 p.",
+    "iframe": "<iframe src=\"https://archive.org/embed/onehundredyearso00hood\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
+    "description": "Hood, James Walker. One Hundred Years of the African Methodist Episcopal Zion Church; or, The Centennial of African Methodism. New York: A.M.E. Zion Book Concern, 1895. xxii, 695 p.",
     "languages": [
       "English"
     ],
@@ -522322,7 +522330,9 @@
     "kind": "",
     "type": "",
     "notes": "Chap. 2, \"The Negro Race,\" discusses God’s covenant with\n          Israel and the relations between the Hebrews and \"Ham’s \n          posterity,\" namely the Canaanites, Jebusites, Philistines, \n          and Phoenicians, also the Egyptians and the Ethiopians.  \n            The author is quick to introduce Moses as \"having married\n          a black woman\" and elevates him as the \"ancient black hero\"\n          (p. 47) that led his people out of slavery.\n            \"Introduction\" by William Howard Day.\n            A perfect copy has a frontispiece of the author.",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/onehundredyearso00hood\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -522362,7 +522372,7 @@
     "startDate": -4165516800,
     "endDate": -4165516800,
     "iframe": "",
-    "description": "[Goodrich, Samuel Griswold]. Peter Parley’s Common School\n               History. Illustrated by Engravings. Boston: American\n               Stationers’ Company, 1838 [c1837]. 407 p.",
+    "description": "[Goodrich, Samuel Griswold]. Peter Parley’s Common School History. Illustrated by Engravings. Boston: American Stationers’ Company, 1838 [c1837]. 407 p.",
     "languages": [
       "English"
     ],
@@ -522411,8 +522421,8 @@
     "year": "1846",
     "startDate": -3913056000,
     "endDate": -3913056000,
-    "iframe": "",
-    "description": "Daniel. A Series of Revival Sermons. With an \n               Appendix. Philadelphia: Published for the Author by \n               William S. Martien, 1846. 376 p.",
+    "iframe": "<iframe src=\"https://archive.org/embed/seriesofrevivals00bake\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
+    "description": "Daniel. A Series of Revival Sermons. With an \nAppendix. Philadelphia: Published for the Author by William S. Martien, 1846. 376 p.",
     "languages": [
       "English"
     ],
@@ -522422,7 +522432,9 @@
     "kind": "",
     "type": "",
     "notes": "The opening sermon, \"The Truth and Excellence of the\n             Christian Religion,\" incorporates an appreciation of\n             prophecy (Hos. 3:4) as it relates to the children of \n             Israel. \n               \"By estimation there are, at this time, about eight \n             millions of Jews upon the earth; a sufficient number to \n             form a powerful empire, or more glorious republic; and yet \n             they have no king, no prince, no polity, no government of \n             their own, and this has been the case for eighteen hundred\n             years! How astonishing are these prophecies, and how exact \n             their fulfilment!\" (p. 23).\n               Rinderknecht 46-403.",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/seriesofrevivals00bake\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -522462,7 +522474,7 @@
     "startDate": -3660595200,
     "endDate": -3660595200,
     "iframe": "",
-    "description": "Baker, Daniel. Revival Sermons. Second Series. With an\n               Appendix. Philadelphia: William S. Martien, 1854. \n               386 p., [2] p. of adv.",
+    "description": "Baker, Daniel. Revival Sermons. Second Series. With an\n  Appendix. Philadelphia: William S. Martien, 1854. \n  386 p., [2] p. of adv.",
     "languages": [
       "English"
     ],
@@ -522511,8 +522523,8 @@
     "year": "1897",
     "startDate": -2303596800,
     "endDate": -2303596800,
-    "iframe": "",
-    "description": "De Amicis, Edmondo. Morocco, Its People and Places.\n               Translated from the Thirteenth Italian Edition by \n               Maria Hornor Lansdale. In Two Volumes. Philadelphia: \n               Henry T. Coates & Co., 1897. 2 vols.",
+    "iframe": "<iframe src=\"https://archive.org/embed/moroccoitspeople01deamuoft\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
+    "description": "De Amicis, Edmondo. Morocco, Its People and Places.Translated from the Thirteenth Italian Edition by Maria Hornor Lansdale. In Two Volumes. Philadelphia:Henry T. Coates & Co., 1897. 2 vols.",
     "languages": [
       "English"
     ],
@@ -522522,7 +522534,9 @@
     "kind": "",
     "type": "",
     "notes": "See the opening chapter in vol. 1 devoted to Tangier; \n             with a plate, \"A Moorish Jewess.\" See, additionally, the\n             chapter, \"Alcazar el Kebir,\" with plate, \"Entrance to a\n             Mellà.\" The same volume introduces Fez, with coverage of \n             the Jewish community in vol. 2, with plates.",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/moroccoitspeople01deamuoft\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -522560,7 +522574,7 @@
     "startDate": -5396198400,
     "endDate": -5396198400,
     "iframe": "",
-    "description": "Walker, Timothy P. The Flaming Sword, or A Sign from\n   Heaven. Being a Remarkable Phenomenon, seen in the\n   State of Vermont. Norwich, [Conn.], 1799. 12 p.",
+    "description": "Walker, Timothy P. The Flaming Sword, or A Sign from Heaven. Being a Remarkable Phenomenon, seen in the State of Vermont. Norwich, [Conn.], 1799. 12 p.",
     "languages": [
       "English"
     ],
@@ -522613,8 +522627,8 @@
     "year": "1889",
     "startDate": -2556057600,
     "endDate": -2556057600,
-    "iframe": "",
-    "description": "Farrington, Marie L. Facing the Sphinx. ... San Francisco:\n           The author, 1889. 207 p.",
+    "iframe": "<iframe src=\"https://archive.org/embed/facingsphinx00farrrich\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>",
+    "description": "Farrington, Marie L. Facing the Sphinx. ... San Francisco:The author, 1889. 207 p.",
     "languages": [
       "English"
     ],
@@ -522624,7 +522638,9 @@
     "kind": "",
     "type": "",
     "notes": "A theosophical exploration of ancient secret wisdom and\n         symbology, the signs of the zodiac, the seven elements,\n         symbolism of numbers and the cross, \"cyclic law,\" male and \n         female principles, sphinxes, Atlantis, phallic and tree \n         symbolism, gnostic traditions, etc. \n           Attention is given to diverse topics like the tabernacle \n         in the desert and the ark of the covenant, the   Zohar and \n         other Jewish mystical texts, gematria, the tree of knowledge,\n         and much more.\n           The author draws upon Madame Blavatsky’s newly published \n         set, The Secret Doctrine: The Synthesis of Science, Religion, \n         and Philosophy (1888).  \n           A perfect copy has a frontispiece.",
-    "formatLinks": [],
+    "formatLinks": [
+      "<iframe src=\"https://archive.org/embed/facingsphinx00farrrich\" width=\"560\" height=\"384\" frameborder=\"0\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" allowfullscreen></iframe>"
+    ],
     "archiveOrgId": "",
     "internetArchive": "",
     "hathiTrust": "",
@@ -522672,7 +522688,7 @@
     "startDate": -2556057600,
     "endDate": -2556057600,
     "iframe": "",
-    "description": "Freuder, Samuel. What shall we do to be Saved? A National\n           Catechism. [San Francisco: Nationalist Club of San\n           Francisco?, 1889].",
+    "description": "Freuder, Samuel. What shall we do to be Saved? A National Catechism. [San Francisco: Nationalist Club of San Francisco?, 1889].",
     "languages": [
       "English"
     ],
@@ -522720,7 +522736,7 @@
     "startDate": -3976214400,
     "endDate": -3976214400,
     "iframe": "",
-    "description": "[Kemble, Fanny]. Poems. By Francis Anne Butler. Philadelphia:\n   John Pennington, 1844. 152 p.",
+    "description": "[Kemble, Fanny]. Poems. By Francis Anne Butler. Philadelphia: John Pennington, 1844. 152 p.",
     "languages": [
       "English"
     ],
@@ -522770,7 +522786,7 @@
     "startDate": -3502828800,
     "endDate": -3502828800,
     "iframe": "",
-    "description": "Hill, Daniel H. The Crucifixion of Christ. Philadelphia:\n          William S. & Alfred Martien; London: James Nisbet & \n          Co., 1859. 345 p.",
+    "description": "Hill, Daniel H. The Crucifixion of Christ. Philadelphia: William S. & Alfred Martien; London: James Nisbet &  Co., 1859. 345 p.",
     "languages": [],
     "place": "Philadelphia, PA",
     "languagetitle": "",
@@ -522816,7 +522832,7 @@
     "startDate": null,
     "endDate": null,
     "iframe": "",
-    "description": "TWO PURCHASES AND WHAT CAME OF THEM. Boston: Beacon Lith\n               Co, [188-?]. [8] p.",
+    "description": "TWO PURCHASES AND WHAT CAME OF THEM. Boston: Beacon Lith Co, [188-?]. [8] p.",
     "languages": [],
     "place": "Boston, MA",
     "languagetitle": "",
@@ -523000,6 +523016,106 @@
       "NNUT",
       "NcD",
       "University of Bristol"
+    ],
+    "latLng": null,
+    "gettyId": "",
+    "thumbnail": "",
+    "tags": []
+  },
+  {
+    "id": "supp3121",
+    "slug": "supp3121",
+    "title": "A Practical Guide to the Prophecies, with\nReference to Their Interpretation and Fulfillment, and to Personal Edification",
+    "authors": [
+      "Bickersteth, Edward"
+    ],
+    "asterix": "",
+    "creatorUri": "",
+    "contributor": [
+      "Orrin Rogers"
+    ],
+    "year": "1841",
+    "startDate": null,
+    "endDate": null,
+    "iframe": "",
+    "description": "Bickersteth, Edward. A Practical Guide to the Prophecies, with Reference to Their Interpretation and Fulfillment, and to Personal Edification. ... From the Sixth London Edition, Enlarged. Philadelphia: Orrin Rogers, 1841. 312 p.",
+    "languages": [],
+    "place": "Philadelphia, PA",
+    "languagetitle": "",
+    "placeUri": "",
+    "kind": "",
+    "type": "",
+    "notes": "The text was also published in vol. [2] of The Literalist (Philadelphia: Orrin Rogers, 1841); the volume designation is supplied by the New York Public Library. \n  See, principally, ʺOn the Jewish Civil Disabilities Billʺ (pp.\n285-88); ʺRestoration of the Jews To Their Own Landʺ (pp. 299-301).\n  Rinderknecht 41-673 (calls for four groups of pagination suggesting a copy bound with three additional texts).\n  See also The Works of the Rev. Edward Bickersteth, in 16\nvols. (New York: Robert Carter & Brothers, 1855), vol. 8,\nA Practical Guide to the Prophecies. Chap. 8, ʺProphecies\nRespecting the Jews,ʺ followed by chap. 9, ʺProphecies\nRespecting Nations and Countries Connected with the Jews.ʺ  \nIn the Appendices section, ʺRestoration of the Jews, and \nJews’ Civil Disabilities Billʺ (pp. 323-28).",
+    "formatLinks": [],
+    "archiveOrgId": "",
+    "internetArchive": "",
+    "hathiTrust": "",
+    "googleBooks": "",
+    "worldcat": "",
+    "digitalLinks": {},
+    "isDigitized": false,
+    "viaf": "",
+    "shelfmark": "",
+    "collection": "Chronological File, 1676 to 1900",
+    "goldmanTitle": "",
+    "goldmanId": "",
+    "holdings": [
+      "CBGTU",
+      "Emmaus University",
+      "IAurC",
+      "MWA",
+      "NjPT",
+      "ViRUT"
+    ],
+    "latLng": null,
+    "gettyId": "",
+    "thumbnail": "",
+    "tags": []
+  },
+  {
+    "id": "supp3122",
+    "slug": "supp3122",
+    "title": "The Destinies of the British Empire, and the Duties of British Christians at the Present Crisis.",
+    "authors": [
+      "Thorp, William"
+    ],
+    "asterix": "",
+    "creatorUri": "",
+    "contributor": [
+      "Orrin Rogers"
+    ],
+    "year": "1841",
+    "startDate": null,
+    "endDate": null,
+    "iframe": "",
+    "description": "Thorp, William. The Destinies of the British Empire, and the Duties of British Christians at the Present Crisis. From the Second London Edition. Philadelphia: Orrin Rogers, 1841. xi, 109 p.",
+    "languages": [],
+    "place": "Philadelphia, PA",
+    "languagetitle": "",
+    "placeUri": "",
+    "kind": "",
+    "type": "",
+    "notes": "The text was also published in vol. [2] of The Literalist (Philadelphia: Orrin Rogers, 1841); the volume designation is supplied by the New York Public Library.  \n  Amidst the swirling millenarian expectations of his time, \nRev. Thorp, of Bristol, England (1771-1833), welcomes the\nsigns of His coming seen in the rise of Bible society missions to bring the Jews and the heathen to Christ. In addition, his lectures are scornful of the Papacy and its temporal rule,\nclaimed here to be in decline. \n  Rinderknecht 41-514.",
+    "formatLinks": [],
+    "archiveOrgId": "",
+    "internetArchive": "",
+    "hathiTrust": "",
+    "googleBooks": "",
+    "worldcat": "",
+    "digitalLinks": {},
+    "isDigitized": false,
+    "viaf": "",
+    "shelfmark": "",
+    "collection": "Chronological File, 1676 to 1900",
+    "goldmanTitle": "",
+    "goldmanId": "",
+    "holdings": [
+      "IAurC",
+      "MWA",
+      "MiU",
+      "NjPT",
+      "PPWe",
+      "University of East Anglia"
     ],
     "latLng": null,
     "gettyId": "",

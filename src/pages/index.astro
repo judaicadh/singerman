@@ -2,43 +2,64 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 const title = "Welcome";
 const description = "Explore Robert Singerman’s Judaica Americana II";
+
+// Theme Colors
+const SCHOLAR_RED = "#b91c1c";
+const SCHOLAR_BLACK = "#1a1a1a";
+const SCHOLAR_PAPER = "#FCFAf7";
 ---
 
 <BaseLayout {title} {description}>
-    <section class="text-center py-24 px-4">
-        <h1 class="text-3xl sm:text-5xl font-bold text-blue-900 mb-4">
-            Robert Singerman’s <em>Judaica Americana II</em>
+    <section class="bg-[#FCFAf7] min-h-[80vh] flex flex-col items-center justify-center text-center py-24 px-4">
+
+        <div class="mb-6">
+            <span class="text-[11px] uppercase tracking-[0.4em] text-[#b91c1c] font-black">
+                Bibliographical Database
+            </span>
+        </div>
+
+        <h1 class="text-3xl sm:text-6xl font-serif text-[#1a1a1a] mb-6 italic leading-tight max-w-4xl">
+            Robert Singerman’s <span class="text-[#b91c1c] not-italic font-bold">Judaica Americana II</span>
         </h1>
-        <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-8">
-            Judaica Americana authoritatively chronicles American Jewish book production from the seventeenth century to the beginning of the twentieth century. The second edition contains an additional 3,000 entries.
+
+        <p class="text-xl font-serif text-gray-700 max-w-2xl mx-auto mb-12 leading-relaxed italic">
+            An authoritative chronicle of American Jewish book production from the seventeenth century to the twentieth century, expanded with 3,000 additional entries.
         </p>
 
-        <!-- Search form that redirects to /search?q=... -->
-        <form
-                action="/search"
-                method="GET"
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    const query = e.target.query.value;
-                    window.location = `/search?query=${encodeURIComponent(query)}`;
-                }}
-        >            <input
-                    type="search"
-                    name="query"
-                    placeholder="Search authors, titles, or topics..."
-                    class="w-full px-6 py-3 rounded-full border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-        </form>
+        <div class="w-full max-w-2xl mx-auto">
+            <form
+                    action="/search"
+                    method="GET"
+                    class="relative group"
+            >
+                <input
+                        type="search"
+                        name="query"
+                        placeholder="Search by Author, Title, or Singerman ID..."
+                        class="w-full px-8 py-5 rounded-xl border-2 border-gray-200 shadow-sm focus:outline-none focus:border-[#b91c1c] focus:ring-0 transition-all font-serif text-lg italic"
+                />
+                <button
+                        type="submit"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-[#1a1a1a] text-white px-6 py-2.5 rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-[#b91c1c] transition-colors"
+                >
+                    Search
+                </button>
+            </form>
+        </div>
 
+        <div class="mt-16 flex flex-wrap justify-center gap-8">
+            <a href="/search" class="group flex flex-col items-center gap-2">
+                <span class="text-[10px] uppercase tracking-widest text-gray-400 font-black group-hover:text-[#b91c1c] transition-colors">Digital Archive</span>
+                <span class="text-sm font-bold border-b-2 border-[#b91c1c] pb-1">Browse All Records</span>
+            </a>
+            <a href="/about/introduction" class="group flex flex-col items-center gap-2">
+                <span class="text-[10px] uppercase tracking-widest text-gray-400 font-black group-hover:text-[#b91c1c] transition-colors">Project History</span>
+                <span class="text-sm font-bold border-b-2 border-[#b91c1c] pb-1">About the Second Edition</span>
+            </a>
+        </div>
 
-        <!-- Optional: Featured links -->
-        <div class="mt-12 space-x-4">
-            <a href="/search" class="inline-block text-sm text-blue-700 hover:underline">
-                Browse All Records →
-            </a>
-            <a href="/about/introduction" class="inline-block text-sm text-blue-700 hover:underline">
-                About the Project →
-            </a>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-10 pointer-events-none">
+            <span class="text-[12rem] font-serif italic text-[#b91c1c] select-none">S</span>
         </div>
     </section>
 </BaseLayout>

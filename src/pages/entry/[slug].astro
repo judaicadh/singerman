@@ -73,205 +73,212 @@ const formatDate = (
 
     return startYear?.toString() ?? endYear?.toString() ?? fallbackYear ?? null;
 };
-
+const isPersonallyViewed = item.asterisk === "*";
 const displayDate = formatDate(item.startDate, item.endDate, item.year);
+
+const breadcrumb = item.collection || "Chronological File, 1676 to 1900";
+
+const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURIComponent(item.title)}`;
 ---
-
 <BaseLayout title={item.title}>
-    <main class="max-w-5xl mx-auto px-4 py-10 space-y-10">
-        <h1 class="text-xl md:text-xl font-bold tracking-tight">{item.title}</h1>
+    <main class="bg-[#FCFAf7] dark:bg-[#121212] min-h-screen max-w-7xl mx-auto px-4 sm:px-8 py-8 md:py-16 text-[#1a1a1a] dark:text-[#e5e5e5] transition-colors duration-300">
 
+        <div class="mb-8">
+            <a href="/" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors group">
+                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                Back to Archive
+            </a>
+        </div>
 
-        {item.iframe ? (
-                <div class="rounded-xl overflow-hidden shadow border border-gray-200 dark:border-gray-700">
-                    <div class="bg-white dark:bg-gray-900 p-2">
-                        <div
-                                class="w-full min-h-[600px] [&>iframe]:w-full [&>iframe]:min-h-[600px] [&>iframe]:rounded-lg"
-                                set:html={item.iframe}
-                        ></div>
-                    </div>
-                    <div class="px-4 py-2 bg-gray-50 dark:bg-gray-800 text-sm text-center text-gray-600 dark:text-gray-300">
-                        Embedded digital viewer
+        <header class="mb-12">
+            <div class="flex flex-row justify-between items-center border-b-2 border-[#b91c1c] pb-3 mb-8">
+                <nav class="text-[11px] uppercase tracking-[0.2em] text-[#b91c1c] dark:text-[#ff4d4d] font-black">
+                    {breadcrumb}
+                </nav>
+                <div class="flex items-center gap-3">
+                    {isPersonallyViewed && (
+                            <span class="text-[#b91c1c] dark:text-[#ff4d4d] text-xl" title="Personally viewed by Robert Singerman">★</span>
+                    )}
+                    <div class="flex flex-col items-end leading-none">
+                        <span class="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">Singerman ID</span>
+                        <span class="text-base font-mono font-bold text-black dark:text-white">#{item.id}</span>
                     </div>
                 </div>
-        ) : (
-                <p class="text-sm text-gray-500">This item is not digitized.</p>
-        )}
-        <section class="mt-12 border-t pt-6 text-sm text-gray-700 dark:text-gray-300">
-
-        <h2 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-200">Metadata <button data-popover-target="popover-description" data-popover-placement="bottom-end" type="button"><svg class="w-4 h-4  text-gray-400 hover:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg><span class="sr-only">Show information</span></button></h2>
-            <div data-popover id="popover-description" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-xs opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
-                <div class="p-3 space-y-2">
-                    <h3 class="font-semibold text-gray-900 dark:text-white">Metadata Descriptions:</h3>
-
-                    <p>For information about what each metadata field means, go to the metadata description section under the help page.</p>
-                    <a href="https://singerman.judaicadhpenn.org/help/" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Link <svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                    </svg></a>
-                </div>
-                <div data-popper-arrow></div>
             </div>
 
-            <section vocab="https://schema.org/"
-                     typeof={
-                         item.type === "Serial" || item.type === "Periodical"
-                             ? "Periodical"
-                             : item.type === "Article"
-                                 ? "Article"
-                                 : "Book"
-                     }
-                     resource={item.url}
-                     class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"
-            >
-                {item.id && (
-                        <div>
-                            <span class="font-bold underline">Singerman ID:</span> {item.id}
-                        </div>
-                )}
-                {item.asterix && (
-                        <div>
-                            <span class="font-semibold">Asterisk:</span> {item.asterix}
-                        </div>
-                )}
-                {displayDate && (
-                        <div>
-                            <span class="font-bold underline">Year:</span> {displayDate}
-                        </div>
-                )}
-                {item.description && (
-                        <div>
-                            <span class="font-bold underline">Entry:</span> {item.description}
-                        </div>
-                )}
+            <h1 class="text-xl md:text-xl lg:text-xl font-serif text-black dark:text-white leading-tight italic max-w-5xl">
+                {item.title}
+            </h1>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-8 ">
+
+                    {item.iframe ? (
+                            <div class="  w-full pb-4  flex items-center justify-center" set:html={item.iframe}></div>
+                    ) : (
+
+                        <></>
+
+                    )}
 
 
-                {item.authors && item.authors.length > 0 && (
-                        <div>
-                            <span class="font-bold underline">Author/Editor:</span>{' '}
-                            {item.authors.map((author, index) => {
-                                const slug = slugify(author);
-                                const isLast = index === item.authors.length - 1;
-                                return (
-                                        <>
-                                            <a
-                                                    href={`/author/${slug}`}
-                                                    class="text-blue-600 dark:text-blue-400 hover:underline"
-                                            >
-                                                {author}
-                                            </a>
-                                            {!isLast && ', '}
-                                        </>
-                                );
-                            })}
-                        </div>
-                )}
-                {item.place && (
-                        <div>
-                            <span class="font-bold underline">Location:</span> {item.place}
-                        </div>
-                )}
-                {Array.isArray(item.holdings) && item.holdings.length > 0 && (
-                        <div>
-                            <span property="holdingArchive" class="font-bold underline">Holdings:</span>{' '}
-                            {item.holdings.map((h, i) => {
-                                const isLast = i === item.holdings.length - 1;
-                                return (
-                                        <>
-                                            <a href={`/holding/${slugify(h)}`} class="text-blue-600 dark:text-blue-400 hover:underline">{h}</a>
-                                            {!isLast && ', '}
-                                        </>
-                                );
-                            })}
-                        </div>
-                )}
-                {item.title && (
-                        <div>
-                            <span class="font-bold underline">Title:</span> {item.title}
-                        </div>
-                )}
+                <article class="bg-white dark:bg-[#1e1e1e] px-6 py-6   rounded-lg border-t-4 border-[#b91c1c] shadow-md relative dark:shadow-none">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end border-b border-gray-100 dark:border-gray-800 pb-4 mb-8 gap-4 sm:gap-0">
+                        <h2 class="text-md align-middle uppercase tracking-[0.2em] text-gray-400 font-black">
+                            Singerman Entry
+                        </h2>
 
-                {item.contributor &&  (
-                        <div>
-                            <span class="font-bold underline">Printer/Publisher:</span>
-                            {item.contributor.join(', ')}
+                        <div class="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-start bg-gray-50 dark:bg-gray-800 sm:bg-transparent p-2 sm:p-0 rounded">
+                            <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold sm:mb-1">Singerman ID</span>
+                            <span class="text-sm font-mono font-bold text-[#b91c1c] dark:text-[#ff4d4d] sm:bg-gray-50 dark:sm:bg-gray-800 sm:px-2.5 sm:py-1 sm:border sm:border-gray-200 dark:sm:border-gray-700 rounded">
+                                #{item.id}
+                            </span>
                         </div>
-                )}
+                    </div>
 
+                    <p class="text-md md:text-md font-serif leading-[1.7] md:leading-[1.8] text-gray-900 dark:text-gray-200 ">
+                        {item.description}
+                    </p>
 
+                    {item.notes && (
+                            <div class="mt-4 md:mt-4 pt-3 border-t border-gray-100 dark:border-gray-800">
+                                <h3 class="text-[10px] md:text-xs uppercase tracking-widest text-[#b91c1c] dark:text-[#ff4d4d] font-bold mb-4">
+                                    Notes
+                                </h3>
+                                <p class="text-base md:text-sm  text-gray-700 dark:text-gray-400 leading-relaxed font-serif">
+                                    {item.notes}
+                                </p>
+                            </div>
+                    )}
+                </article>
+            </div>
 
-                {item.languages && (
-                        <div>
-                            <span class="font-bold underline">Language:</span>
-                            {item.languages.join(', ')}
+            <aside class="lg:col-span-4 space-y-6">
+                <div class="bg-white dark:bg-[#1e1e1e] p-6 rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm">
+                    <div class="flex items-center justify-between border-b-2 border-[#b91c1c] pb-3 mb-6">
+                        <h3 class="text-md font-black uppercase tracking-[0.2em] text-black dark:text-white">
+                            Bibliographic Metadata
+                        </h3>
+                        {item.asterisk === "*" && (
+                                <span class="text-[#b91c1c] dark:text-[#ff4d4d] text-sm font-black bg-red-50 dark:bg-red-950/30 px-2 py-0.5 rounded">
+                                VIEWED ★
+                            </span>
+                        )}
+                    </div>
+
+                    <div class="space-y-6">
+                        {item.authors && (
+                                <div>
+                                    <label class="block text-[10px] font-black text-[#b91c1c] dark:text-[#ff4d4d] uppercase mb-1">Author / Editor</label>
+                                    <div class="flex flex-wrap gap-x-2">
+                                        {item.authors.map(author => (
+                                                <a href={`/author/${slugify(author)}`} class="text-[15px] text-black dark:text-gray-200 font-bold hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors underline decoration-gray-200 dark:decoration-gray-700 underline-offset-4">
+                                                    {author}
+                                                </a>
+                                        ))}
+                                    </div>
+                                </div>
+                        )}
+                        <div class="space-y-4">
+
+                            {item.contributor && item.contributor.length > 0 && (
+
+                                    <div class="pt-4 border-t border-gray-100">
+
+                                        <label class="block text-[10px] font-black text-[#b91c1c] uppercase mb-1">Printer/Publisher</label>
+
+                                        <div class="flex flex-wrap gap-x-2">
+
+                                            {item.contributor.map(c => (
+
+                                                    <a href={`/contributor/${slugify(c)}`} class="text-[15px] text-black font-bold hover:text-[#b91c1c] transition-colors underline decoration-gray-200 underline-offset-4">
+
+                                                        {c}
+
+                                                    </a>
+
+                                            ))}
+
+                                        </div>
+
+                                    </div>
+
+                            )}
+
                         </div>
-                )}
 
 
-                {item.languagetitle && (
-                        <div>
-                            <span class="font-semibold underline">Language (Title):</span>
-                            {item.languages.join(', ')}
+                        <div class="pt-4 border-t border-gray-100 dark:border-gray-800 grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase mb-1">Location</label>
+                                <span class="text-sm font-bold text-black dark:text-gray-200">{item.place}</span>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase mb-1">Year</label>
+                                <span class="text-sm font-bold text-black dark:text-gray-200">{item.year}</span>
+                            </div>
                         </div>
-                )}
 
+                        <div class="pt-4 border-t border-gray-100 dark:border-gray-800 space-y-4">
 
-                {item.notes && (
-                        <div>
-                            <span class="font-bold underline">Notes:</span> {item.notes}
+                            <div>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase mb-1.5">Language</label>
+                                <div class="flex flex-wrap gap-2">
+                                    {Array.isArray(item.languages) ? (
+                                        item.languages.map((lang) => (
+                                                <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-300 text-[13px] font-bold rounded border border-gray-200 dark:border-gray-700">
+                                                {lang}
+                                            </span>
+                                        ))
+                                    ) : (
+                                            <span class="text-base font-bold text-black dark:text-gray-200">{item.languages}</span>
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                )}
 
-                {/* Goldman fields */}
-                {item.goldmanTitle && (
-                        <div>
-                            <span class="font-bold underline">Goldman-Kinsberg Title:</span> {item.goldmanTitle}
-                        </div>
-                )}
-                {item.goldmanId && (
-                        <p class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                            Goldman-Kinsberg Number
-                            <button
-                                    data-popover-target="popover-goldman"
-                                    data-popover-placement="bottom-end"
-                                    type="button"
-                                    class="ml-1"
-                            >
-                                <svg class="w-4 h-4 text-gray-400 hover:text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
-                                </svg>
-                                <span class="sr-only">Show information</span>
-                            </button>
-                        </p>
-                        <div
-                                data-popover
-                                id="popover-goldman"
-                                role="tooltip"
-                                class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-xs opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400"
-                        >
-                            <div class="p-3">
-                                <h3 class="font-semibold text-gray-900 dark:text-white mb-1">Goldman-Kinsberg Number</h3>
-                                <p>The ID number assigned by Goldman-Kinsberg’s book to the item>        </p>            </div>
-                            <div data-popper-arrow></div>
-                        </div>
-                        <div>
-                            <span class="font-semibold underline">Goldman-Kinsberg Number:</span> {item.goldmanId}
-                        </div>
-                )}
-            </section>
-        </section>
-        <footer class="mt-12 border-t pt-6 text-sm text-gray-700 dark:text-gray-300">
-            <h2 class="text-base font-semibold mb-2 text-gray-800 dark:text-gray-200">Citation</h2>
-            <p>
+                        {(item.goldmanId || item.goldmanTitle) && (
+                                <div class="pt-4 border-t border-gray-100 dark:border-gray-800 space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <label class="text-[10px] font-black text-[#b91c1c] dark:text-[#ff4d4d] uppercase">Goldman No.</label>
+                                        <span class="text-sm font-mono font-bold bg-white dark:bg-gray-800 px-2 py-0.5 border border-gray-200 dark:border-gray-700 rounded dark:text-gray-300">
+                                        {item.goldmanId ? `GK-${item.goldmanId}` : 'N/A'}
+                                    </span>
+                                    </div>
+                                    {item.goldmanTitle && (
+                                            <div>
+                                                <label class="block text-[10px] font-black text-[#b91c1c] dark:text-[#ff4d4d] uppercase mb-1">Goldman Title</label>
+                                                <p class="text-base leading-relaxed text-gray-700 dark:text-gray-400 italic font-serif">
+                                                    {item.goldmanTitle}
+                                                </p>
+                                            </div>
+                                    )}
+                                </div>
+                        )}
 
-                {item.author && `${item.author}. `}
-                <em>{item.title}</em>.
-                {item.place && ` ${item.place}:`}
-                {item.contributor && ` ${item.contributor},`}
-                {item.year && ` ${item.year}. `}
-                From <em>Judaica Americana II</em>, compiled by Robert Singerman.
-                Hosted by <span class="italic">Judaica Digital Humanities at Penn Libraries</span>.
-            </p>
-        </footer>
+                        <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="block text-[10px] font-black text-[#b91c1c] dark:text-[#ff4d4d] uppercase">Holdings</label>
+                                <a href="/library-symbols" class="text-[9px] font-bold text-gray-400 hover:text-black dark:hover:text-white underline underline-offset-2">LIBRARY SYMBOLS ↗</a>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5">
+                                {item.holdings?.map(h => (
+                                        <a href={`/holding/${slugify(h)}`} class="px-2.5 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded text-[10px] font-bold text-gray-600 dark:text-gray-400 hover:border-[#b91c1c] hover:text-[#b91c1c] transition-all">
+                                            {h}
+                                        </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <a href={googleBooksUrl} target="_blank" class="flex items-center justify-center gap-2 px-6 py-4 bg-[#1a1a1a] dark:bg-white dark:text-black text-white rounded-lg hover:bg-[#b91c1c] dark:hover:bg-[#ff4d4d] dark:hover:text-white transition-all text-[11px] font-black uppercase tracking-widest group">
+                    Search External Catalog
+                </a>
+            </aside>
+        </div>
     </main>
 </BaseLayout>

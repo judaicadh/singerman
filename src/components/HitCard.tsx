@@ -7,7 +7,9 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import BookmarkIcon from '@mui/icons-material/Bookmark'; // Import filled icon
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
+const SCHOLAR_RED = "#b91c1c";
+const SCHOLAR_BLACK = "#1a1a1a";
+const SCHOLAR_PAPER = "#FCFAf7";
 // Ensure your RecordHit type includes 'id' if you use it in handleCopy
 type RecordHit = AlgoliaHit<{
     id: string; // The numeric ID from your screenshots
@@ -45,17 +47,21 @@ export default function HitListItem({ hit, onSave, isSaved }: HitProps) {
         <Box
             component="article"
             sx={{
+
                 display: 'flex', gap: 4, py: 3, px: 3, position: 'relative',
                 transition: 'all 0.2s ease',
-                '&:hover': { bgcolor: 'rgba(25, 118, 210, 0.02)', '& .hit-actions': { opacity: 1 } }
-            }}
+                '&:hover': {
+                    bgcolor: SCHOLAR_PAPER,
+                    '& .hit-actions': { opacity: 1 }
+                }            }}
         >
             {/* 1. The ID Column - Highlighting Slug */}
             <Box sx={{ width: 70, flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="caption" sx={{ fontWeight: 800, fontFamily: "Karla", color: "primary.main", fontSize: '0.85rem' }}>
+                <Typography variant="caption" sx={{ fontWeight: 800, fontFamily: "monospace",
+                    color: SCHOLAR_RED, fontSize: '0.85rem' }}>
                     <Highlight hit={hit} attribute="slug" />
                 </Typography>
-                {hit.isDigitized && <VerifiedIcon sx={{ fontSize: 16, color: 'darkblue', mt: 0.5 }} />}
+                {hit.isDigitized && <VerifiedIcon sx={{ fontSize: 16, color: SCHOLAR_RED, mt: 0.5 }} />}
             </Box>
 
             {/* 2. Main Content */}
@@ -71,11 +77,11 @@ export default function HitListItem({ hit, onSave, isSaved }: HitProps) {
             >
                 {/* Metadata, Title, and Description remain here */}
                 <Typography variant="caption" sx={{ color: 'text.secondary', fontFamily: "Karla", fontWeight: 700, textTransform: 'uppercase', mb: 0.25 }}>
-                    {dateDisplay} {hit.place && ` • ${hit.place}`}
+                    {dateDisplay} {hit.place && ` • ${hit.place}  • ${hit.author}`}
                 </Typography>
 
                 <Link href={`/entry/${hit.slug}`} underline="none">
-                    <Typography variant="h6" sx={{ fontFamily: "Spectral", fontWeight: 700, color: 'text.primary', fontSize: "1.2rem", lineHeight: 1.2, mb: 0.5 }}>
+                    <Typography variant="h6" sx={{ fontFamily: "Spectral", fontWeight: 700, color: SCHOLAR_BLACK, fontSize: "1.2rem", lineHeight: 1.2, mb: 0.5 }}>
                         <Highlight hit={hit} attribute="title" />
                     </Typography>
                 </Link>
@@ -83,18 +89,18 @@ export default function HitListItem({ hit, onSave, isSaved }: HitProps) {
                 {/* ... (Author and Description) ... */}
 
                 {/* MOBILE ACTION ROW: Only visible on small screens */}
-                <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 2, mt: 2, alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #f0f0f0', pt: 2 }}>
+                <Box sx={{   display: { xs: 'flex', md: 'none' }, gap: 2, mt: 2, alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #f0f0f0', pt: 2 }}>
                     <Stack direction="row" spacing={1}>
                         <IconButton size="small" onClick={handleCopy}><ContentCopyIcon fontSize="small" /></IconButton>
                         <IconButton
                             size="small"
                             onClick={() => onSave(hit)}
-                            sx={{ color: isSaved ? 'primary.main' : 'text.secondary' }}
+                            sx={{ color: isSaved ? SCHOLAR_RED: 'text.secondary' }}
                         >
                             {isSaved ? <BookmarkIcon /> : <BookmarkAddIcon />}
                         </IconButton>
                     </Stack>
-                    <Button variant="contained" href={`/entry/${hit.slug}`} endIcon={<ArrowForwardIcon />}>View</Button>
+                    <Button sx={{bgcolor: SCHOLAR_BLACK}} variant="contained" href={`/entry/${hit.slug}`} endIcon={<ArrowForwardIcon />}>View</Button>
                 </Box>
             </Box>
 
@@ -105,24 +111,21 @@ export default function HitListItem({ hit, onSave, isSaved }: HitProps) {
                     display: { xs: 'none', md: 'flex' }, // Hide on mobile
                     position: 'absolute',
                     right: 24,
+                    color: SCHOLAR_RED,
                     top: '50%',
                     transform: 'translateY(-50%)',
                     gap: 1,
                     alignItems: 'center',
                 }}
             >
-                <Tooltip title="Copy Citation">
-                    <IconButton size="small" onClick={handleCopy} sx={{ opacity: 0, '.MuiBox-root:hover &': { opacity: 1 } }}>
-                        <ContentCopyIcon fontSize="small" />
-                    </IconButton>
-                </Tooltip>
+
 
                 <Tooltip title={isSaved ? "Remove" : "Save"}>
                     <IconButton
                         size="small"
                         onClick={() => onSave(hit)}
                         sx={{
-                            color: isSaved ? 'primary.main' : 'text.secondary',
+                            color: isSaved ? SCHOLAR_RED : 'text.secondary',
                             opacity: isSaved ? 1 : 0,
                             '.MuiBox-root:hover &': { opacity: 1 }
                         }}
@@ -131,7 +134,7 @@ export default function HitListItem({ hit, onSave, isSaved }: HitProps) {
                     </IconButton>
                 </Tooltip>
 
-                <Button variant="contained" size="small" href={`/entry/${hit.slug}`} endIcon={<ArrowForwardIcon sx={{ fontSize: 14 }} />}>
+                <Button variant="contained" sx={{bgcolor: SCHOLAR_BLACK}} size="small" href={`/entry/${hit.slug}`} endIcon={<ArrowForwardIcon sx={{ fontSize: 14, color: SCHOLAR_PAPER }} />}>
                     View
                 </Button>
             </Box>

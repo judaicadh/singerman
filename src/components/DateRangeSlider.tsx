@@ -1,10 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { Configure } from 'react-instantsearch';
 import Slider from '@mui/material/Slider';
-import { TextField } from "@mui/material";
+import { TextField, styled } from "@mui/material"; // Added styled for MUI customization
 import dayjs from "dayjs";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
+
+// Custom styled MUI TextField to match Scholar Theme
+// Inside your DateRangeSlider.tsx
+const StyledTextField = styled(TextField)(({ theme }) => ({
+	'& .MuiOutlinedInput-root': {
+		// Light Mode styling (matches image_fab674.png)
+		'& fieldset': { borderColor: '#e5e7eb', borderRadius: '4px' },
+		'&:hover fieldset': { borderColor: '#b91c1c' },
+		'&.Mui-focused fieldset': { borderColor: '#b91c1c', borderWidth: '1px' },
+	},
+	'& label.Mui-focused': { color: '#b91c1c' },
+	'& .MuiInputBase-input': {
+		fontSize: '14px',
+		fontWeight: '700', // Bold matching image_fab674.png
+		fontFamily: 'ui-monospace, monospace'
+	},
+	// Dark Mode support for the slider sidebar
+	'.dark &': {
+		'& .MuiOutlinedInput-root': {
+			'& fieldset': { borderColor: '#374151' },
+			'&:hover fieldset': { borderColor: '#ff4d4d' },
+			'&.Mui-focused fieldset': { borderColor: '#ff4d4d' },
+			'& input': { color: '#ffffff' }
+		},
+		'& label': { color: '#9ca3af' },
+		'& label.Mui-focused': { color: '#ff4d4d' },
+	}
+}));
+
+// Slider SX styling for that clean red line
+const sliderStyles = {
+	color: '#b91c1c',
+	height: 4,
+	'& .MuiSlider-thumb': {
+		height: 18,
+		width: 18,
+		backgroundColor: '#fff',
+		border: '2px solid currentColor',
+		'&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+			boxShadow: 'inherit',
+		},
+	},
+	'& .MuiSlider-rail': { opacity: 1, backgroundColor: '#e5e7eb' },
+	'.dark &': { color: '#ff4d4d', '& .MuiSlider-rail': { backgroundColor: '#374151' } }
+};
 
 type CombinedDateRangeSliderProps = {
 	minTimestamp: number;
@@ -12,20 +57,19 @@ type CombinedDateRangeSliderProps = {
 	dateFields: string[];
 	title: string;
 	onDateChange?: (isActive: boolean) => void;
-
-	value?: { min: number; max: number }; // externally controlled value
-	onChange?: (newValue: { min: number; max: number }) => void; // external change handler
+	value?: { min: number; max: number };
+	onChange?: (newValue: { min: number; max: number }) => void;
 };
 
 const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
-																																	 minTimestamp,
-																																	 maxTimestamp,
-																																	 dateFields,
-																																	 title,
-																																	 onDateChange,
-																																	 value,
-																																	 onChange
-																																 }) => {
+																	 minTimestamp,
+																	 maxTimestamp,
+																	 dateFields,
+																	 title,
+																	 onDateChange,
+																	 value,
+																	 onChange
+																 }) => {
 	const isControlled = value !== undefined;
 	const [internalRange, setInternalRange] = useState<[number, number]>([minTimestamp, maxTimestamp]);
 	const range = isControlled ? [value!.min, value!.max] : internalRange;
@@ -62,105 +106,83 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 		return () => clearTimeout(updateURL);
 	}, [range, minTimestamp, maxTimestamp, dateFields]);
 
-	const handleSliderChange = (_: Event, newValue: number | number[]) => {
+	const handleSliderChange = (_: any, newValue: number | number[]) => {
 		if (Array.isArray(newValue)) {
 			updateRange([newValue[0], newValue[1]]);
 		}
 	};
 
-	const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value;
-		setStartDate(value);
-		const year = parseInt(value, 10);
-		if (!isNaN(year)) {
-			const newStart = dayjs().year(year).startOf("year").unix();
-			if (newStart >= minTimestamp && newStart <= range[1]) {
-				updateRange([newStart, range[1]]);
-			}
-		}
-	};
-
-	const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const value = event.target.value;
-		setEndDate(value);
-		const year = parseInt(value, 10);
-		if (!isNaN(year)) {
-			const newEnd = dayjs().year(year).endOf("year").unix();
-			if (newEnd <= maxTimestamp && newEnd >= range[0]) {
-				updateRange([range[0], newEnd]);
-			}
-		}
-	};
-
 	return (
-		<div className="bg-white px-4 dark:bg-gray-900">
-			<Disclosure defaultOpen={true}>
-				{({ open }) => (
-					<div>
-						<DisclosureButton
-							className="flex w-full justify-between items-center py-3 text-left text-gray-900 dark:text-gray-100 font-medium border-b border-gray-200 dark:border-gray-700">
-							<h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">{title}</h3>
-							{open ? (
-								<ChevronUpIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-							) : (
-								<ChevronDownIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-							)}
-						</DisclosureButton>
+		<div className="    border-b border-gray-100 dark:border-gray-800 last:border-0 overflow-hidden">
 
-						<DisclosurePanel className="pt-3 px-4">
-							<Slider
-								getAriaLabel={(index) => `Date range slider thumb ${index + 1}`}
-								value={range}
-								min={minTimestamp}
-								max={maxTimestamp}
-								onChange={handleSliderChange}
-								valueLabelDisplay="auto"
-								valueLabelFormat={(value) => dayjs(value * 1000).format('YYYY')}
-								marks={[
-									{ value: minTimestamp, label: dayjs(minTimestamp * 1000).format('YYYY') },
-									{ value: maxTimestamp, label: dayjs(maxTimestamp * 1000).format("YYYY") }
-								]}
-								sx={{
-									width: '100%',
-									color: '#0284c7',
-									'& .MuiSlider-thumb': {
-										height: 24,
-										width: 24,
-										backgroundColor: "#fff"
-									},
-								}}
-							/>
 
-							<div className="flex justify-between space-x-4 mt-4">
-								<TextField
-									aria-label="Start date"
-									value={startDate}
-									onChange={handleStartDateChange}
-									label="Start Year"
-									variant="outlined"
+
+							<div className="px-2">
+								<Slider
+									value={range}
+									min={minTimestamp}
+									max={maxTimestamp}
+									onChange={handleSliderChange}
+									valueLabelDisplay="auto"
+									valueLabelFormat={(v) => dayjs(v * 1000).format('YYYY')}
+									sx={{
+										color: '#b91c1c', // Your theme red
+										height: 4,
+										'& .MuiSlider-thumb': {
+											height: 16,
+											width: 16,
+											backgroundColor: '#fff',
+											border: '2px solid currentColor',
+											'&:hover': { boxShadow: '0 0 0 8px rgba(185, 28, 28, 0.16)' },
+										},
+										'& .MuiSlider-rail': { opacity: 0.2, color: '#9ca3af' },
+										'& .MuiSlider-markLabel': {
+											fontSize: '10px',
+											fontWeight: 'bold',
+											fontFamily: 'serif',
+											color: '#9ca3af'
+										},
+										'.dark &': { color: '#ff4d4d' }
+									}}
 								/>
-								<TextField
-									aria-label="End date"
+							</div>
+
+							<div className="flex items-center justify-between gap-4 mt-6">
+								<StyledTextField
+									label="From"
+									value={startDate}
+									onChange={(e) => {
+										setStartDate(e.target.value);
+										const y = parseInt(e.target.value);
+										if (!isNaN(y)) updateRange([dayjs().year(y).startOf('year').unix(), range[1]]);
+									}}
+									size="small"
+								/>
+								<span className="text-gray-300 dark:text-gray-700">—</span>
+								<StyledTextField
+									label="To"
 									value={endDate}
-									onChange={handleEndDateChange}
-									label="End Year"
-									variant="outlined"
+									onChange={(e) => {
+										setEndDate(e.target.value);
+										const y = parseInt(e.target.value);
+										if (!isNaN(y)) updateRange([range[0], dayjs().year(y).endOf('year').unix()]);
+									}}
+									size="small"
 								/>
 							</div>
 
 							{filterString && <Configure filters={filterString} />}
+
 							{(range[0] !== minTimestamp || range[1] !== maxTimestamp) && (
 								<button
 									onClick={() => updateRange([minTimestamp, maxTimestamp])}
-									className="mt-3 text-sm text-blue-600 hover:underline dark:text-blue-400"
+									className="mt-6 w-full py-2 text-[10px] font-black uppercase tracking-widest text-[#b91c1c] dark:text-[#ff4d4d] bg-red-50 dark:bg-red-950/20 rounded hover:bg-[#b91c1c] hover:text-white dark:hover:bg-[#ff4d4d] transition-all"
 								>
-									Reset Date Filter
+									Reset Dates
 								</button>
 							)}
-						</DisclosurePanel>
-					</div>
-				)}
-			</Disclosure>
+
+
 		</div>
 	);
 };

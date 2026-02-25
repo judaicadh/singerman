@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MetadataDescriptions from './metadatadescriptions.md';
+import Abbreviations from './abbreviations.md';
+import LibrarySymbols from './librarysymbols.md';
+---
+
+<BaseLayout title="Reference Guide">
+    <section class="min-h-screen bg-[#FCFAf7] dark:bg-[#121212] transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+            <div class="flex flex-col lg:flex-row gap-12">
+
+                {/* 1. STICKY NAVIGATION (Desktop Only) */}
+                <aside class="hidden lg:block w-64 flex-shrink-0">
+                    <div class="sticky top-32 space-y-8">
+                        <div>
+                            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-[#b91c1c] mb-4">Navigation</p>
+                            <nav class="flex flex-col border-l-2 border-gray-200 dark:border-gray-800">
+                                <a href="#metadata" class="py-2 pl-4 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-[#b91c1c] hover:border-l-2 hover:border-[#b91c1c] -ml-[2px] transition-all">Metadata</a>
+                                <a href="#abbreviations" class="py-2 pl-4 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-[#b91c1c] hover:border-l-2 hover:border-[#b91c1c] -ml-[2px] transition-all">Abbreviations</a>
+                                <a href="#symbols" class="py-2 pl-4 text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-[#b91c1c] hover:border-l-2 hover:border-[#b91c1c] -ml-[2px] transition-all">Library Symbols</a>
+                            </nav>
+                        </div>
+                        <div class="pt-8 border-t border-gray-200 dark:border-gray-800">
+                            <p class="text-xs italic font-serif text-gray-400">Judaica Americana II Reference Guide</p>
+                        </div>
+                    </div>
+                </aside>
+
+                {/* 2. MAIN CONTENT AREA */}
+                <div class="flex-grow max-w-4xl">
+
+                    {/* Header */}
+                    <header class="mb-16 border-b-2 border-[#b91c1c] pb-10">
+                        <h1 style="font-family: 'Spectral', serif;" class="text-4xl sm:text-5xl font-bold italic text-[#1a1a1a] dark:text-gray-100 mb-6">
+                            Reference Guide
+                        </h1>
+                        <p class="text-gray-600 dark:text-gray-400 font-serif text-lg leading-relaxed">
+                            A comprehensive guide to the metadata structure, bibliographic abbreviations, and library location symbols used throughout this digital edition.
+                        </p>
+                    </header>
+
+                    {/* Section 01: Metadata */}
+                    <article id="metadata" class="mb-24 scroll-mt-32">
+                        <div class="flex items-center gap-4 mb-8">
+                            <span class="text-[10px] font-black text-[#b91c1c] border border-[#b91c1c] px-2 py-1">01</span>
+                            <h2 class="font-black uppercase tracking-[0.2em] text-[11px] text-[#1a1a1a] dark:text-gray-200">Metadata Descriptions</h2>
+                            <div class="flex-grow h-[1px] bg-gray-200 dark:bg-gray-800"></div>
+                        </div>
+                        <div class="prose prose-red dark:prose-invert max-w-none font-serif text-gray-800 dark:text-gray-300">
+                            <MetadataDescriptions />
+                        </div>
+                    </article>
+
+                    {/* Section 02: Abbreviations */}
+                    <article id="abbreviations" class="mb-24 scroll-mt-32">
+                        <div class="flex items-center gap-4 mb-8">
+                            <span class="text-[10px] font-black text-[#b91c1c] border border-[#b91c1c] px-2 py-1">02</span>
+                            <h2 class="font-black uppercase tracking-[0.2em] text-[11px] text-[#1a1a1a] dark:text-gray-200">Abbreviations</h2>
+                            <div class="flex-grow h-[1px] bg-gray-200 dark:bg-gray-800"></div>
+                        </div>
+                        <div class="prose prose-red dark:prose-invert max-w-none font-serif text-gray-800 dark:text-gray-300">
+                            <Abbreviations />
+                        </div>
+                    </article>
+
+                    {/* Section 03: Library Symbols */}
+                    <article id="symbols" class="mb-24 scroll-mt-32">
+                        <div class="flex items-center gap-4 mb-8">
+                            <span class="text-[10px] font-black text-[#b91c1c] border border-[#b91c1c] px-2 py-1">03</span>
+                            <h2 class="font-black uppercase tracking-[0.2em] text-[11px] text-[#1a1a1a] dark:text-gray-200">Library Symbols</h2>
+                            <div class="flex-grow h-[1px] bg-gray-200 dark:bg-gray-800"></div>
+                        </div>
+                        <div class="prose prose-red dark:prose-invert max-w-none font-serif text-gray-800 dark:text-gray-300">
+                            <LibrarySymbols />
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style is:global>
+    /* Essential stability fixes for Markdown content */
+    html {
+        scroll-behavior: smooth;
+        scrollbar-gutter: stable;
+    }
+
+    .prose table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9em;
+        margin: 2rem 0;
+        display: block;
+        overflow-x: auto; /* Keeps the page from widening */
+    }
+
+    .prose th {
+        text-align: left;
+        padding: 0.75rem;
+        background: rgba(0,0,0,0.02);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 0.75rem;
+        border-bottom: 2px solid #b91c1c;
+    }
+
+    .prose td {
+        padding: 0.75rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        vertical-align: top;
+    }
+
+    .dark .prose th { background: rgba(255,255,255,0.05); border-bottom-color: #ef4444; }
+    .dark .prose td { border-bottom-color: rgba(255,255,255,0.1); }
+</style>
