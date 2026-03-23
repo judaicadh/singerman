@@ -114,7 +114,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **PP**: Free Library of Philadelphia
 *   **PPAmP**: American Philosophical Society, Philadelphia
 *   **PPG**: German Society of Philadelphia
-*   **PPGratz**: Gratz College, Philadelphia
+*   **PPGratz**: Gratz College, Philadelphia (physical holdings have been withdrawn)
 *   **PPiPT**: Pittsburgh Theological Seminary
 *   **PPL**: Library Company of Philadelphia
 *   **PPLT**: United Lutheran Seminary, Philadelphia
