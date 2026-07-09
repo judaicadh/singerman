@@ -18,6 +18,11 @@ const metaDescription = description ?? DEFAULT_DESCRIPTION;
 const canonicalURL = new URL(Astro.url.pathname, siteOrigin).href;
 const ogImage = new URL(image ?? JudaicaLogo.src, siteOrigin).href;
 
+// The WebSite/SearchAction schema describes the site as a whole, so it only
+// belongs on the homepage. Every other page carries its own entity schema
+// (Book, Person, Organization…) injected via the `headContent` slot, so the
+// page denotes its bibliographic entry rather than just "the website".
+const isHome = Astro.url.pathname === "/";
 const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -45,6 +50,7 @@ const websiteSchema = {
     <link rel="canonical" href={canonicalURL} />
     <meta name="robots" content="index, follow" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     {/* Theme color adapts to light/dark */}
     <meta name="theme-color" content="#FCFAf7" media="(prefers-color-scheme: light)" />
@@ -65,8 +71,8 @@ const websiteSchema = {
     <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
 
-    {/* Site-wide structured data */}
-    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {/* Site-wide structured data — homepage only */}
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />}
 
     {/* Per-page head content (canonical meta, JSON-LD, etc.) injected by pages */}
     <slot name="headContent" />

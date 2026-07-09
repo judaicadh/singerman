@@ -79,8 +79,37 @@ const displayDate = formatDate(item.startDate, item.endDate, item.year);
 const breadcrumb = item.collection || "Chronological File, 1676 to 1900";
 
 const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURIComponent(item.title)}`;
+
+// ---- SEO ----
+const canonical = new URL(`/entry/${item.slug}`, Astro.site ?? Astro.url.origin).href;
+const entryDescription = item.description
+    ? item.description.replace(/\s+/g, ' ').trim().slice(0, 300)
+    : `Bibliographic record #${item.id} in Robert Singerman’s Judaica Americana II.`;
+
+const entrySchema = {
+    "@context": "https://schema.org",
+    "@type": getSchemaType(item.collection),
+    name: item.title,
+    url: canonical,
+    ...(item.authors?.length ? { author: item.authors.map((a) => ({ "@type": "Person", name: a })) } : {}),
+    ...(item.contributor?.length ? { publisher: item.contributor.map((c) => ({ "@type": "Organization", name: c })) } : {}),
+    ...(displayDate ? { datePublished: String(displayDate) } : {}),
+    ...(item.place ? { locationCreated: { "@type": "Place", name: item.place } } : {}),
+    ...(item.languages ? { inLanguage: item.languages } : {}),
+    ...(item.description ? { description: item.description } : {}),
+    isPartOf: {
+        "@type": "Collection",
+        name: "Robert Singerman’s Judaica Americana II",
+    },
+};
 ---
-<BaseLayout title={item.title}>
+<BaseLayout title={item.title} description={entryDescription} type="book" image={item.thumbnail}>
+    <Fragment slot="headContent">
+        {/* Book-specific Open Graph metadata for this bibliographic entry */}
+        {item.authors?.map((a) => <meta property="book:author" content={a} />)}
+        {displayDate && <meta property="book:release_date" content={String(displayDate)} />}
+        <script type="application/ld+json" set:html={JSON.stringify(entrySchema)} />
+    </Fragment>
     <main class="bg-[#FCFAf7] dark:bg-[#121212] min-h-screen max-w-7xl mx-auto px-4 sm:px-8 py-8 md:py-16 text-[#1a1a1a] dark:text-[#e5e5e5] transition-colors duration-300">
 
         <div class="mb-8">

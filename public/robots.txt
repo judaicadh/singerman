@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.singerman.judaicadhpenn.org/sitemap-index.xml

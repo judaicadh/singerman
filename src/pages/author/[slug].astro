@@ -33,27 +33,19 @@ const authorName = matchingItems.find((item) =>
 )?.authors?.find((a) => slugify(a) === slug) ?? slug;
 
 const title = `Author: ${authorName}`;
-const metaDescription = `Explore works by ${authorName} in the Kaplan Collection.`;
-const url = `singerman.judaicadhpenn.org/entry/${slug}`;
+const metaDescription = `Explore works by ${authorName} in Robert Singerman’s Judaica Americana II bibliography.`;
+const url = new URL(`/author/${slug}`, Astro.site ?? Astro.url.origin).href;
 ---
 
-<BaseLayout title={title} description={metaDescription}>
+<BaseLayout title={title} description={metaDescription} type="profile">
     <Fragment slot="headContent">
-        <meta name="title" content={title} />
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={url} />
-        <meta name="twitter:card" content="summary" />
-        <script type="application/ld+json">
-            {JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Person",
-                "name": authorName,
-                "url": url,
-                "mainEntityOfPage": url
-            })}
-        </script>
+        <script type="application/ld+json" set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": authorName,
+            "url": url,
+            "mainEntityOfPage": url
+        })} />
     </Fragment>
 
     <section class="py-8">
@@ -62,11 +54,11 @@ const url = `singerman.judaicadhpenn.org/entry/${slug}`;
 
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {matchingItems.map((item) => (
-                        <a href={`/entry/${item.slug}`} class="block border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                        <a href={`/entry/${item.slug}`} class="block bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 rounded-lg p-4 hover:shadow-md hover:border-[#b91c1c] dark:hover:border-[#ff4d4d] transition">
                             {item.thumbnail ? (
                                     <img src={item.thumbnail} alt={item.title} class="w-full h-40 object-contain rounded mb-2" />
                             ) : (
-                                    <div class="w-full h-40 bg-gray-100 flex items-center justify-center text-gray-500 rounded mb-2">No Image</div>
+                                    <div class="w-full h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-400 rounded mb-2">No Image</div>
                             )}
                             <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{item.title}</h2>
                             <p class="text-sm text-gray-600 mt-1 dark:text-gray-300 line-clamp-2">{item.description || 'No description available.'}</p>
