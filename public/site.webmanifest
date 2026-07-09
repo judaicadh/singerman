@@ -1,0 +1,14 @@
+{
+  "name": "Robert Singerman’s Judaica Americana II",
+  "short_name": "Judaica Americana II",
+  "description": "A bibliographical database of American Jewish book and serial production from the seventeenth to the twentieth century.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FCFAf7",
+  "theme_color": "#b91c1c",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ]
+}
