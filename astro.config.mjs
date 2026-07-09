@@ -14,7 +14,7 @@ export default defineConfig({
   markdown: {
     processor: unified(),
   },
-  site: "https://www.singerman.judaicadhpenn.org",
+  site: "https://singerman.judaicadhpenn.org",
   integrations: [react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
