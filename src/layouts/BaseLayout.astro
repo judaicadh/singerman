@@ -1,19 +1,76 @@
 ---
-const { title, description, url = Astro.url.href } = Astro.props;
+const { title, description, url = Astro.url.href, image, type = "website" } = Astro.props;
 import "../styles/global.css";
 import '@fontsource/karla';
 import '@fontsource/spectral';
 
 import { Image } from 'astro:assets';
 import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png';
+
+// ---- SEO ----
+const SITE_NAME = "Robert Singerman’s Judaica Americana II";
+const DEFAULT_DESCRIPTION =
+    "A bibliographical database of American Jewish book and serial production from the seventeenth to the twentieth century, expanded with 3,000 additional entries.";
+
+const siteOrigin = Astro.site ?? new URL(Astro.url.origin);
+const pageTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
+const metaDescription = description ?? DEFAULT_DESCRIPTION;
+const canonicalURL = new URL(Astro.url.pathname, siteOrigin).href;
+const ogImage = new URL(image ?? JudaicaLogo.src, siteOrigin).href;
+
+const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: siteOrigin.href,
+    description: DEFAULT_DESCRIPTION,
+    inLanguage: "en",
+    potentialAction: {
+        "@type": "SearchAction",
+        target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${siteOrigin.href}search?query={search_term_string}`,
+        },
+        "query-input": "required name=search_term_string",
+    },
+};
 ---
 
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ? `${title} | Robert Singerman’s Judaica Americana II` : `Robert Singerman’s Judaica Americana II`}</title>
-    {description && <meta name="description" content={description} />}
+    <title>{pageTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+    <meta name="generator" content={Astro.generator} />
+
+    {/* Theme color adapts to light/dark */}
+    <meta name="theme-color" content="#FCFAf7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+
+    {/* Open Graph */}
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title ?? SITE_NAME} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+
+    {/* Twitter */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title ?? SITE_NAME} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {/* Site-wide structured data */}
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
+    {/* Per-page head content (canonical meta, JSON-LD, etc.) injected by pages */}
+    <slot name="headContent" />
+
     {/* No-flash theme: set data-theme before first paint so there's no light->dark flicker */}
     <script is:inline>
         (function () {
