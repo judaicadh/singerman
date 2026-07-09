@@ -93,11 +93,8 @@ async function main() {
 					}).filter(([_, v]) => v)
 				),
 				isDigitized: Boolean(
-					item['iframe'] ||
-					item['Internet Archive'] ||
-					item['HathiTrust'] ||
-					item['Google Books'] ||
-					item['Other Digital']
+					item['dcterms:hasFormat [2]']?.length ||
+					item['dcterms:hasFormat']?.length
 				),
 				viaf: item['VIAF ID'] || '',
 				shelfmark: item['Penn Shelfmark'] || '',

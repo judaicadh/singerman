@@ -13,69 +13,135 @@ import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png'
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title ? `${title} | Robert Singerman’s Judaica Americana II` : `Robert Singerman’s Judaica Americana II`}</title>
+    {description && <meta name="description" content={description} />}
+    {/* No-flash theme: set data-theme before first paint so there's no light->dark flicker */}
+    <script is:inline>
+        (function () {
+            try {
+                const stored = localStorage.getItem('singerman_theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored || (prefersDark ? 'dark' : 'light');
+                if (theme === 'dark') document.documentElement.classList.add('dark');
+            } catch (e) {}
+        })();
+    </script>
         </head>
 
-        <body class="bg-[#FCFAf7] text-[#1a1a1a] font-serif min-h-screen flex flex-col">
+        <body class="font-serif min-h-screen flex flex-col">
 
-        <header class="bg-white border-t-8 border-[#b91c1c] shadow-sm sticky top-0 z-30">
+        <a href="#main-content" class="skip-link">Skip to content</a>
+
+        <header class="bg-white dark:bg-[#1e1e1e] border-t-8 border-[#b91c1c] shadow-sm sticky top-0 z-30 border-b border-transparent dark:border-b-gray-800">
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
                 {/* Logo */}
                 <div class="flex items-center gap-2">
                     <a href="/" class="flex flex-col group">
                         <span class="text-xs uppercase tracking-[0.3em] text-[#b91c1c] font-black leading-none mb-1">Robert Singerman's</span>
-                        <span style="font-family: 'Spectral', serif;" class="text-2xl font-bold text-[#1a1a1a] italic leading-none group-hover:text-[#b91c1c] transition-colors">
+                        <span style="font-family: 'Spectral', serif;" class="text-2xl font-bold text-[#1a1a1a] dark:text-[#e5e5e5] italic leading-none group-hover:text-[#b91c1c] transition-colors">
                         Judaica Americana II
                     </span>
                     </a>
                 </div>
 
                 {/* DESKTOP NAV */}
-                <div class="hidden sm:flex gap-10 items-center">
-                    <a href="/search" class="text-[11px] uppercase tracking-widest font-black text-gray-500 hover:text-[#b91c1c]">Browse Bibliography</a>
+                <div class="hidden sm:flex gap-8 items-center">
+                    <a href="/search" class="text-[13px] uppercase tracking-widest font-black text-gray-600 dark:text-gray-300 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d]">Browse Bibliography</a>
 
                     <div class="relative group/menu">
-                        <button id="about-dropdown-btn" class="inline-flex items-center text-[11px] uppercase tracking-widest font-black text-gray-500 hover:text-[#b91c1c] focus:outline-none">
+                        <button id="about-dropdown-btn" aria-haspopup="true" aria-expanded="false" aria-controls="about-dropdown-menu" class="inline-flex items-center text-[13px] uppercase tracking-widest font-black text-gray-600 dark:text-gray-300 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d]">
                             Project Info
-                            <svg class="ml-1 w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 20 20"><path d="M6 8l4 4 4-4"/></svg>
+                            <svg class="ml-1 w-3 h-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 8l4 4 4-4"/></svg>
                         </button>
-                        <div id="about-dropdown-menu" class="absolute right-0 mt-2 min-w-[200px] bg-white border-2 border-[#1a1a1a] shadow-xl z-50 hidden">
-                            <a href="/about/introduction" class="block px-6 py-3 text-xs font-bold uppercase tracking-tighter hover:bg-[#FCFAf7] hover:text-[#b91c1c]">Introduction</a>
-                            <a href="/about/foreword" class="block px-6 py-3 text-xs font-bold uppercase tracking-tighter hover:bg-[#FCFAf7] hover:text-[#b91c1c]">Foreword</a>
-                            <a href="/about/acknowledgments" class="block px-6 py-3 text-xs font-bold uppercase tracking-tighter hover:bg-[#FCFAf7] hover:text-[#b91c1c]">Acknowledgments</a>
+                        <div id="about-dropdown-menu" class="absolute right-0 mt-2 min-w-[200px] bg-white dark:bg-[#1e1e1e] border-2 border-[#1a1a1a] dark:border-gray-700 shadow-xl z-50 hidden">
+                            <a href="/about/introduction" class="block px-6 py-3 text-[13px] font-bold uppercase tracking-tighter text-gray-700 dark:text-gray-200 hover:bg-[#FCFAf7] dark:hover:bg-[#2a2a2a] hover:text-[#b91c1c] dark:hover:text-[#ff4d4d]">Introduction</a>
+                            <a href="/about/foreword" class="block px-6 py-3 text-[13px] font-bold uppercase tracking-tighter text-gray-700 dark:text-gray-200 hover:bg-[#FCFAf7] dark:hover:bg-[#2a2a2a] hover:text-[#b91c1c] dark:hover:text-[#ff4d4d]">Foreword</a>
+                            <a href="/about/acknowledgments" class="block px-6 py-3 text-[13px] font-bold uppercase tracking-tighter text-gray-700 dark:text-gray-200 hover:bg-[#FCFAf7] dark:hover:bg-[#2a2a2a] hover:text-[#b91c1c] dark:hover:text-[#ff4d4d]">Acknowledgments</a>
                         </div>
                     </div>
 
-                    <a href="/reference" class="px-4 py-2 bg-[#1a1a1a] text-white text-[10px] font-black uppercase tracking-widest hover:bg-[#b91c1c] rounded transition-colors">Reference Guide</a>
+                    <a href="/reference" class="px-4 py-2 bg-[#1a1a1a] dark:bg-[#b91c1c] text-white text-[11px] font-black uppercase tracking-widest hover:bg-[#b91c1c] dark:hover:bg-[#ff4d4d] rounded transition-colors">Reference Guide</a>
+
+                    {/* THEME TOGGLE */}
+                    <button id="theme-toggle" type="button" class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg class="icon-moon h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="icon-sun h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32 1.41-1.41"/></svg>
+                    </button>
                 </div>
 
-                {/* MOBILE TOGGLE BUTTON */}
-                <button id="mobile-nav-toggle" class="sm:hidden text-[#1a1a1a] p-2 focus:outline-none" aria-label="Toggle Menu">
-                    <svg id="menu-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
+                {/* MOBILE CONTROLS */}
+                <div class="flex items-center gap-1 sm:hidden">
+                    <button id="theme-toggle-mobile" type="button" class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg class="icon-moon h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="icon-sun h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32 1.41-1.41"/></svg>
+                    </button>
+                    <button id="mobile-nav-toggle" class="text-[#1a1a1a] dark:text-[#e5e5e5] p-2" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+                        <svg id="menu-icon" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
             </nav>
 
             {/* MOBILE MENU CONTAINER */}
-            <div id="mobile-menu" class="hidden sm:hidden bg-white border-t border-gray-100 shadow-xl px-4 pt-4 pb-8 transition-all duration-300">
+            <div id="mobile-menu" class="hidden sm:hidden bg-white dark:bg-[#1e1e1e] border-t border-gray-100 dark:border-gray-800 shadow-xl px-4 pt-4 pb-8 transition-all duration-300">
                 <div class="flex flex-col gap-6">
-                    <a href="/search" class="text-sm font-black uppercase tracking-widest text-[#1a1a1a] border-b border-gray-50 pb-2">Browse Bibliography</a>
+                    <a href="/search" class="text-base font-black uppercase tracking-widest text-[#1a1a1a] dark:text-[#e5e5e5] border-b border-gray-100 dark:border-gray-800 pb-2">Browse Bibliography</a>
                     <div class="flex flex-col gap-4 pl-2 border-l-2 border-[#b91c1c]">
-                        <span class="text-[10px] uppercase tracking-widest text-gray-400 font-black">Project Info</span>
-                        <a href="/about/introduction" class="text-sm font-bold">Introduction</a>
-                        <a href="/about/foreword" class="text-sm font-bold">Foreword</a>
-                        <a href="/about/acknowledgments" class="text-sm font-bold">Acknowledgments</a>
+                        <span class="text-[11px] uppercase tracking-widest text-gray-500 dark:text-gray-400 font-black">Project Info</span>
+                        <a href="/about/introduction" class="text-base font-bold text-gray-800 dark:text-gray-200">Introduction</a>
+                        <a href="/about/foreword" class="text-base font-bold text-gray-800 dark:text-gray-200">Foreword</a>
+                        <a href="/about/acknowledgments" class="text-base font-bold text-gray-800 dark:text-gray-200">Acknowledgments</a>
                     </div>
-                    <a href="/reference" class="text-sm font-black uppercase tracking-widest text-[#b91c1c]">Reference Guide</a>
+                    <a href="/reference" class="text-base font-black uppercase tracking-widest text-[#b91c1c] dark:text-[#ff4d4d]">Reference Guide</a>
                 </div>
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
+        <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
             <slot />
         </main>
 
-        <footer class="bg-white border-t-2 border-gray-100 py-12 mt-20">
-            {/* ... Footer content remains the same ... */}
+        <footer class="bg-white dark:bg-[#1e1e1e] border-t-4 border-[#b91c1c] py-14 mt-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-8 md:items-start">
+
+                    {/* Brand / about */}
+                    <div class="md:col-span-4">
+                        <span class="text-xs uppercase tracking-[0.3em] text-[#b91c1c] dark:text-[#ff4d4d] font-black">Robert Singerman's</span>
+                        <p style="font-family: 'Spectral', serif;" class="text-2xl font-bold italic text-[#1a1a1a] dark:text-[#e5e5e5] leading-tight mt-1">Judaica Americana II</p>
+                        <p class="text-base text-gray-600 dark:text-gray-400 mt-4 max-w-md leading-relaxed">
+                            A bibliographical database of American Jewish book and serial production from the seventeenth to the twentieth century.
+                        </p>
+                    </div>
+
+                    {/* Explore links */}
+                    <nav class="md:col-span-2" aria-label="Explore">
+                        <h2 class="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-4">Explore</h2>
+                        <ul class="space-y-3">
+                            <li><a href="/search" class="text-base font-bold text-gray-700 dark:text-gray-200 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors">Browse Bibliography</a></li>
+                            <li><a href="/reference" class="text-base font-bold text-gray-700 dark:text-gray-200 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors">Reference Guide</a></li>
+                        </ul>
+                    </nav>
+
+                    {/* Project Info links */}
+                    <nav class="md:col-span-3" aria-label="Project information">
+                        <h2 class="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-4">Project Info</h2>
+                        <ul class="space-y-3">
+                            <li><a href="/about/introduction" class="text-base font-bold text-gray-700 dark:text-gray-200 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors">Introduction</a></li>
+                            <li><a href="/about/foreword" class="text-base font-bold text-gray-700 dark:text-gray-200 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors">Foreword</a></li>
+                            <li><a href="/about/acknowledgments" class="text-base font-bold text-gray-700 dark:text-gray-200 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors">Acknowledgments</a></li>
+                        </ul>
+                    </nav>
+
+                    {/* Logo */}
+                    <div class="md:col-span-3 flex md:justify-end">
+                        <a href="https://www.judaicadhpenn.org" class="inline-flex items-center group" rel="noopener" aria-label="Judaica Digital Humanities at Penn">
+                            <Image src={JudaicaLogo} alt="Judaica Digital Humanities at Penn"  class="h-24 sm:h-32 md:h-40 w-max max-w-full object-contain group-hover:opacity-100 transition-opacity" />
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
         </footer>
 
         <script>
@@ -91,6 +157,7 @@ import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png'
                         const isHidden = mobileMenu.classList.toggle('hidden');
                         menuIcon?.classList.toggle('hidden', !isHidden);
                         closeIcon?.classList.toggle('hidden', isHidden);
+                        mobileToggle.setAttribute('aria-expanded', String(!isHidden));
                     });
                 }
 
@@ -101,15 +168,36 @@ import JudaicaLogo from '../images/Judaica Digital Humanities Logo 2020_RGB.png'
                 if (aboutBtn && aboutMenu) {
                     aboutBtn.addEventListener('click', (e) => {
                         e.stopPropagation();
-                        aboutMenu.classList.toggle('hidden');
+                        const isHidden = aboutMenu.classList.toggle('hidden');
+                        aboutBtn.setAttribute('aria-expanded', String(!isHidden));
                     });
 
                     document.addEventListener('click', (e) => {
                         if (!aboutBtn.contains(e.target as Node)) {
                             aboutMenu.classList.add('hidden');
+                            aboutBtn.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            aboutMenu.classList.add('hidden');
+                            aboutBtn.setAttribute('aria-expanded', 'false');
                         }
                     });
                 }
+
+                // 3. THEME TOGGLE LOGIC
+                const applyTheme = (theme: string) => {
+                    document.documentElement.classList.toggle('dark', theme === 'dark');
+                    try { localStorage.setItem('singerman_theme', theme); } catch (e) {}
+                };
+                const toggleTheme = () => {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    applyTheme(isDark ? 'light' : 'dark');
+                };
+                document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+                document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
             });
         </script>
         </body>

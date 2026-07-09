@@ -81,7 +81,7 @@ const breadcrumb = item.collection || "Chronological File, 1676 to 1900";
 const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURIComponent(item.title)}`;
 ---
 <BaseLayout title={item.title}>
-    <main class="bg-[#FCFAf7] dark:bg-[#FCFAf7] min-h-screen max-w-7xl mx-auto px-4 sm:px-8 py-8 md:py-16 text-[#1a1a1a] dark:text-[#e5e5e5] transition-colors duration-300">
+    <main class="bg-[#FCFAf7] dark:bg-[#121212] min-h-screen max-w-7xl mx-auto px-4 sm:px-8 py-8 md:py-16 text-[#1a1a1a] dark:text-[#e5e5e5] transition-colors duration-300">
 
         <div class="mb-8">
             <a href="/" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors group">
@@ -108,7 +108,7 @@ const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURICompo
                 </div>
             </div>
 
-            <h1 class="text-xl md:text-xl lg:text-xl font-serif text-black dark:text-white leading-tight italic max-w-5xl">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-serif text-black dark:text-white leading-tight italic max-w-5xl">
                 {item.title}
             </h1>
         </header>
@@ -127,7 +127,7 @@ const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURICompo
 
                 <article class="bg-white dark:bg-[#1e1e1e] px-6 py-6   rounded-lg border-t-4 border-[#b91c1c] shadow-md relative dark:shadow-none">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end border-b border-gray-100 dark:border-gray-800 pb-4 mb-8 gap-4 sm:gap-0">
-                        <h2 class="text-md align-middle uppercase tracking-[0.2em] text-gray-400 font-black">
+                        <h2 class="text-xs align-middle uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 font-black">
                             Singerman Entry
                         </h2>
 
@@ -139,7 +139,7 @@ const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURICompo
                         </div>
                     </div>
 
-                    <p class="text-md md:text-md font-serif leading-[1.7] md:leading-[1.8] text-gray-900 dark:text-gray-200 ">
+                    <p class="text-lg md:text-xl font-serif leading-[1.7] md:leading-[1.8] text-gray-900 dark:text-gray-200 ">
                         {item.description}
                     </p>
 
@@ -159,7 +159,7 @@ const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURICompo
             <aside class="lg:col-span-4 space-y-6">
                 <div class="bg-white dark:bg-[#1e1e1e] p-6 rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm">
                     <div class="flex items-center justify-between border-b-2 border-[#b91c1c] pb-3 mb-6">
-                        <h3 class="text-md font-black uppercase tracking-[0.2em] text-black dark:text-white">
+                        <h3 class="text-sm font-black uppercase tracking-[0.2em] text-black dark:text-white">
                             Bibliographic Metadata
                         </h3>
                         {item.asterisk === "*" && (
@@ -186,15 +186,15 @@ const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURICompo
 
                             {item.contributor && item.contributor.length > 0 && (
 
-                                    <div class="pt-4 border-t border-gray-100">
+                                    <div class="pt-4 border-t border-gray-100 dark:border-gray-800">
 
-                                        <label class="block text-[10px] font-black text-[#b91c1c] uppercase mb-1">Printer/Publisher</label>
+                                        <label class="block text-[10px] font-black text-[#b91c1c] dark:text-[#ff4d4d] uppercase mb-1">Printer/Publisher</label>
 
                                         <div class="flex flex-wrap gap-x-2">
 
                                             {item.contributor.map(c => (
 
-                                                    <a href={`/contributor/${slugify(c)}`} class="text-[15px] text-black font-bold hover:text-[#b91c1c] transition-colors underline decoration-gray-200 underline-offset-4">
+                                                    <a href={`/contributor/${slugify(c)}`} class="text-[15px] text-black dark:text-gray-200 font-bold hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] transition-colors underline decoration-gray-200 dark:decoration-gray-700 underline-offset-4">
 
                                                         {c}
 

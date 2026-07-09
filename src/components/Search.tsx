@@ -23,9 +23,11 @@ import HitListItem from "./HitCard";
 import type {UiState} from "instantsearch.js";
 
 import { Button } from '@mui/material';
-const SCHOLAR_RED = '#b91c1c';
-const SCHOLAR_BLACK = '#1a1a1a';
-const SCHOLAR_PAPER = '#FCFAf7';
+// Theme tokens (see global.css) so MUI buttons flip with light/dark.
+const SCHOLAR_RED = 'var(--red)';
+const SCHOLAR_BLACK = 'var(--btn-bg)';
+const SCHOLAR_BLACK_HOVER = 'var(--btn-bg-hover)';
+const SCHOLAR_PAPER = 'var(--paper)';
 const fallbackMin = Math.floor(new Date("1700-01-01T00:00:00Z").getTime() / 1000); // -8520336000
 const fallbackMax = Math.floor(new Date("1900-12-31T23:59:59Z").getTime() / 1000); // -2208988801
 const indexName = 'dev_Singerman';
@@ -248,7 +250,7 @@ const SearchApp: FC = () => {
 
             <div className="mx-auto max-w-7xl px-4">
                 {/* Sticky Header: Parchment backdrop with Red bottom border */}
-                <div className="bg-[#FCFAf7] py-8 border-b-4 border-[#b91c1c] -mx-4 px-4 mb-10">
+                <div className="bg-[#FCFAf7] dark:bg-[#121212] py-8 border-b-4 border-[#b91c1c] -mx-4 px-4 mb-10">
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
                         <div className="flex-1">
                             <SearchBox
@@ -258,7 +260,7 @@ const SearchApp: FC = () => {
                                     root: "group",
                                     form: "relative",
                                     // Removed blue rings, replaced with Scholar Black border
-                                    input: "block w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-200 placeholder-gray-400 focus:outline-none focus:border-[#1a1a1a] rounded-lg shadow-sm transition-all font-serif italic text-lg",
+                                    input: "block w-full pl-12 pr-4 py-3 bg-white dark:bg-[#1e1e1e] border-2 border-gray-200 dark:border-gray-700 text-[#1a1a1a] dark:text-[#e5e5e5] placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-[#1a1a1a] dark:focus:border-[#ff4d4d] rounded-lg shadow-sm transition-all font-serif italic text-lg",
                                     submitIcon: "absolute top-4 left-4 w-5 h-5 fill-gray-400 group-focus-within:fill-[#b91c1c] transition-colors",
                                     resetIcon: "hidden",
                                 }}
@@ -273,13 +275,13 @@ const SearchApp: FC = () => {
                                     },
                                 }}
                                 classNames={{
-                                    text: "text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] font-[Karla]"
+                                    text: "text-[11px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em] font-[Karla]"
                                 }}
                             />
                             <button
                                 type="button"
                                 onClick={() => setFiltersOpen(true)}
-                                className="inline-flex items-center gap-2 rounded-lg border-2 border-[#1a1a1a] bg-white px-5 py-2.5 text-xs font-black text-[#1a1a1a] uppercase tracking-widest hover:bg-[#b91c1c] hover:text-white hover:border-[#b91c1c] transition-all shadow-sm"
+                                className="inline-flex items-center gap-2 rounded-lg border-2 border-[#1a1a1a] dark:border-gray-600 bg-white dark:bg-[#1e1e1e] px-5 py-2.5 text-xs font-black text-[#1a1a1a] dark:text-[#e5e5e5] uppercase tracking-widest hover:bg-[#b91c1c] hover:text-white hover:border-[#b91c1c] dark:hover:bg-[#ff4d4d] dark:hover:border-[#ff4d4d] transition-all shadow-sm"
                             >
                                 Filter Archive
                             </button>
@@ -292,18 +294,18 @@ const SearchApp: FC = () => {
                     classNames={{
                         root: "flex flex-wrap gap-2 mb-6",
                         list: "flex flex-wrap gap-2",
-                        item: "bg-white border border-[#b91c1c] text-[#b91c1c] text-[10px] font-black uppercase tracking-tighter px-3 py-1 rounded flex items-center shadow-sm",
+                        item: "bg-white dark:bg-[#1e1e1e] border border-[#b91c1c] dark:border-[#ff4d4d] text-[#b91c1c] dark:text-[#ff4d4d] text-[11px] font-black uppercase tracking-tighter px-3 py-1 rounded flex items-center shadow-sm",
                         label: "mr-1 opacity-60",
-                        delete: "ml-2 hover:text-black cursor-pointer",
+                        delete: "ml-2 hover:text-black dark:hover:text-white cursor-pointer",
                     }}
                 />
 
                 {/* Results: Removed blue highlight, using the custom HitCard spine effect */}
                 <Hits
                     classNames={{
-                        root: "bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm",
-                        list: "divide-y divide-gray-100",
-                        emptyRoot: "p-20 text-center bg-white border border-dashed border-gray-300 rounded-xl font-serif italic text-gray-400"
+                        root: "bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm",
+                        list: "divide-y divide-gray-100 dark:divide-gray-800",
+                        emptyRoot: "p-20 text-center bg-white dark:bg-[#1e1e1e] border border-dashed border-gray-300 dark:border-gray-700 rounded-xl font-serif italic text-gray-400"
                     }}
                     hitComponent={({ hit }) => (
                         <HitListItem
@@ -340,7 +342,7 @@ const SearchApp: FC = () => {
                 />
 
                 <div
-                    className={`absolute right-0 top-0 h-full w-full md:max-w-md bg-[#FCFAf7] p-6 md:p-8 shadow-2xl overflow-y-auto border-l-0 md:border-l-8 border-[#b91c1c] transition-transform duration-300 transform ${
+                    className={`absolute right-0 top-0 h-full w-full md:max-w-md bg-[#FCFAf7] dark:bg-[#121212] p-6 md:p-8 shadow-2xl overflow-y-auto border-l-0 md:border-l-8 border-[#b91c1c] transition-transform duration-300 transform ${
                         filtersOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
                 >
@@ -358,8 +360,8 @@ const SearchApp: FC = () => {
                         <RefinementList attribute="collection" classNames={{
                             label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
                             checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
-                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
-                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            labelText: "text-base md:text-sm font-serif text-gray-700 dark:text-gray-300", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded",
                             searchBox: "mb-4",
                         }} searchable={false} showMore={false} />
 
@@ -370,8 +372,8 @@ const SearchApp: FC = () => {
                         <RefinementList attribute="author" classNames={{
                             label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
                             checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
-                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
-                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            labelText: "text-base md:text-sm font-serif text-gray-700 dark:text-gray-300", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded",
                             searchBox: "mb-4",
 
                         }} searchable searchablePlaceholder="Search Author/Editor" showMore />
@@ -382,8 +384,8 @@ const SearchApp: FC = () => {
                         <RefinementList attribute="contributor" classNames={{
                             label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
                             checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
-                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
-                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            labelText: "text-base md:text-sm font-serif text-gray-700 dark:text-gray-300", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded",
                             searchBox: "mb-4",
 
                         }} searchable searchablePlaceholder="Search Printer/Publisher" showMore />
@@ -405,8 +407,8 @@ const SearchApp: FC = () => {
                         <RefinementList attribute="place" classNames={{
                             label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
                             checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
-                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
-                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            labelText: "text-base md:text-sm font-serif text-gray-700 dark:text-gray-300", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded",
                             searchBox: "mb-4",
                         }} searchable searchablePlaceholder="Search location" showMore />
 
@@ -419,8 +421,8 @@ const SearchApp: FC = () => {
                         <RefinementList attribute="language" classNames={{
                             label: "flex items-center gap-3 py-2 cursor-pointer group", // Slightly larger hit area for fingers
                             checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm", // Bigger checkbox
-                            labelText: "text-base md:text-sm font-serif text-gray-700", // Larger text for mobile
-                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded",
+                            labelText: "text-base md:text-sm font-serif text-gray-700 dark:text-gray-300", // Larger text for mobile
+                            count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded",
                             searchBox: "mb-4",
                         }} searchable={false} showMore={false} />
                     </div>
@@ -440,12 +442,12 @@ const SearchApp: FC = () => {
                         onClick={() => setListOpen(false)}
                     />
 
-                    <div className="relative h-full w-full sm:max-w-md md:max-w-lg bg-[#FCFAf7] shadow-2xl flex flex-col border-t-8 sm:border-t-0 sm:border-l-8 border-[#b91c1c] transition-transform duration-300">
+                    <div className="relative h-full w-full sm:max-w-md md:max-w-lg bg-[#FCFAf7] dark:bg-[#121212] shadow-2xl flex flex-col border-t-8 sm:border-t-0 sm:border-l-8 border-[#b91c1c] transition-transform duration-300">
 
                         {/* Drawer Header */}
-                        <div className="p-4 md:p-6 border-b border-gray-200 bg-white flex items-center justify-between">
+                        <div className="p-4 md:p-6 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1e1e1e] flex items-center justify-between">
                             <div>
-                                <h2 className="text-lg md:text-xl font-serif font-bold text-black">My Research List</h2>
+                                <h2 className="text-lg md:text-xl font-serif font-bold text-black dark:text-white">My Research List</h2>
                                 <p className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mt-1">
                                     {savedHits.length} {savedHits.length === 1 ? 'Record' : 'Records'} Collected
                                 </p>
@@ -464,10 +466,10 @@ const SearchApp: FC = () => {
                                 </div>
                             ) : (
                                 savedHits.map((hit) => (
-                                    <div key={hit.slug} className="group bg-white p-4 rounded border border-gray-200 shadow-sm hover:border-[#b91c1c] transition-all relative flex flex-col">
+                                    <div key={hit.slug} className="group bg-white dark:bg-[#1e1e1e] p-4 rounded border border-gray-200 dark:border-gray-800 shadow-sm hover:border-[#b91c1c] dark:hover:border-[#ff4d4d] transition-all relative flex flex-col">
                                         {/* Hit Badge & Delete */}
                                         <div className="flex justify-between items-start mb-3">
-                                <span className="text-[10px] font-mono font-bold text-[#b91c1c] bg-red-50 px-2 py-0.5 rounded border border-red-100">
+                                <span className="text-[10px] font-mono font-bold text-[#b91c1c] dark:text-[#ff4d4d] bg-red-50 dark:bg-[#2a1414] px-2 py-0.5 rounded border border-red-100 dark:border-[#5a2020]">
                                     #{hit.id || hit.slug}
                                 </span>
                                             <button
@@ -481,10 +483,10 @@ const SearchApp: FC = () => {
                                             </button>
                                         </div>
 
-                                        <h4 className="font-serif italic text-base leading-snug text-gray-900 mb-2">{hit.title}</h4>
+                                        <h4 className="font-serif italic text-base leading-snug text-gray-900 dark:text-gray-100 mb-2">{hit.title}</h4>
 
-                                        <div className="text-[11px] font-bold text-gray-500 uppercase tracking-wide flex flex-wrap gap-x-2 mb-4">
-                                            <span className="text-gray-700">{hit.author || hit.contributor || 'Anonymous'}</span>
+                                        <div className="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide flex flex-wrap gap-x-2 mb-4">
+                                            <span className="text-gray-700 dark:text-gray-300">{hit.author || hit.contributor || 'Anonymous'}</span>
                                             {hit.year && <span>• {hit.year}</span>}
                                             {hit.place && <span className="italic">• {hit.place}</span>}
                                         </div>
@@ -492,7 +494,7 @@ const SearchApp: FC = () => {
                                         {/* View Entry Button */}
                                         <a
                                             href={`/entry/${hit.slug}`}
-                                            className="w-full text-center py-2 border border-gray-200 rounded text-[10px] font-black uppercase tracking-widest text-gray-600 hover:bg-[#b91c1c] hover:text-white hover:border-[#b91c1c] transition-all"
+                                            className="w-full text-center py-2 border border-gray-200 dark:border-gray-700 rounded text-[10px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-300 hover:bg-[#b91c1c] hover:text-white hover:border-[#b91c1c] dark:hover:bg-[#ff4d4d] dark:hover:border-[#ff4d4d] transition-all"
                                         >
                                             View Full Entry
                                         </a>
@@ -503,7 +505,7 @@ const SearchApp: FC = () => {
 
                         {/* Footer Actions */}
                         {/* Fixed Footer: Clean separation for Export RIS */}
-                        <div className="p-4 md:p-6 bg-white border-t border-gray-200 sticky bottom-0">
+                        <div className="p-4 md:p-6 bg-white dark:bg-[#1e1e1e] border-t border-gray-200 dark:border-gray-800 sticky bottom-0">
                             <Button
                                 fullWidth
                                 variant="contained"

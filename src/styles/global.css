@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Dark mode: driven by a `data-theme` attribute on <html>.
-   Enables the class/attribute toggle instead of relying only on
-   the OS `prefers-color-scheme` setting, so every existing
-   `dark:` utility now responds to the in-page theme switch.
+   Dark mode: driven by a `.dark` class on <html>.
+   Enables the class-based toggle instead of relying only on the
+   OS `prefers-color-scheme` setting, so every existing `dark:`
+   utility AND the raw `.dark &` MUI selectors (e.g. in
+   DateRangeSlider) respond to the in-page theme switch.
    ============================================================ */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* ============================================================
    Design tokens — one source of truth shared by Tailwind chrome
@@ -22,9 +23,12 @@
     --ink-faint: #6b7280;
     --red: #b91c1c;     /* Scholar Red accent */
     --border: #e5e7eb;
+    --hover-surface: #FCFAf7;
+    --btn-bg: #1a1a1a;
+    --btn-bg-hover: #b91c1c;
 }
 
-[data-theme="dark"] {
+html.dark {
     color-scheme: dark;
     --paper: #121212;
     --surface: #1e1e1e;
@@ -33,6 +37,9 @@
     --ink-faint: #8a8a8a;
     --red: #ff4d4d;     /* brighter red keeps AA contrast on dark */
     --border: #2f2f2f;
+    --hover-surface: #2a2a2a;
+    --btn-bg: #b91c1c;
+    --btn-bg-hover: #ff4d4d;
 }
 
 /* --- The Scholar Typography --- */
@@ -69,15 +76,27 @@ body {
     font-family: "Karla", serif;
     font-size: 18px;    /* Larger base for easier reading (was 17px) */
     line-height: 1.65;  /* More generous leading for long-form scholarly text */
+    background-color: var(--paper);
+    color: var(--ink);
+    transition: background-color 0.2s ease, color 0.2s ease;
     -webkit-font-smoothing: antialiased; /* Makes fonts look crisper on Mac */
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Step the base size up on larger screens where there's room to breathe */
+@media (min-width: 768px) {
+    body { font-size: 19px; }
+}
+@media (min-width: 1280px) {
+    body { font-size: 20px; }
 }
 
 /* Long-form prose gets a comfortable reading size on top of the base bump */
 .prose p,
 .description-text,
 article p {
-    font-size: 1.0625rem; /* ~19px */
+    font-size: 1.125rem; /* scales with base: ~20px desktop / 22.5px xl */
+    line-height: 1.75;
 }
 
 /* ============================================================
@@ -142,8 +161,8 @@ article p {
 /* Show the correct icon for the active theme */
 .theme-toggle .icon-moon { display: inline; }
 .theme-toggle .icon-sun { display: none; }
-[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-[data-theme="dark"] .theme-toggle .icon-sun { display: inline; }
+.dark .theme-toggle .icon-moon { display: none; }
+.dark .theme-toggle .icon-sun { display: inline; }
 
 /* 3. Refinement List Styling (The Catalog Search) */
 .ais-RefinementList-searchBox {
