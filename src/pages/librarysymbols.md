@@ -122,7 +122,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **PPT**: Temple University, Philadelphia (absorbed holdings of the former Philadelphia Jewish Archives)
 *   **PSt**: Pennsylvania State University, University Park
 *   **PU**: University of Pennsylvania, Philadelphia
-*   **PU (LKCAJS)**: Katz Library, Center for Advanced Judaic Studies, University of Pennsylvania (formerly Dropsie College, later the Annenberg Research Institute), Philadelphia
+*   **PU (LKCAJS)**: Katz Library, Center for Advanced Judaic Studies, University of Pennnsylvania (formerly Dropsie College, later the Annenberg Research Institute), Philadelphia
 *   **RPB**: Brown University, Providence, R.I.
 *   **RPJCB**: John Carter Brown Library, Providence, R.I.
 *   **ScCC**: College of Charleston, Charleston, S.C.
