@@ -1,6 +1,7 @@
 Symbols of **selected** libraries and collections widely represented in this bibliography are given here; additional symbols not shown are standard ones utilized by theNa­tional Union Catalog, maintained by the Library of Con­gress. Data for additional institutions can be accessed at the **[WorldCat Registry](https://worldcat.org/webservices/registry/xsl/search-advanced)**.
 
 
+
 *   **AJA**: American Jewish Archives, Cincinnati, Oh
 *   **AJHS**: American Jewish Historical Society, New York, N.Y.
 *   **BB**: American Jewish Archives, Cincinnati, Oh. (Formerly, Lax Archives of B’nai B'rith, B’nai B’rith International, Washington, D.C.)
