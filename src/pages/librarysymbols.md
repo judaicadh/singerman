@@ -32,7 +32,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **GEU-T**: Pitts Theology Library, Atlanta, Ga.
 *   **GU**: University of Georgia, Athens
 *   **IAurC**: Aurora University, Aurora, Ill.
-*   **ICHi**: Chicago Historical Museum, Chicago, Ill.
+*   **ICHi**: Chicago History Museum, Chicago, Ill. (Formerly, Chicago Historical Museum)
 *   **ICJS**: Spertus Institute for Jewish Learning and Leadership, Chicago, Ill.
 *   **ICMB**: Moody Bible College, Chicago, Ill.
 *   **ICN**: Newberry Library, Chicago, Ill.
@@ -106,7 +106,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **OCl**: Cleveland Public Library, Cleveland, Oh.
 *   **OClW**: Case Western Reserve University, Cleveland, Oh.
 *   **OClWHi**: Western Reserve Historical Society, Cleveland, Oh.
-*   **OHi**: Ohio Historical Society, Columbus, Oh.
+*   **OHi**:  Ohio History Connection, Columbus, Oh. (Formerly, Ohio Historical Society)
 *   **OKentU**: Kent State University, Kent, Oh.
 *   **OO**: Oberlin College, Oberlin, Oh.
 *   **OU**: Ohio State University, Columbus, Oh.
