@@ -7,7 +7,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **C**: California State Library, Sacramento
 *   **C-S**: Sutro Library, San Francisco
 *   **CBGTU**: Graduate Theological Union, Berkeley, Calif.
-*   **CHi**: California Historical Society, San Francisco
+*   **CHi**: California Historical Society Collection at Stanford University (formerly California Historical Society, San Francisco)
 *   **CLHU**: Hebrew Union College-Jewish Institute of Religion, Los Angeles
 *   **CLolC**: Loma Linda University, Loma Linda, Calif.
 *   **CLSU**: University of Southern California, Los Angeles
@@ -17,7 +17,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **CU**: University of California, Berkeley
 *   **CU-B**: Bancroft Library, University of California, Berkeley
 *   **CoDU**: University of Denver
-*   **CtHi**: Connecticut Historical Society, Hartford
+*   **CtHi**: Connecticut Museum of Culture and History (formerly Connecticut Historical Society, Hartford)
 *   **CtHT**: Trinity College, Hartford, Conn.
 *   **CtY**: Yale University, New Haven
 *   **CtY-B**: Yale University, Beinecke Library, New Haven
@@ -48,7 +48,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **LNT**: Tulane University, New Orleans
 *   **LU**: Louisiana State University, Baton Rouge
 *   **MdBJ**: The Johns Hopkins University, Baltimore
-*   **MdHi**: Maryland Historical Society, Baltimore
+*   **MdHi**: Maryland Center for History and Culture (formerly Maryland Historical Society, Baltimore)
 *   **MdU**: University of Maryland, College Park
 *   **MB**: Boston Public Library, Boston
 *   **MBAt**: Boston Athenaeum, Boston
@@ -88,7 +88,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **NNC**: Columbia University, New York
 *   **NNG**: General Theological Seminary of the Protestant Episcopal Church, New York
 *   **NNHeb**: Hebrew Union College-Jewish Institute of Religion, New York
-*   **NNJ**: Jewish Theological Seminary of America, New York (includesunprocessedholdings received from Abraham Karp designated herein as ex-Karp)
+*   **NNJ**: Jewish Theological Seminary of America, New York (includes unprocessed holdings received from Abraham Karp designated herein as ex-Karp)
 *   **NNNAM**: New York Academy of Medicine, New York
 *   **NNU**: New York University, New York
 *   **NNUT**: Union Theological Seminary, New York
@@ -99,7 +99,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **NRU**: University of Rochester, Rochester, N.Y.
 *   **NcD**: Duke University, Durham, N.C.
 *   **NcU**: University of North Carolina, Chapel Hill, N.C.
-*   **OC**: Public Library of Cincinnati and Hamilton County
+*   **OC**: Cincinnati and Hamilton County Public Library (formerly Public Library of Cincinnati and Hamilton County)
 *   **OCAJ**: American Jewish Periodical Center, Cincinnati
 *   **OCH**: Hebrew Union College-Jewish Institute of Religion, Cincinnati
 *   **OCHP**: Cincinnati History Library and Archives
@@ -139,7 +139,7 @@ Symbols of **selected** libraries and collections widely represented in this bib
 *   **ViRUT**: Union Presbyterian Seminary, Richmond, Va.
 *   **ViU**: University of Virginia, Charlottesville
 *   **WaU**: University of Washington, Seattle
-*   **WHi**: State Historical Society of Wisconsin, Madison
+*   **WHi**:  Wisconsin Historical Society (formerly State Historical Society of Wisconsin, Madison)
 *   **WMUW**: University of Wisconsin – Milwaukee
 *   **WU**: University of Wisconsin – Madison
 *   **YGC**: Yosef Goldman Collection, Brooklyn, N.Y. (deceased)
