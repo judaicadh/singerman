@@ -89,8 +89,15 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 		const isActive = range[0] !== minTimestamp || range[1] !== maxTimestamp;
 		onDateChange?.(isActive);
 
-		const singleCondition = `(${dateFields[0]} <= ${range[1]} AND ${dateFields[1]} >= ${range[0]})`;
-		setFilterString(singleCondition);
+		// Only apply the numeric date filter once the user actually narrows the
+		// range. Algolia numeric filters exclude any record lacking the attribute,
+		// so an always-on filter silently hides every undated record from search.
+		if (isActive) {
+			const singleCondition = `(${dateFields[0]} <= ${range[1]} AND ${dateFields[1]} >= ${range[0]})`;
+			setFilterString(singleCondition);
+		} else {
+			setFilterString('');
+		}
 
 		const updateURL = setTimeout(() => {
 			const url = new URL(window.location.href);
