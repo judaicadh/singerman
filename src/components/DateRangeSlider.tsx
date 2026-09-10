@@ -71,7 +71,21 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 																	 onChange
 																 }) => {
 	const isControlled = value !== undefined;
-	const [internalRange, setInternalRange] = useState<[number, number]>([minTimestamp, maxTimestamp]);
+	// Seed the range from ?start=YYYY&end=YYYY in the URL so links (e.g. from the
+	// visualization) arrive pre-filtered by year. Years are read as UTC.
+	const initialRange = (): [number, number] => {
+		let lo = minTimestamp;
+		let hi = maxTimestamp;
+		try {
+			const p = new URLSearchParams(window.location.search);
+			const s = parseInt(p.get("start") ?? "", 10);
+			const e = parseInt(p.get("end") ?? "", 10);
+			if (!isNaN(s)) lo = Math.max(minTimestamp, Math.floor(Date.UTC(s, 0, 1) / 1000));
+			if (!isNaN(e)) hi = Math.min(maxTimestamp, Math.floor(Date.UTC(e, 11, 31, 23, 59, 59) / 1000));
+		} catch {}
+		return lo <= hi ? [lo, hi] : [minTimestamp, maxTimestamp];
+	};
+	const [internalRange, setInternalRange] = useState<[number, number]>(initialRange);
 	const range = isControlled ? [value!.min, value!.max] : internalRange;
 
 	const [filterString, setFilterString] = useState<string>('');
@@ -106,10 +120,10 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 		const updateURL = setTimeout(() => {
 			const url = new URL(window.location.href);
 			range[0] !== minTimestamp
-				? url.searchParams.set("start", dayjs(range[0] * 1000).format("YYYY"))
+				? url.searchParams.set("start", yearOf(range[0]))
 				: url.searchParams.delete("start");
 			range[1] !== maxTimestamp
-				? url.searchParams.set("end", dayjs(range[1] * 1000).format("YYYY"))
+				? url.searchParams.set("end", yearOf(range[1]))
 				: url.searchParams.delete("end");
 			window.history.replaceState(null, '', url.toString());
 		}, 500);

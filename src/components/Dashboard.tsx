@@ -113,6 +113,22 @@ export default function Dashboard({
       s.includes(pi) ? s.filter((x) => x !== pi) : s.length >= MAX_CITIES ? s : [...s, pi],
     );
 
+  // Build a bibliography (search) URL that carries the current place plus the
+  // dashboard's year window and language selection, so browsing the actual
+  // records reflects what's on screen. ("Other" has no single search facet, so
+  // it's skipped; the year is only added when the window is narrowed.)
+  const bibliographyUrl = (placeName?: string): string => {
+    const params = new URLSearchParams();
+    if (placeName) params.set("place", placeName);
+    if (!activeLangs.every(Boolean)) {
+      // langs 0–3 (English, Yiddish, Hebrew, German) map 1:1 to search facets.
+      for (let i = 0; i < 4; i++) if (activeLangs[i]) params.append("language", langs[i]);
+    }
+    if (start > minYear) params.set("start", String(start));
+    if (end < maxYear) params.set("end", String(end));
+    return `/search/?${params.toString()}`;
+  };
+
   const matchesFormat = (isSerial: number) =>
     format === "all" || (format === "serial" ? isSerial === 1 : isSerial === 0);
 
@@ -326,7 +342,7 @@ export default function Dashboard({
         .filter(Boolean)
         .join("<br>");
 
-      const bibUrl = `/search/?place=${encodeURIComponent(name)}`;
+      const bibUrl = bibliographyUrl(name);
       const m = L2.circleMarker([lat, lng], {
         radius,
         color: "#ffffff",
@@ -774,7 +790,7 @@ export default function Dashboard({
                 <span key={pi} className="inline-flex items-center gap-2 text-sm">
                   <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: CITY_COLORS[si % CITY_COLORS.length] }} />
                   <a
-                    href={`/search/?place=${encodeURIComponent(places[pi]?.[0] ?? "")}`}
+                    href={bibliographyUrl(places[pi]?.[0])}
                     target="_blank"
                     rel="noopener"
                     className="font-bold text-[#1a1a1a] dark:text-[#e5e5e5] hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] hover:underline"
