@@ -31,13 +31,27 @@ const LANG_COLORS: string[] = [
   "#7c3aed", // Other    — violet
 ];
 
+/* Distinct palette for the city-comparison lines (kept separate from the
+   language colours so the two charts never look like they share a key). */
+const CITY_COLORS: string[] = [
+  "#0ea5e9", "#e11d48", "#16a34a", "#d97706", "#7c3aed", "#0d9488", "#db2777", "#4f46e5",
+];
+const MAX_CITIES = 6;
+
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+/* The n place indices with the most records — used to seed the comparison. */
+function topPlacesByCount(records: Record[], n: number): number[] {
+  const counts = new Map<number, number>();
+  for (const r of records) counts.set(r[0], (counts.get(r[0]) ?? 0) + 1);
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, n).map((e) => e[0]);
+}
 
 /* Light-gray "Positron" canvas that makes the coloured markers pop.
    With a CARTO key we use CARTO Positron; without one the CARTO CDN now
    watermarks tiles, so we fall back to Esri's key-free light-gray canvas
    (visually equivalent, {z}/{y}/{x} order, no watermark). */
-const CARTO_URL = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png";
+const CARTO_VECTOR_STYLE = "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json";
 const CARTO_ATTR =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
 const ESRI_URL =
@@ -89,6 +103,15 @@ export default function Dashboard({
   const [view, setView] = useState<[number, number]>([minYear, maxYear]);
   const viewStart = view[0];
   const viewEnd = view[1];
+  // Cities being compared in the trend chart (place indices, up to MAX_CITIES).
+  const [selectedPlaces, setSelectedPlaces] = useState<number[]>(() =>
+    topPlacesByCount(records, 4),
+  );
+
+  const toggleCity = (pi: number) =>
+    setSelectedPlaces((s) =>
+      s.includes(pi) ? s.filter((x) => x !== pi) : s.length >= MAX_CITIES ? s : [...s, pi],
+    );
 
   const matchesFormat = (isSerial: number) =>
     format === "all" || (format === "serial" ? isSerial === 1 : isSerial === 0);
@@ -204,6 +227,35 @@ export default function Dashboard({
     return t;
   }, [records, start, end, format, langs.length]);
 
+  /* ------------------ City comparison (imprints per year) ------------------ *
+   * For each selected city, a per-year count honouring the format + language
+   * filters (every year of a serial's run contributes, as on the timeline). */
+  const topCities = useMemo(() => topPlacesByCount(records, 10), [records]);
+  const width = maxYear - minYear + 1;
+  const citySeries = useMemo(
+    () =>
+      selectedPlaces.map((pi) => {
+        const arr = new Array(width).fill(0);
+        for (const [p, , isSerial, years, mask] of records) {
+          if (p !== pi || !matchesFormat(isSerial) || (mask & activeMask) === 0) continue;
+          for (const y of years) {
+            const idx = y - minYear;
+            if (idx >= 0 && idx < width) arr[idx]++;
+          }
+        }
+        return arr;
+      }),
+    [selectedPlaces, records, minYear, width, format, activeMask],
+  );
+  const maxCityVal = useMemo(
+    () => Math.max(1, ...citySeries.flat()),
+    [citySeries],
+  );
+  const cityTotals = useMemo(
+    () => citySeries.map((s) => s.reduce((a, b) => a + b, 0)),
+    [citySeries],
+  );
+
   /* ------------------------------- Map -------------------------------- */
   const mapEl = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<any>(null);
@@ -229,21 +281,25 @@ export default function Dashboard({
     return () => ro.disconnect();
   }, [L]);
 
-  // Add the light "Positron-style" basemap (Esri light gray canvas — key-free).
+  // Basemap: CARTO's vector Positron via MapLibre GL when the bridge is
+  // loaded (true Positron, unwatermarked); otherwise a key-free Esri raster
+  // canvas as a graceful fallback.
   useEffect(() => {
     if (!L || !mapRef.current || tileRef.current) return;
-    // Use CARTO Positron when a key is configured (it rides along with each
-    // tile request); otherwise fall back to the unwatermarked Esri canvas.
-    const url = cartoKey
-      ? `${CARTO_URL}?api_key=${encodeURIComponent(cartoKey)}`
-      : ESRI_URL;
-    tileRef.current = L.tileLayer(url, {
-      attribution: cartoKey ? CARTO_ATTR : ESRI_ATTR,
-      subdomains: "abcd",
-      maxZoom: 20,
-    }).addTo(mapRef.current);
-    tileRef.current.bringToBack();
-  }, [L, cartoKey]);
+    const mgl = (window as any).maplibregl;
+    const maplibreGL = (L as any).maplibreGL;
+    if (mgl && maplibreGL) {
+      tileRef.current = maplibreGL({
+        style: CARTO_VECTOR_STYLE,
+        attribution: CARTO_ATTR,
+      }).addTo(mapRef.current);
+    } else {
+      tileRef.current = L.tileLayer(ESRI_URL, {
+        attribution: ESRI_ATTR,
+        maxZoom: 20,
+      }).addTo(mapRef.current);
+    }
+  }, [L]);
 
   // Redraw markers whenever the aggregation changes.
   useEffect(() => {
@@ -270,6 +326,7 @@ export default function Dashboard({
         .filter(Boolean)
         .join("<br>");
 
+      const bibUrl = `/search/?place=${encodeURIComponent(name)}`;
       const m = L2.circleMarker([lat, lng], {
         radius,
         color: "#ffffff",
@@ -277,11 +334,26 @@ export default function Dashboard({
         fillColor: color,
         fillOpacity: 0.72,
       }).bindTooltip(
-        `<strong>${name}</strong><br><span style="color:#6b7280">${e.total} ${
-          e.total === 1 ? "imprint" : "imprints"
-        }, ${start}–${end}</span><br>${breakdown}`,
-        { direction: "top", sticky: true },
+        `<strong>${name}</strong> · ${e.total.toLocaleString()} ${e.total === 1 ? "imprint" : "imprints"}`,
+        { direction: "top" },
       );
+
+      // Click opens a popup with the place breakdown, a link into the
+      // bibliography (filtered to this place), and a compare toggle.
+      const popup = document.createElement("div");
+      popup.style.minWidth = "180px";
+      popup.innerHTML =
+        `<strong style="font-size:13px">${name}</strong>` +
+        `<div style="color:#6b7280;margin:2px 0 6px">${e.total.toLocaleString()} ${e.total === 1 ? "imprint" : "imprints"}, ${start}–${end}</div>` +
+        `<div style="margin-bottom:8px">${breakdown}</div>` +
+        `<a href="${bibUrl}" target="_blank" rel="noopener" style="color:#b91c1c;font-weight:700;text-decoration:underline">Browse in bibliography →</a>`;
+      const cmp = document.createElement("button");
+      cmp.textContent = "＋ Compare over time";
+      cmp.style.cssText =
+        "display:block;margin-top:8px;padding:5px 10px;border:1px solid #e5e7eb;border-radius:4px;background:#1a1a1a;color:#fff;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;width:100%";
+      cmp.onclick = () => toggleCity(pi);
+      popup.appendChild(cmp);
+      m.bindPopup(popup);
       layer.addLayer(m);
     }
   }, [placeAgg, places, langs, start, end]);
@@ -324,20 +396,31 @@ export default function Dashboard({
 
   const xForYear = (y: number) => ((y - viewStart) / viewSpan) * TL_W;
 
-  // Mouse-wheel zoom on the timeline, centred on the year under the cursor.
-  const onWheelZoom = (e: React.WheelEvent<SVGSVGElement>) => {
-    e.preventDefault();
-    const rect = e.currentTarget.getBoundingClientRect();
-    const pivot = yearFromClientX(e.clientX, rect);
-    const factor = e.deltaY < 0 ? 0.8 : 1.25; // wheel up = zoom in
-    const fullSpan = maxYear - minYear + 1;
-    const MIN_SPAN = 6;
-    const newSpan = clamp(Math.round(viewSpan * factor), MIN_SPAN, fullSpan);
-    const leftFrac = viewSpan > 1 ? (pivot - viewStart) / (viewSpan - 1) : 0;
-    let ns = Math.round(pivot - leftFrac * (newSpan - 1));
-    ns = clamp(ns, minYear, maxYear - newSpan + 1);
-    setView([ns, ns + newSpan - 1]);
-  };
+  // Mouse-wheel zoom, centred on the year under the cursor. Attached as a
+  // non-passive native listener so preventDefault() actually stops the page
+  // from scrolling (React's onWheel is passive and cannot preventDefault).
+  const viewRef = useRef(view);
+  viewRef.current = view;
+  useEffect(() => {
+    const el = svgRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      e.preventDefault();
+      const rect = el.getBoundingClientRect();
+      const [vs, ve] = viewRef.current;
+      const vspan = ve - vs + 1;
+      const ratio = clamp((e.clientX - rect.left) / rect.width, 0, 1);
+      const pivot = Math.round(vs + ratio * (ve - vs));
+      const factor = e.deltaY < 0 ? 0.8 : 1.25; // wheel up = zoom in
+      const fullSpan = maxYear - minYear + 1;
+      const newSpan = clamp(Math.round(vspan * factor), 6, fullSpan);
+      const leftFrac = vspan > 1 ? (pivot - vs) / (vspan - 1) : 0;
+      const ns = clamp(Math.round(pivot - leftFrac * (newSpan - 1)), minYear, maxYear - newSpan + 1);
+      setView([ns, ns + newSpan - 1]);
+    };
+    el.addEventListener("wheel", handler, { passive: false });
+    return () => el.removeEventListener("wheel", handler);
+  }, [minYear, maxYear]);
 
   const resetView = () => setView([minYear, maxYear]);
   const zoomed = viewStart > minYear || viewEnd < maxYear;
@@ -359,6 +442,17 @@ export default function Dashboard({
     for (let y = Math.ceil(viewStart / step) * step; y <= viewEnd; y += step) ticks.push(y);
     return ticks;
   }, [viewStart, viewEnd]);
+
+  /* ------------- City-comparison chart geometry (full year range) ------------- */
+  const CW = 1000;
+  const CH = 150;
+  const xC = (y: number) => ((y - minYear) / Math.max(1, maxYear - minYear)) * CW;
+  const yC = (v: number) => CH - (v / maxCityVal) * CH;
+  const cmpTicks = useMemo(() => {
+    const ticks: number[] = [];
+    for (let y = Math.ceil(minYear / 25) * 25; y <= maxYear; y += 25) ticks.push(y);
+    return ticks;
+  }, [minYear, maxYear]);
 
   return (
     <div className="space-y-6">
@@ -498,7 +592,6 @@ export default function Dashboard({
               viewBox={`0 0 ${TL_W} ${TL_H + 22}`}
               className="w-full select-none"
               style={{ touchAction: "none" }}
-              onWheel={onWheelZoom}
               onDoubleClick={resetView}
               onPointerDown={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
@@ -615,6 +708,113 @@ export default function Dashboard({
             </p>
           </div>
         </aside>
+      </div>
+
+      {/* ---------------------- Compare cities over time ---------------------- */}
+      <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-5 shadow-sm">
+        <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+          <h2
+            style={{ fontFamily: "'Spectral', serif" }}
+            className="text-xl font-bold text-[#1a1a1a] dark:text-[#e5e5e5]"
+          >
+            Compare cities over time
+          </h2>
+          <span className="text-[11px] text-gray-400">
+            Imprints per year · reflects the language &amp; format filters above · click a map marker to add a city
+          </span>
+        </div>
+
+        {/* City picker: quick chips for the busiest cities + a search box */}
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          {topCities.map((pi) => {
+            const on = selectedPlaces.includes(pi);
+            const ci = selectedPlaces.indexOf(pi);
+            return (
+              <button
+                key={pi}
+                onClick={() => toggleCity(pi)}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-bold border transition-colors ${
+                  on
+                    ? "text-white border-transparent"
+                    : "bg-white dark:bg-[#1e1e1e] text-gray-600 dark:text-gray-300 border-[#e5e7eb] dark:border-[#2f2f2f] hover:border-gray-400"
+                }`}
+                style={on ? { backgroundColor: CITY_COLORS[ci % CITY_COLORS.length] } : undefined}
+              >
+                {on && <span aria-hidden>✓</span>}
+                {places[pi]?.[0]}
+              </button>
+            );
+          })}
+          <input
+            list="all-cities"
+            placeholder="Add a city…"
+            onChange={(e) => {
+              const idx = places.findIndex((p) => p[0] === (e.target as HTMLInputElement).value);
+              if (idx >= 0 && !selectedPlaces.includes(idx)) toggleCity(idx);
+              (e.target as HTMLInputElement).value = "";
+            }}
+            className="px-3 py-1 text-[12px] rounded-full border border-[#e5e7eb] dark:border-[#2f2f2f] bg-white dark:bg-[#1e1e1e] text-[#1a1a1a] dark:text-[#e5e5e5] placeholder:text-gray-400 focus:outline-none focus:border-[#b91c1c] w-40"
+          />
+          <datalist id="all-cities">
+            {places.map((p, i) => (
+              <option key={i} value={p[0]} />
+            ))}
+          </datalist>
+        </div>
+
+        {selectedPlaces.length === 0 ? (
+          <p className="text-sm text-gray-500 py-8 text-center">
+            Pick one or more cities above (or click a marker) to compare their output over time.
+          </p>
+        ) : (
+          <>
+            {/* Legend */}
+            <div className="flex flex-wrap gap-x-5 gap-y-2 mb-3">
+              {selectedPlaces.map((pi, si) => (
+                <span key={pi} className="inline-flex items-center gap-2 text-sm">
+                  <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: CITY_COLORS[si % CITY_COLORS.length] }} />
+                  <a
+                    href={`/search/?place=${encodeURIComponent(places[pi]?.[0] ?? "")}`}
+                    target="_blank"
+                    rel="noopener"
+                    className="font-bold text-[#1a1a1a] dark:text-[#e5e5e5] hover:text-[#b91c1c] dark:hover:text-[#ff4d4d] hover:underline"
+                    title="Browse these imprints in the bibliography"
+                  >
+                    {places[pi]?.[0]}
+                  </a>
+                  <span className="text-gray-500 dark:text-gray-400 tabular-nums">{cityTotals[si].toLocaleString()}</span>
+                  <button onClick={() => toggleCity(pi)} aria-label={`Remove ${places[pi]?.[0]}`} className="text-gray-400 hover:text-[#b91c1c]">×</button>
+                </span>
+              ))}
+            </div>
+
+            {/* Multi-line chart */}
+            <svg viewBox={`0 0 ${CW} ${CH + 24}`} className="w-full">
+              {/* Horizontal gridlines + y labels (0, mid, max) */}
+              {[0, 0.5, 1].map((f) => (
+                <g key={f}>
+                  <line x1={0} y1={CH - f * CH} x2={CW} y2={CH - f * CH} stroke="currentColor" className="text-gray-200 dark:text-gray-700" strokeWidth={1} />
+                  <text x={0} y={CH - f * CH - 3} className="fill-gray-400" fontSize={11}>{Math.round(f * maxCityVal)}</text>
+                </g>
+              ))}
+              {/* One polyline per city */}
+              {citySeries.map((series, si) => (
+                <polyline
+                  key={si}
+                  fill="none"
+                  stroke={CITY_COLORS[si % CITY_COLORS.length]}
+                  strokeWidth={2}
+                  strokeLinejoin="round"
+                  points={series.map((v, idx) => `${xC(minYear + idx).toFixed(1)},${yC(v).toFixed(1)}`).join(" ")}
+                />
+              ))}
+              {/* Year ticks */}
+              {cmpTicks.map((y) => (
+                <text key={y} x={xC(y)} y={CH + 18} textAnchor="middle" className="fill-gray-400" fontSize={11}>{y}</text>
+              ))}
+            </svg>
+          </>
+        )}
       </div>
     </div>
   );
