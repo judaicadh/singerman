@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Dashboard from "../components/Dashboard";
+import items from "../data/items.json";
+
+/* ------------------------------------------------------------------ *
+ * Build a compact payload for the client dashboard.
+ *   langs   — fixed language buckets (index = colour index)
+ *   places  — [name, lat, lng] deduped by place string
+ *   records — [placeIdx, primaryLang, isSerial, years[], langMask] per
+ *             geolocated imprint. `years` holds every publication year parsed
+ *             from the record (serials often ran across many); years[0] is the
+ *             primary year. `langMask` is a bitmask of every language bucket the
+ *             work is in, so bilingual works count toward each of their languages.
+ * ------------------------------------------------------------------ */
+const LANGS = ["English", "Yiddish", "Hebrew", "German", "Other"];
+const YMIN = 1600;
+const YMAX = 1905; // clamp out stray/erroneous future years in serial runs
+
+function bucket(lang: string): number {
+  const l = (lang || "").replace(/\?/g, "").trim();
+  if (l === "English") return 0;
+  if (l.startsWith("Yiddish") || l.includes("Judeo-German")) return 1;
+  if (l.startsWith("Hebrew") || l === "Aramaic") return 2;
+  if (l.startsWith("German")) return 3;
+  return 4;
+}
+
+/* Pull every 4-digit year out of the (possibly pipe-delimited) year field,
+   e.g. "1892 | 1893 | 1903" → [1892, 1893, 1903]; primary year first. */
+function parseYears(raw: unknown): number[] {
+  const primary = parseInt(String(raw ?? "").slice(0, 4), 10);
+  const found = String(raw ?? "").match(/1[6-9]\d\d/g) ?? [];
+  const seen = new Set<number>();
+  const out: number[] = [];
+  const push = (n: number) => {
+    if (Number.isFinite(n) && n >= YMIN && n <= YMAX && !seen.has(n)) {
+      seen.add(n);
+      out.push(n);
+    }
+  };
+  push(primary);
+  for (const m of found) push(parseInt(m, 10));
+  return out;
+}
+
+const placeIndex = new Map<string, number>();
+const places: [string, number, number][] = [];
+const records: [number, number, number, number[], number][] = [];
+
+let minYear = Infinity;
+let maxYear = -Infinity;
+
+for (const r of items as any[]) {
+  const ll = r.latLng;
+  if (!ll || typeof ll.lat !== "number" || typeof ll.lng !== "number") continue;
+
+  const years = parseYears(r.year);
+  if (years.length === 0) continue;
+
+  const name = (r.place || "Unknown").trim();
+  let pi = placeIndex.get(name);
+  if (pi === undefined) {
+    pi = places.length;
+    placeIndex.set(name, pi);
+    places.push([name, ll.lat, ll.lng]);
+  }
+
+  const langList: string[] = Array.isArray(r.languages) ? r.languages.filter(Boolean) : [];
+  const primaryLang = langList.length ? bucket(langList[0]) : 4; // blank → Other
+  let langMask = 0;
+  for (const l of langList) langMask |= 1 << bucket(l);
+  if (langMask === 0) langMask = 1 << 4; // blank → Other
+  const isSerial = String(r.id ?? "").toUpperCase().startsWith("S") ? 1 : 0;
+  records.push([pi, primaryLang, isSerial, years, langMask]);
+
+  for (const y of years) {
+    if (y < minYear) minYear = y;
+    if (y > maxYear) maxYear = y;
+  }
+}
+---
+
+<BaseLayout
+  title="Visualization"
+  description="Explore American Jewish imprints from 1676 to 1902 across time, place, and language on an interactive map and timeline."
+>
+  <Fragment slot="headContent">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      is:inline
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""></script>
+  </Fragment>
+
+  <Dashboard
+    client:only="react"
+    places={places}
+    records={records}
+    langs={LANGS}
+    minYear={minYear}
+    maxYear={maxYear}
+    cartoKey={import.meta.env.PUBLIC_CARTO_API_KEY ?? ""}
+  />
+</BaseLayout>
