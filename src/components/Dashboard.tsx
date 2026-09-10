@@ -692,6 +692,22 @@ export default function Dashboard({
                 <dd className="text-sm font-bold text-[#1a1a1a] dark:text-[#e5e5e5] text-right">{stats.top.name}<span className="text-gray-400 font-normal"> ({stats.top.count})</span></dd>
               </div>
             </dl>
+            {/* Open the bibliography with the current year + language filters applied. */}
+            <a
+              href={bibliographyUrl()}
+              target="_blank"
+              rel="noopener"
+              className="mt-4 inline-flex w-full items-center justify-center gap-2 px-3 py-2 bg-[#1a1a1a] dark:bg-[#b91c1c] text-white text-[11px] font-black uppercase tracking-widest rounded hover:bg-[#b91c1c] dark:hover:bg-[#ff4d4d] transition-colors"
+            >
+              Browse these in the bibliography →
+            </a>
+            {(start > minYear || end < maxYear || !activeLangs.every(Boolean)) && (
+              <p className="text-[11px] text-gray-400 mt-2 leading-snug">
+                Carries your {start > minYear || end < maxYear ? `${start}–${end}` : ""}
+                {(start > minYear || end < maxYear) && !activeLangs.every(Boolean) ? " and " : ""}
+                {!activeLangs.every(Boolean) ? "language" : ""} filter into the search.
+              </p>
+            )}
           </div>
 
           <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">

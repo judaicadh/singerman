@@ -434,8 +434,8 @@ const SearchApp: FC = () => {
                         <DateRangeSlider
                             title="Date Range"
                             dateFields={["startDate", "endDate"]}
-                            minTimestamp={-11676096000}
-                            maxTimestamp={31536000}
+                            minTimestamp={-9277718400}   /* 1676-01-01 UTC — earliest imprint */
+                            maxTimestamp={-2019686401}   /* 1905-12-31 UTC — covers serial runs */
                             // ...your props
                         />
                         {/* Location */}
