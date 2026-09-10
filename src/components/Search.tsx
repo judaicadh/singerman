@@ -10,7 +10,7 @@ import {
     Pagination,
     Stats,
     ToggleRefinement,
-    Highlight, useRange, CurrentRefinements, HitsPerPage, Configure, useInstantSearch,
+    Highlight, useRange, CurrentRefinements, HitsPerPage, Configure, useInstantSearch, SortBy,
 } from 'react-instantsearch';
 import DateRangeSlider from "./DateRangeSlider";
 
@@ -225,7 +225,7 @@ const SearchApp: FC = () => {
 
     return (
         <InstantSearch indexName={indexName} searchClient={searchClient} routing={routing}>
-            <Configure hitsPerPage={12} />
+            {/* Page size is controlled by the HitsPerPage widget (default 12). */}
 
             {/* Research List Button: Styled in Scholar Black */}
             <div className="flex justify-end px-4">
@@ -278,6 +278,34 @@ const SearchApp: FC = () => {
                                     text: "text-[11px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em] font-[Karla]"
                                 }}
                             />
+                            {/* Sort order — dev_Singerman_date is a replica sorted by date */}
+                            <label className="hidden sm:flex items-center gap-2">
+                                <span className="text-[11px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em]">Sort</span>
+                                <SortBy
+                                    items={[
+                                        { label: 'Relevance', value: 'dev_Singerman' },
+                                        { label: 'Date', value: 'dev_Singerman_date' },
+                                    ]}
+                                    classNames={{
+                                        select: "text-[12px] font-bold text-[#1a1a1a] dark:text-[#e5e5e5] bg-white dark:bg-[#1e1e1e] border-2 border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:border-[#1a1a1a] dark:focus:border-[#ff4d4d] cursor-pointer",
+                                    }}
+                                />
+                            </label>
+                            {/* Results per page */}
+                            <label className="hidden sm:flex items-center gap-2">
+                                <span className="text-[11px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em]">Show</span>
+                                <HitsPerPage
+                                    items={[
+                                        { label: '12', value: 12, default: true },
+                                        { label: '24', value: 24 },
+                                        { label: '48', value: 48 },
+                                        { label: '96', value: 96 },
+                                    ]}
+                                    classNames={{
+                                        select: "text-[12px] font-bold text-[#1a1a1a] dark:text-[#e5e5e5] bg-white dark:bg-[#1e1e1e] border-2 border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 focus:outline-none focus:border-[#1a1a1a] dark:focus:border-[#ff4d4d] cursor-pointer",
+                                    }}
+                                />
+                            </label>
                             <button
                                 type="button"
                                 onClick={() => setFiltersOpen(true)}
