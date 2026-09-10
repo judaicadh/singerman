@@ -71,7 +71,10 @@ for (const r of items as any[]) {
   let langMask = 0;
   for (const l of langList) langMask |= 1 << bucket(l);
   if (langMask === 0) langMask = 1 << 4; // blank → Other
-  const isSerial = String(r.id ?? "").toUpperCase().startsWith("S") ? 1 : 0;
+  // Serials are the "Union List of Nineteenth-Century Jewish Serials"
+  // collection (735 records). NB: the id prefix is unreliable — the ~3,100
+  // "supp####" supplement entries are additional monographs, not serials.
+  const isSerial = /Serial/i.test(String(r.collection ?? "")) ? 1 : 0;
   records.push([pi, primaryLang, isSerial, years, langMask]);
 
   for (const y of years) {
