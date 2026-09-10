@@ -103,6 +103,25 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 		setEndDate(yearOf(newRange[1]));
 	};
 
+	// The min/max years the slider spans, for clamping typed input.
+	const minYear = Number(yearOf(minTimestamp));
+	const maxYear = Number(yearOf(maxTimestamp));
+
+	// Commit a typed year only on blur/Enter (not per keystroke) so you can type
+	// a full year without the slider jumping. Values are clamped to the range.
+	const commitStart = (raw: string) => {
+		const y = parseInt(raw, 10);
+		if (isNaN(y)) { setStartDate(yearOf(range[0])); return; }
+		const cy = Math.min(Math.max(y, minYear), Number(yearOf(range[1])));
+		updateRange([Math.floor(Date.UTC(cy, 0, 1) / 1000), range[1]]);
+	};
+	const commitEnd = (raw: string) => {
+		const y = parseInt(raw, 10);
+		if (isNaN(y)) { setEndDate(yearOf(range[1])); return; }
+		const cy = Math.max(Math.min(y, maxYear), Number(yearOf(range[0])));
+		updateRange([range[0], Math.floor(Date.UTC(cy, 11, 31, 23, 59, 59) / 1000)]);
+	};
+
 	useEffect(() => {
 		const isActive = range[0] !== minTimestamp || range[1] !== maxTimestamp;
 		onDateChange?.(isActive);
@@ -174,24 +193,24 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 
 							<div className="flex items-center justify-between gap-4 mt-6">
 								<StyledTextField
-									label="From"
+									label="From year"
+									type="number"
+									inputProps={{ min: minYear, max: maxYear, inputMode: "numeric" }}
 									value={startDate}
-									onChange={(e) => {
-										setStartDate(e.target.value);
-										const y = parseInt(e.target.value);
-										if (!isNaN(y)) updateRange([Math.floor(Date.UTC(y, 0, 1) / 1000), range[1]]);
-									}}
+									onChange={(e) => setStartDate(e.target.value)}
+									onBlur={(e) => commitStart(e.target.value)}
+									onKeyDown={(e) => { if (e.key === "Enter") { commitStart((e.target as HTMLInputElement).value); (e.target as HTMLInputElement).blur(); } }}
 									size="small"
 								/>
 								<span className="text-gray-300 dark:text-gray-700">—</span>
 								<StyledTextField
-									label="To"
+									label="To year"
+									type="number"
+									inputProps={{ min: minYear, max: maxYear, inputMode: "numeric" }}
 									value={endDate}
-									onChange={(e) => {
-										setEndDate(e.target.value);
-										const y = parseInt(e.target.value);
-										if (!isNaN(y)) updateRange([range[0], Math.floor(Date.UTC(y, 11, 31, 23, 59, 59) / 1000)]);
-									}}
+									onChange={(e) => setEndDate(e.target.value)}
+									onBlur={(e) => commitEnd(e.target.value)}
+									onKeyDown={(e) => { if (e.key === "Enter") { commitEnd((e.target as HTMLInputElement).value); (e.target as HTMLInputElement).blur(); } }}
 									size="small"
 								/>
 							</div>

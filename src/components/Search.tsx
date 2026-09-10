@@ -203,6 +203,15 @@ const SearchApp: FC = () => {
         const saved = localStorage.getItem('singerman_bookmarks');
         if (saved) setSavedHits(JSON.parse(saved));
     }, []);
+
+    // Lock the page behind a drawer so there's a single scrollbar (the drawer's),
+    // not the drawer's plus the body's.
+    useEffect(() => {
+        const open = filtersOpen || listOpen;
+        const prev = document.body.style.overflow;
+        if (open) document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = prev; };
+    }, [filtersOpen, listOpen]);
     const toggleSave = (hit: RecordHit) => {
         // Check for hit.id OR hit.objectID depending on your data
         const identifier = hit.slug || hit.slug;
@@ -227,8 +236,9 @@ const SearchApp: FC = () => {
         <InstantSearch indexName={indexName} searchClient={searchClient} routing={routing}>
             {/* Page size is controlled by the HitsPerPage widget (default 12). */}
 
-            {/* Research List Button: Styled in Scholar Black */}
-            <div className="flex justify-end px-4">
+            {/* Research List Button: Styled in Scholar Black. Hidden while a drawer
+                is open so it doesn't float over the drawer/results. */}
+            <div className="flex justify-end px-4" hidden={filtersOpen || listOpen}>
                 <Button
                     onClick={() => setListOpen(true)}
                     startIcon={<BookmarkAddIcon />}
