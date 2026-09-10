@@ -377,7 +377,7 @@ export default function Dashboard({
           Scrub or play the timeline to watch {records.length.toLocaleString()} geolocated
           imprints spread across the map from {minYear} to {maxYear}. Circles sit at each
           place of publication, sized by volume and coloured by the dominant language. Filter
-          to serials or monographs, or toggle languages to isolate a tradition. Serials that
+          to serials or monographs, or toggle languages. Serials that
           ran for several years appear for every year of their run.
         </p>
       </div>
