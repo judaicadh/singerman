@@ -75,14 +75,18 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 	const range = isControlled ? [value!.min, value!.max] : internalRange;
 
 	const [filterString, setFilterString] = useState<string>('');
-	const [startDate, setStartDate] = useState<string>(dayjs(range[0] * 1000).format("YYYY"));
-	const [endDate, setEndDate] = useState<string>(dayjs(range[1] * 1000).format("YYYY"));
+	// Timestamps are UTC (midnight Jan 1), so read the year in UTC — local time
+	// rolls back to the previous year west of UTC and shows it one too low.
+	const yearOf = (ts: number) => String(new Date(ts * 1000).getUTCFullYear());
+
+	const [startDate, setStartDate] = useState<string>(yearOf(range[0]));
+	const [endDate, setEndDate] = useState<string>(yearOf(range[1]));
 
 	const updateRange = (newRange: [number, number]) => {
 		if (!isControlled) setInternalRange(newRange);
 		onChange?.({ min: newRange[0], max: newRange[1] });
-		setStartDate(dayjs(newRange[0] * 1000).format("YYYY"));
-		setEndDate(dayjs(newRange[1] * 1000).format("YYYY"));
+		setStartDate(yearOf(newRange[0]));
+		setEndDate(yearOf(newRange[1]));
 	};
 
 	useEffect(() => {
@@ -131,7 +135,7 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 									max={maxTimestamp}
 									onChange={handleSliderChange}
 									valueLabelDisplay="auto"
-									valueLabelFormat={(v) => dayjs(v * 1000).format('YYYY')}
+									valueLabelFormat={(v) => yearOf(v)}
 									sx={{
 										color: '#b91c1c', // Your theme red
 										height: 4,
@@ -161,7 +165,7 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 									onChange={(e) => {
 										setStartDate(e.target.value);
 										const y = parseInt(e.target.value);
-										if (!isNaN(y)) updateRange([dayjs().year(y).startOf('year').unix(), range[1]]);
+										if (!isNaN(y)) updateRange([Math.floor(Date.UTC(y, 0, 1) / 1000), range[1]]);
 									}}
 									size="small"
 								/>
@@ -172,7 +176,7 @@ const DateRangeSlider: React.FC<CombinedDateRangeSliderProps> = ({
 									onChange={(e) => {
 										setEndDate(e.target.value);
 										const y = parseInt(e.target.value);
-										if (!isNaN(y)) updateRange([range[0], dayjs().year(y).endOf('year').unix()]);
+										if (!isNaN(y)) updateRange([range[0], Math.floor(Date.UTC(y, 11, 31, 23, 59, 59) / 1000)]);
 									}}
 									size="small"
 								/>

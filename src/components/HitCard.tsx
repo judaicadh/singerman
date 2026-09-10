@@ -151,8 +151,10 @@ export default function HitListItem({ hit, onSave, isSaved }: HitProps) {
 
 // Helper function remains the same...
 function formatDateRange(hit: RecordHit): string | null {
-    const start = hit.startDate ? new Date(hit.startDate * 1000).getFullYear() : null;
-    const end = hit.endDate ? new Date(hit.endDate * 1000).getFullYear() : null;
+    // Timestamps are UTC midnight on Jan 1, so derive the year in UTC — using
+    // local time rolls back to Dec 31 of the previous year west of UTC.
+    const start = hit.startDate ? new Date(hit.startDate * 1000).getUTCFullYear() : null;
+    const end = hit.endDate ? new Date(hit.endDate * 1000).getUTCFullYear() : null;
     if (start && end && start !== end) return `${start}–${end}`;
     if (start) return `${start}`;
     if (hit.year) return `${hit.year}`;

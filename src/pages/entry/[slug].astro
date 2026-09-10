@@ -76,6 +76,16 @@ const formatDate = (
 const isPersonallyViewed = item.asterisk === "*";
 const displayDate = formatDate(item.startDate, item.endDate, item.year);
 
+// Language of the title (e.g. a Hebrew title on an English work). Stored as a
+// string or array, sometimes pipe-delimited ("Yiddish | German").
+const titleLanguages: string[] = (
+    Array.isArray(item.languagetitle) ? item.languagetitle : [item.languagetitle]
+)
+    .filter(Boolean)
+    .flatMap((l) => String(l).split("|"))
+    .map((l) => l.trim())
+    .filter(Boolean);
+
 const breadcrumb = item.collection || "Chronological File, 1676 to 1900";
 
 const googleBooksUrl = `https://www.google.com/search?tbm=bks&q=${encodeURIComponent(item.title)}`;
@@ -267,6 +277,19 @@ const entrySchema = {
                                     )}
                                 </div>
                             </div>
+
+                            {titleLanguages.length > 0 && (
+                                <div>
+                                    <label class="block text-[10px] font-black text-gray-400 uppercase mb-1.5">Language (Title)</label>
+                                    <div class="flex flex-wrap gap-2">
+                                        {titleLanguages.map((lang) => (
+                                            <span class="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-black dark:text-gray-300 text-[13px] font-bold rounded border border-gray-200 dark:border-gray-700">
+                                                {lang}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {(item.goldmanId || item.goldmanTitle) && (
