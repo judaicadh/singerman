@@ -68,6 +68,10 @@ const formatRecordsForBatch = (records) =>
                 iframe: record.iframe,
                 language: record.languages,
                 languagetitle: record.languagetitle,
+                // True when the work is in more than one language (bilingual, etc.).
+                // Add "multilingual" to the index's attributesForFaceting to use it
+                // as a filter (see the "Multiple languages" toggle on /search).
+                multilingual: (Array.isArray(record.languages) ? record.languages.filter(Boolean).length : 0) > 1,
                 asterix: record.asterix,
             }
         };

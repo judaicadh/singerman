@@ -463,6 +463,18 @@ const SearchApp: FC = () => {
                             count: "ml-auto text-[10px] font-mono font-bold bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-2 py-0.5 rounded",
                             searchBox: "mb-4",
                         }} searchable={false} showMore={false} />
+
+                        {/* Multiple languages — needs a faceted `multilingual` attribute
+                            (added by pushToAlgolia.mjs; see README). */}
+                        <ToggleRefinement
+                            attribute="multilingual"
+                            label="Multiple languages only"
+                            classNames={{
+                                label: "flex items-center gap-3 py-2 cursor-pointer",
+                                checkbox: "w-5 h-5 border-2 border-gray-300 text-[#b91c1c] focus:ring-[#b91c1c] rounded-sm",
+                                labelText: "text-base md:text-sm font-serif text-gray-700 dark:text-gray-300",
+                            }}
+                        />
                     </div>
 
 

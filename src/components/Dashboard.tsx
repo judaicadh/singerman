@@ -99,6 +99,13 @@ export default function Dashboard({
   const [playing, setPlaying] = useState(false);
   // Serial / monograph filter.
   const [format, setFormat] = useState<Format>("all");
+  // How multi-dated records (serials with several publication years) are counted:
+  //  "first" — count each title once by its primary year (matches a standard,
+  //            one-record-per-title tally);
+  //  "all"   — count a title in every year of its run (shows serial longevity).
+  const [countMode, setCountMode] = useState<"first" | "all">("first");
+  // Restrict to works written in more than one language (bilingual/multilingual).
+  const [multiOnly, setMultiOnly] = useState(false);
   // Timeline x-axis view domain (zoom). Defaults to the full range.
   const [view, setView] = useState<[number, number]>([minYear, maxYear]);
   const viewStart = view[0];
@@ -138,10 +145,17 @@ export default function Dashboard({
     [activeLangs],
   );
 
-  // A record is in the window if any of its publication years falls inside it.
-  // (Monographs have a single year; multi-year serials span their whole run.)
+  // True when a record's language bitmask has more than one bit set.
+  const isMulti = (mask: number) => (mask & (mask - 1)) !== 0;
+  // A record passes the (optional) multilingual filter.
+  const passesMulti = (mask: number) => !multiOnly || isMulti(mask);
+
+  // Whether a record falls in the window. In "first" mode only its primary year
+  // counts (one title, one date); in "all" mode any year of its run qualifies.
   const inWindow = (years: number[]) =>
-    years.some((y) => y >= start && y <= end);
+    countMode === "all"
+      ? years.some((y) => y >= start && y <= end)
+      : years[0] >= start && years[0] <= end;
 
   const toggleLang = (i: number) =>
     setActiveLangs((a) => a.map((v, idx) => (idx === i ? !v : v)));
@@ -177,15 +191,16 @@ export default function Dashboard({
     const grid: number[][] = Array.from({ length: width }, () =>
       new Array(langs.length).fill(0),
     );
-    for (const [, li, isSerial, years] of records) {
-      if (!matchesFormat(isSerial)) continue;
-      for (const y of years) {
+    for (const [, li, isSerial, years, mask] of records) {
+      if (!matchesFormat(isSerial) || !passesMulti(mask)) continue;
+      const ys = countMode === "all" ? years : [years[0]];
+      for (const y of ys) {
         const row = grid[y - minYear];
         if (row) row[li]++;
       }
     }
     return grid;
-  }, [records, minYear, maxYear, langs.length, format]);
+  }, [records, minYear, maxYear, langs.length, format, countMode, multiOnly]);
 
   const maxYearTotal = useMemo(
     () => Math.max(1, ...yearLangCounts.map((r) => r.reduce((a, b) => a + b, 0))),
@@ -199,9 +214,9 @@ export default function Dashboard({
     () =>
       records.filter(
         ([, , isSerial, years, mask]) =>
-          (mask & activeMask) !== 0 && matchesFormat(isSerial) && inWindow(years),
+          (mask & activeMask) !== 0 && matchesFormat(isSerial) && passesMulti(mask) && inWindow(years),
       ),
-    [records, start, end, activeMask, format],
+    [records, start, end, activeMask, format, countMode, multiOnly],
   );
 
   /* Aggregate visible records by place → per-language membership counts.
@@ -237,11 +252,11 @@ export default function Dashboard({
   const langTotals = useMemo(() => {
     const t = new Array(langs.length).fill(0);
     for (const [, , isSerial, years, mask] of records) {
-      if (!matchesFormat(isSerial) || !inWindow(years)) continue;
+      if (!matchesFormat(isSerial) || !passesMulti(mask) || !inWindow(years)) continue;
       for (let i = 0; i < langs.length; i++) if (mask & (1 << i)) t[i]++;
     }
     return t;
-  }, [records, start, end, format, langs.length]);
+  }, [records, start, end, format, langs.length, countMode, multiOnly]);
 
   /* ------------------ City comparison (imprints per year) ------------------ *
    * For each selected city, a per-year count honouring the format + language
@@ -253,15 +268,16 @@ export default function Dashboard({
       selectedPlaces.map((pi) => {
         const arr = new Array(width).fill(0);
         for (const [p, , isSerial, years, mask] of records) {
-          if (p !== pi || !matchesFormat(isSerial) || (mask & activeMask) === 0) continue;
-          for (const y of years) {
+          if (p !== pi || !matchesFormat(isSerial) || (mask & activeMask) === 0 || !passesMulti(mask)) continue;
+          const ys = countMode === "all" ? years : [years[0]];
+          for (const y of ys) {
             const idx = y - minYear;
             if (idx >= 0 && idx < width) arr[idx]++;
           }
         }
         return arr;
       }),
-    [selectedPlaces, records, minYear, width, format, activeMask],
+    [selectedPlaces, records, minYear, width, format, activeMask, countMode, multiOnly],
   );
   const maxCityVal = useMemo(
     () => Math.max(1, ...citySeries.flat()),
@@ -487,9 +503,25 @@ export default function Dashboard({
           Scrub or play the timeline to watch {records.length.toLocaleString()} geolocated
           imprints spread across the map from {minYear} to {maxYear}. Circles sit at each
           place of publication, sized by volume and coloured by the dominant language. Filter
-          to serials or monographs, or toggle languages. Serials that
-          ran for several years appear for every year of their run.
+          to serials or monographs, or toggle languages. By default each title is counted once
+          by its first year; switch “Count” to “Across run” to spread a serial over every year
+          it was published.
         </p>
+        <details className="mt-3 max-w-3xl text-sm">
+          <summary className="cursor-pointer font-bold text-[#b91c1c] dark:text-[#ff4d4d]">
+            A note on the numbers
+          </summary>
+          <p className="text-gray-600 dark:text-gray-400 mt-2 leading-relaxed">
+            <i>Judaica Americana II</i> records <strong>9,703 publications</strong> (8,980
+            monographs and 735 serials, published 1675–1901), including 299 undated entries.
+            This atlas can only plot the {records.length.toLocaleString()} imprints that have
+            <strong> both a date and map coordinates</strong>, so the counts here run lower than
+            the full bibliography — undated and un-geolocated entries are omitted (they remain
+            searchable on the bibliography), and withdrawn entries are excluded entirely. Because
+            many works are multilingual, a title counts toward each of its languages, so the
+            language tallies can exceed the imprint total.
+          </p>
+        </details>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:items-start">
@@ -543,6 +575,31 @@ export default function Dashboard({
             </div>
 
             <div className="ml-auto flex flex-wrap items-center gap-x-5 gap-y-3">
+              {/* Count mode: match a one-title-one-date tally, or span serial runs */}
+              <div className="inline-flex items-center gap-2">
+                <span className="text-[11px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400" title="How titles with several publication years (serials) are counted.">Count</span>
+                <div className="inline-flex rounded overflow-hidden border border-[#e5e7eb] dark:border-[#2f2f2f]">
+                  {([
+                    ["first", "By first year", "Count each title once, by its primary year (matches a standard tally)."],
+                    ["all", "Across run", "Count a title in every year it was published (shows serial longevity)."],
+                  ] as const).map(([val, label, tip]) => (
+                    <button
+                      key={val}
+                      onClick={() => setCountMode(val)}
+                      aria-pressed={countMode === val}
+                      title={tip}
+                      className={`px-3 py-2 text-[11px] font-black uppercase tracking-widest transition-colors ${
+                        countMode === val
+                          ? "bg-[#1a1a1a] dark:bg-[#b91c1c] text-white"
+                          : "bg-white dark:bg-[#1e1e1e] text-gray-600 dark:text-gray-300 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d]"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Format segmented control: everything vs. serials vs. monographs */}
               <div className="inline-flex rounded overflow-hidden border border-[#e5e7eb] dark:border-[#2f2f2f]">
                 {([
@@ -735,8 +792,17 @@ export default function Dashboard({
                 );
               })}
             </ul>
+            <label className="mt-3 flex items-center gap-2.5 px-2 py-1.5 rounded cursor-pointer select-none border-t border-[#e5e7eb] dark:border-[#2f2f2f] pt-3">
+              <input
+                type="checkbox"
+                checked={multiOnly}
+                onChange={(e) => setMultiOnly(e.target.checked)}
+                className="w-4 h-4 accent-[#b91c1c] cursor-pointer"
+              />
+              <span className="text-sm font-bold text-[#1a1a1a] dark:text-[#e5e5e5]">Multiple languages only</span>
+            </label>
             <p className="text-[11px] text-gray-400 mt-3 leading-snug">
-              Click a language to show or hide it; bilingual works count toward each language, so counts can exceed the imprint total. Marker colour reflects the dominant language at each place.
+              Click a language to show or hide it; bilingual works count toward each language, so counts can exceed the imprint total. “Multiple languages only” keeps just the works written in more than one language. Marker colour reflects the dominant language at each place.
             </p>
           </div>
         </aside>

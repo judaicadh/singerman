@@ -52,6 +52,9 @@ let minYear = Infinity;
 let maxYear = -Infinity;
 
 for (const r of items as any[]) {
+  // Skip withdrawn entries (description is exactly "Withdrawn") — not real imprints.
+  if (String(r.description ?? "").trim().toLowerCase() === "withdrawn") continue;
+
   const ll = r.latLng;
   if (!ll || typeof ll.lat !== "number" || typeof ll.lng !== "number") continue;
 
