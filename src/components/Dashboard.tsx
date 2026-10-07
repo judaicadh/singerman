@@ -104,8 +104,6 @@ export default function Dashboard({
   //            one-record-per-title tally);
   //  "all"   — count a title in every year of its run (shows serial longevity).
   const [countMode, setCountMode] = useState<"first" | "all">("first");
-  // Restrict to works written in more than one language (bilingual/multilingual).
-  const [multiOnly, setMultiOnly] = useState(false);
   // Timeline x-axis view domain (zoom). Defaults to the full range.
   const [view, setView] = useState<[number, number]>([minYear, maxYear]);
   const viewStart = view[0];
@@ -144,11 +142,6 @@ export default function Dashboard({
     () => activeLangs.reduce((m, on, i) => (on ? m | (1 << i) : m), 0),
     [activeLangs],
   );
-
-  // True when a record's language bitmask has more than one bit set.
-  const isMulti = (mask: number) => (mask & (mask - 1)) !== 0;
-  // A record passes the (optional) multilingual filter.
-  const passesMulti = (mask: number) => !multiOnly || isMulti(mask);
 
   // Whether a record falls in the window. In "first" mode only its primary year
   // counts (one title, one date); in "all" mode any year of its run qualifies.
@@ -191,8 +184,8 @@ export default function Dashboard({
     const grid: number[][] = Array.from({ length: width }, () =>
       new Array(langs.length).fill(0),
     );
-    for (const [, li, isSerial, years, mask] of records) {
-      if (!matchesFormat(isSerial) || !passesMulti(mask)) continue;
+    for (const [, li, isSerial, years] of records) {
+      if (!matchesFormat(isSerial)) continue;
       const ys = countMode === "all" ? years : [years[0]];
       for (const y of ys) {
         const row = grid[y - minYear];
@@ -200,7 +193,7 @@ export default function Dashboard({
       }
     }
     return grid;
-  }, [records, minYear, maxYear, langs.length, format, countMode, multiOnly]);
+  }, [records, minYear, maxYear, langs.length, format, countMode]);
 
   const maxYearTotal = useMemo(
     () => Math.max(1, ...yearLangCounts.map((r) => r.reduce((a, b) => a + b, 0))),
@@ -214,9 +207,9 @@ export default function Dashboard({
     () =>
       records.filter(
         ([, , isSerial, years, mask]) =>
-          (mask & activeMask) !== 0 && matchesFormat(isSerial) && passesMulti(mask) && inWindow(years),
+          (mask & activeMask) !== 0 && matchesFormat(isSerial) && inWindow(years),
       ),
-    [records, start, end, activeMask, format, countMode, multiOnly],
+    [records, start, end, activeMask, format, countMode],
   );
 
   /* Aggregate visible records by place → per-language membership counts.
@@ -252,11 +245,11 @@ export default function Dashboard({
   const langTotals = useMemo(() => {
     const t = new Array(langs.length).fill(0);
     for (const [, , isSerial, years, mask] of records) {
-      if (!matchesFormat(isSerial) || !passesMulti(mask) || !inWindow(years)) continue;
+      if (!matchesFormat(isSerial) || !inWindow(years)) continue;
       for (let i = 0; i < langs.length; i++) if (mask & (1 << i)) t[i]++;
     }
     return t;
-  }, [records, start, end, format, langs.length, countMode, multiOnly]);
+  }, [records, start, end, format, langs.length, countMode]);
 
   /* ------------------ City comparison (imprints per year) ------------------ *
    * For each selected city, a per-year count honouring the format + language
@@ -268,7 +261,7 @@ export default function Dashboard({
       selectedPlaces.map((pi) => {
         const arr = new Array(width).fill(0);
         for (const [p, , isSerial, years, mask] of records) {
-          if (p !== pi || !matchesFormat(isSerial) || (mask & activeMask) === 0 || !passesMulti(mask)) continue;
+          if (p !== pi || !matchesFormat(isSerial) || (mask & activeMask) === 0) continue;
           const ys = countMode === "all" ? years : [years[0]];
           for (const y of ys) {
             const idx = y - minYear;
@@ -277,7 +270,7 @@ export default function Dashboard({
         }
         return arr;
       }),
-    [selectedPlaces, records, minYear, width, format, activeMask, countMode, multiOnly],
+    [selectedPlaces, records, minYear, width, format, activeMask, countMode],
   );
   const maxCityVal = useMemo(
     () => Math.max(1, ...citySeries.flat()),
@@ -792,17 +785,8 @@ export default function Dashboard({
                 );
               })}
             </ul>
-            <label className="mt-3 flex items-center gap-2.5 px-2 py-1.5 rounded cursor-pointer select-none border-t border-[#e5e7eb] dark:border-[#2f2f2f] pt-3">
-              <input
-                type="checkbox"
-                checked={multiOnly}
-                onChange={(e) => setMultiOnly(e.target.checked)}
-                className="w-4 h-4 accent-[#b91c1c] cursor-pointer"
-              />
-              <span className="text-sm font-bold text-[#1a1a1a] dark:text-[#e5e5e5]">Multiple languages only</span>
-            </label>
             <p className="text-[11px] text-gray-400 mt-3 leading-snug">
-              Click a language to show or hide it; bilingual works count toward each language, so counts can exceed the imprint total. “Multiple languages only” keeps just the works written in more than one language. Marker colour reflects the dominant language at each place.
+              Click a language to show or hide it; bilingual works count toward each language, so counts can exceed the imprint total. Marker colour reflects the dominant language at each place.
             </p>
           </div>
         </aside>

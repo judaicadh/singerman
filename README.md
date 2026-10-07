@@ -87,12 +87,7 @@ counts are lower than the canonical totals. Be aware of these rules when reading
   (`Union List of Nineteenth-Century Jewish Serials` = serials), _not_ the id prefix: `S###`
   and `suppS###` ids are serials, but `supp####` ids are supplement monographs.
 - **Languages.** Many works are multilingual (e.g. Hebrew + English). Such a work counts toward
-  **each** of its languages, so the language legend can sum to more than the imprint total. A
-  **"Multiple languages only"** filter isolates works in more than one language.
-
-The same `multilingual` filter exists on `/search` as a facet. It relies on a boolean
-`multilingual` attribute written by `pushToAlgolia.mjs`; after re-running that script, add
-`multilingual` to the index's **attributesForFaceting** in Algolia for the toggle to work.
+  **each** of its languages, so the language legend can sum to more than the imprint total.
 
 ## Project structure
 
