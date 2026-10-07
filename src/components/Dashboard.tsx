@@ -7,9 +7,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
  *   langs:  language bucket names (indexed by langIdx)
  * ------------------------------------------------------------------ */
 type Place = [string, number, number];
-// [placeIdx, primaryLang, isSerial, years[], langMask] — years[0] is the
-// primary year; langMask is a bitmask of every language bucket the work is in.
-type Record = [number, number, number, number[], number];
+// [placeIdx, primaryLang, isSerial, years[], langMask, isDigitized] — years[0]
+// is the primary year; langMask is a bitmask of every language bucket in the work.
+type Record = [number, number, number, number[], number, number];
 type Format = "all" | "serial" | "mono";
 
 interface Props {
@@ -19,6 +19,21 @@ interface Props {
   minYear: number;
   maxYear: number;
   cartoKey?: string;
+  topAuthors: [string, number][];
+  topContributors: [string, number][];
+  growth: {
+    pre1801: number;
+    inc1801_1825: number;
+    growth1: number;
+    inc1826_1850: number;
+    growth2: number;
+    cw1860_1865: number;
+    cw1861_1865: number;
+    by1865: number;
+    doubleYear: number;
+    doubleCount: number;
+    doubleGrowth: number;
+  };
 }
 
 /* Categorical palette — colour-blind-friendly, tuned for both themes.
@@ -86,7 +101,30 @@ export default function Dashboard({
   minYear,
   maxYear,
   cartoKey,
+  topAuthors,
+  topContributors,
+  growth,
 }: Props) {
+  // Round to the nearest ten for the "~" figures in the narrative.
+  const round10 = (n: number) => Math.round(n / 10) * 10;
+
+  // Reusable ranked horizontal-bar list for the "top N" charts.
+  const BarRows = ({ data, color }: { data: [string, number][]; color: string }) => {
+    const max = data.length ? data[0][1] : 1;
+    return (
+      <ul className="space-y-1.5">
+        {data.map(([label, count]) => (
+          <li key={label} className="flex items-center gap-3 text-sm">
+            <span className="w-32 sm:w-40 shrink-0 truncate font-bold text-[#1a1a1a] dark:text-[#e5e5e5]" title={label}>{label}</span>
+            <span className="flex-grow h-3.5 bg-gray-100 dark:bg-gray-800 rounded overflow-hidden">
+              <span className="block h-full rounded" style={{ width: `${(count / max) * 100}%`, backgroundColor: color }} />
+            </span>
+            <span className="w-12 text-right tabular-nums text-gray-500 dark:text-gray-400">{count.toLocaleString()}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  };
   const L = useLeaflet();
 
   // Selected time window [start, end].
@@ -104,6 +142,8 @@ export default function Dashboard({
   //            one-record-per-title tally);
   //  "all"   — count a title in every year of its run (shows serial longevity).
   const [countMode, setCountMode] = useState<"first" | "all">("first");
+  // Timeline shape: per-year bars, or a cumulative running total (growth curve).
+  const [timelineMode, setTimelineMode] = useState<"year" | "cumulative">("year");
   // Timeline x-axis view domain (zoom). Defaults to the full range.
   const [view, setView] = useState<[number, number]>([minYear, maxYear]);
   const viewStart = view[0];
@@ -195,9 +235,20 @@ export default function Dashboard({
     return grid;
   }, [records, minYear, maxYear, langs.length, format, countMode]);
 
+  // Running cumulative totals per language (for the "Cumulative" timeline view),
+  // which makes the overall growth of the corpus legible.
+  const cumulativeCounts = useMemo(() => {
+    const run = new Array(langs.length).fill(0);
+    return yearLangCounts.map((row) => {
+      for (let i = 0; i < row.length; i++) run[i] += row[i];
+      return [...run];
+    });
+  }, [yearLangCounts, langs.length]);
+
+  const displayGrid = timelineMode === "cumulative" ? cumulativeCounts : yearLangCounts;
   const maxYearTotal = useMemo(
-    () => Math.max(1, ...yearLangCounts.map((r) => r.reduce((a, b) => a + b, 0))),
-    [yearLangCounts],
+    () => Math.max(1, ...displayGrid.map((r) => r.reduce((a, b) => a + b, 0))),
+    [displayGrid],
   );
 
   /* --------- Records visible under the current window + filters -------- *
@@ -280,6 +331,65 @@ export default function Dashboard({
     () => citySeries.map((s) => s.reduce((a, b) => a + b, 0)),
     [citySeries],
   );
+
+  /* ---------------- Additional analytic views (below the map) ---------------- */
+
+  // Top cities in the current view (dynamic — honours window + all filters).
+  const topCitiesInView = useMemo(() => {
+    const arr = [...placeAgg.entries()]
+      .map(([pi, e]) => [places[pi]?.[0] ?? "—", e.total] as [string, number])
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 12);
+    return arr;
+  }, [placeAgg, places]);
+
+  // Imprints by US state (from the ", XX" suffix on place names), dynamic.
+  const stateCounts = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const [pi, e] of placeAgg) {
+      const match = /,\s*([A-Z]{2})\s*$/.exec(places[pi]?.[0] ?? "");
+      const st = match ? match[1] : "—";
+      m.set(st, (m.get(st) ?? 0) + e.total);
+    }
+    return [...m.entries()].filter(([s]) => s !== "—").sort((a, b) => b[1] - a[1]);
+  }, [placeAgg, places]);
+
+  // Serials vs. monographs per year (honours countMode; independent of the
+  // Serials/Monographs format toggle so both series always show).
+  const serialMonoByYear = useMemo(() => {
+    const w = maxYear - minYear + 1;
+    const mono = new Array(w).fill(0);
+    const ser = new Array(w).fill(0);
+    for (const [, , isSerial, years] of records) {
+      const ys = countMode === "all" ? years : [years[0]];
+      for (const y of ys) {
+        const idx = y - minYear;
+        if (idx < 0 || idx >= w) continue;
+        (isSerial ? ser : mono)[idx]++;
+      }
+    }
+    return { mono, ser };
+  }, [records, minYear, maxYear, countMode]);
+
+  // Digitization coverage by decade: [decadeLabel, total, digitized].
+  const digitizedByDecade = useMemo(() => {
+    const buckets = new Map<number, { total: number; digi: number }>();
+    for (const [, , isSerial, years, , isDigi] of records) {
+      if (!matchesFormat(isSerial)) continue;
+      const y = years[0];
+      const dec = Math.floor(y / 10) * 10;
+      let b = buckets.get(dec);
+      if (!b) { b = { total: 0, digi: 0 }; buckets.set(dec, b); }
+      b.total++;
+      if (isDigi) b.digi++;
+    }
+    return [...buckets.entries()].sort((a, b) => a[0] - b[0]).map(([dec, b]) => ({
+      decade: dec,
+      total: b.total,
+      digi: b.digi,
+      pct: b.total ? b.digi / b.total : 0,
+    }));
+  }, [records, format]);
 
   /* ------------------------------- Map -------------------------------- */
   const mapEl = useRef<HTMLDivElement | null>(null);
@@ -621,12 +731,29 @@ export default function Dashboard({
           <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400">
-                Imprints per year
+                {timelineMode === "cumulative" ? "Cumulative imprints" : "Imprints per year"}
               </h2>
               <div className="flex items-center gap-3">
-                <span className="hidden sm:inline text-[11px] text-gray-400">
-                  Scroll or use the buttons to zoom · drag the handles to set the window
-                </span>
+                {/* Per-year vs cumulative growth curve */}
+                <div className="inline-flex rounded overflow-hidden border border-[#e5e7eb] dark:border-[#2f2f2f]">
+                  {([
+                    ["year", "Per year"],
+                    ["cumulative", "Cumulative"],
+                  ] as const).map(([val, label]) => (
+                    <button
+                      key={val}
+                      onClick={() => setTimelineMode(val)}
+                      aria-pressed={timelineMode === val}
+                      className={`px-3 py-1.5 text-[11px] font-black uppercase tracking-widest transition-colors ${
+                        timelineMode === val
+                          ? "bg-[#1a1a1a] dark:bg-[#b91c1c] text-white"
+                          : "bg-white dark:bg-[#1e1e1e] text-gray-600 dark:text-gray-300 hover:text-[#b91c1c] dark:hover:text-[#ff4d4d]"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
                 <div className="inline-flex items-center rounded overflow-hidden border border-[#e5e7eb] dark:border-[#2f2f2f]">
                   <button
                     onClick={() => zoomByButton(0.6)}
@@ -667,8 +794,25 @@ export default function Dashboard({
                 onTimelinePointer(e.clientX);
               }}
             >
+              {/* Civil War band (1861–1865) — the production dip is visible here */}
+              {1865 >= viewStart && 1861 <= viewEnd && (
+                <g>
+                  <rect
+                    x={clamp(xForYear(1861), 0, TL_W)}
+                    y={0}
+                    width={clamp(xForYear(1865), 0, TL_W) - clamp(xForYear(1861), 0, TL_W)}
+                    height={TL_H}
+                    fill="#b91c1c"
+                    opacity={0.08}
+                  />
+                  <text x={clamp((xForYear(1861) + xForYear(1865)) / 2, 30, TL_W - 30)} y={11} textAnchor="middle" className="fill-[#b91c1c]" fontSize={10} fontWeight={700}>
+                    Civil War
+                  </text>
+                </g>
+              )}
+
               {/* Bars */}
-              {yearLangCounts.map((row, idx) => {
+              {displayGrid.map((row, idx) => {
                 const year = minYear + idx;
                 if (year < viewStart || year > viewEnd) return null;
                 const within = year >= start && year <= end;
@@ -685,7 +829,7 @@ export default function Dashboard({
                           key={li}
                           x={x}
                           y={yTop}
-                          width={Math.max(barW - 0.3, 0.6)}
+                          width={timelineMode === "cumulative" ? barW + 0.6 : Math.max(barW - 0.3, 0.6)}
                           height={h}
                           fill={activeLangs[li] ? LANG_COLORS[li] : "#9ca3af"}
                         />
@@ -897,6 +1041,38 @@ export default function Dashboard({
             </svg>
           </>
         )}
+      </div>
+
+      {/* ---------------------- Narrative: growth over time ---------------------- */}
+      <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-5 shadow-sm">
+        <h2
+          style={{ fontFamily: "'Spectral', serif" }}
+          className="text-xl font-bold text-[#1a1a1a] dark:text-[#e5e5e5]"
+        >
+          The growth of Judaica Americana
+        </h2>
+        <p className="text-[12px] text-gray-400 mb-3">
+          Switch the timeline above to <strong>Cumulative</strong> to trace this curve — and note the Civil War dip.
+        </p>
+        <div className="text-gray-700 dark:text-gray-300 leading-relaxed space-y-3 max-w-3xl">
+          <p>
+            Before 1801, publications of Judaica Americana totaled <strong>{growth.pre1801.toLocaleString()}</strong>.
+            From 1801 to 1825 the rate of growth rose <strong>{growth.growth1}%</strong>, adding{" "}
+            <strong>{growth.inc1801_1825.toLocaleString()}</strong> works. Over the next quarter-century
+            production kept climbing — up <strong>{growth.growth2}%</strong>, adding about{" "}
+            <strong>{round10(growth.inc1826_1850).toLocaleString()}</strong> works by 1850.
+          </p>
+          <p>
+            Growth continued through the 1850s, but from 1860 to 1865, during the American Civil War,
+            production dropped sharply — on both a percentage and absolute basis — adding only{" "}
+            <strong>{growth.cw1860_1865.toLocaleString()}</strong> works (just{" "}
+            <strong>{growth.cw1861_1865.toLocaleString()}</strong> between 1861 and 1865). The pace
+            rebounded quickly after 1865, with the running total roughly doubling from about{" "}
+            <strong>{round10(growth.by1865).toLocaleString()}</strong> works to about{" "}
+            <strong>{round10(growth.doubleCount).toLocaleString()}</strong> by {growth.doubleYear} — a{" "}
+            <strong>{growth.doubleGrowth}%</strong> increase.
+          </p>
+        </div>
       </div>
     </div>
   );

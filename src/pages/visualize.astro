@@ -46,7 +46,20 @@ function parseYears(raw: unknown): number[] {
 
 const placeIndex = new Map<string, number>();
 const places: [string, number, number][] = [];
-const records: [number, number, number, number[], number][] = [];
+// [placeIdx, primaryLang, isSerial, years[], langMask, isDigitized]
+const records: [number, number, number, number[], number, number][] = [];
+
+// Name → count, for the "most prolific" bar charts (built once here).
+const authorCounts = new Map<string, number>();
+const contribCounts = new Map<string, number>();
+const tally = (m: Map<string, number>, v: unknown) => {
+  for (const name of (Array.isArray(v) ? v : [v])) {
+    const n = String(name ?? "").trim();
+    if (n) m.set(n, (m.get(n) ?? 0) + 1);
+  }
+};
+const topN = (m: Map<string, number>, n: number): [string, number][] =>
+  [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, n);
 
 let minYear = Infinity;
 let maxYear = -Infinity;
@@ -78,13 +91,52 @@ for (const r of items as any[]) {
   // collection (735 records). NB: the id prefix is unreliable — the ~3,100
   // "supp####" supplement entries are additional monographs, not serials.
   const isSerial = /Serial/i.test(String(r.collection ?? "")) ? 1 : 0;
-  records.push([pi, primaryLang, isSerial, years, langMask]);
+  const isDigitized = r.isDigitized ? 1 : 0;
+  records.push([pi, primaryLang, isSerial, years, langMask, isDigitized]);
+
+  tally(authorCounts, r.authors);
+  tally(contribCounts, r.contributor);
 
   for (const y of years) {
     if (y < minYear) minYear = y;
     if (y > maxYear) maxYear = y;
   }
 }
+
+const topAuthors = topN(authorCounts, 12);
+const topContributors = topN(contribCounts, 12);
+
+/* ---- Growth figures for the narrative (computed from the FULL non-withdrawn,
+   dated corpus by first year, so the prose stays in sync with the data). ---- */
+const firstYearsAll: number[] = [];
+for (const r of items as any[]) {
+  if (String(r.description ?? "").trim().toLowerCase() === "withdrawn") continue;
+  const ys = parseYears(r.year);
+  if (ys.length) firstYearsAll.push(ys[0]);
+}
+const cum = (y: number) => firstYearsAll.filter((fy) => fy <= y).length;
+const inc = (a: number, b: number) => firstYearsAll.filter((fy) => fy >= a && fy <= b).length;
+const pct = (from: number, to: number) => (from ? Math.round(((to - from) / from) * 100) : 0);
+
+const by1865 = cum(1865);
+const target = by1865 * 2;
+let doubleYear = maxYear;
+for (let y = 1866; y <= YMAX; y++) {
+  if (cum(y) >= target) { doubleYear = y; break; }
+}
+const growth = {
+  pre1801: cum(1800),
+  inc1801_1825: inc(1801, 1825),
+  growth1: pct(cum(1800), inc(1801, 1825)),
+  inc1826_1850: inc(1826, 1850),
+  growth2: pct(inc(1801, 1825), inc(1826, 1850)),
+  cw1860_1865: inc(1860, 1865),
+  cw1861_1865: inc(1861, 1865),
+  by1865,
+  doubleYear,
+  doubleCount: cum(doubleYear),
+  doubleGrowth: pct(by1865, cum(doubleYear)),
+};
 ---
 
 <BaseLayout
@@ -117,5 +169,8 @@ for (const r of items as any[]) {
     minYear={minYear}
     maxYear={maxYear}
     cartoKey={import.meta.env.PUBLIC_CARTO_API_KEY ?? ""}
+    topAuthors={topAuthors}
+    topContributors={topContributors}
+    growth={growth}
   />
 </BaseLayout>
