@@ -1043,6 +1043,145 @@ export default function Dashboard({
         )}
       </div>
 
+      {/* ====================== More views ====================== */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Language share over time (100% stacked) */}
+        <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
+          <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-1">Language share over time</h2>
+          <p className="text-[11px] text-gray-400 mb-3">Each year as 100% — the minority-language presses emerge late-century.</p>
+          <svg viewBox={`0 0 ${CW} ${150 + 18}`} className="w-full">
+            {yearLangCounts.map((row, idx) => {
+              const total = row.reduce((a, b) => a + b, 0);
+              if (!total) return null;
+              const year = minYear + idx;
+              const x = xC(year);
+              const w = CW / (maxYear - minYear + 1) + 0.6;
+              let yTop = 0;
+              return (
+                <g key={year}>
+                  {row.map((c, li) => {
+                    if (!c) return null;
+                    const h = (c / total) * 150;
+                    const r = <rect key={li} x={x} y={yTop} width={w} height={h} fill={LANG_COLORS[li]} />;
+                    yTop += h;
+                    return r;
+                  })}
+                </g>
+              );
+            })}
+            {cmpTicks.map((y) => (
+              <text key={y} x={xC(y)} y={150 + 14} textAnchor="middle" fontSize={11} className="fill-gray-400">{y}</text>
+            ))}
+          </svg>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2">
+            {langs.map((n, i) => (
+              <span key={n} className="inline-flex items-center gap-1.5 text-[11px] text-gray-600 dark:text-gray-400">
+                <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: LANG_COLORS[i] }} />{n}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Serials vs monographs over time */}
+        <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
+          <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-1">Serials vs. monographs</h2>
+          <p className="text-[11px] text-gray-400 mb-3">Per year — the serial press is largely a late-19th-century phenomenon.</p>
+          {(() => {
+            const smMax = Math.max(1, ...serialMonoByYear.mono.map((m, i) => m + serialMonoByYear.ser[i]));
+            const w = CW / (maxYear - minYear + 1);
+            return (
+              <svg viewBox={`0 0 ${CW} ${150 + 18}`} className="w-full">
+                {serialMonoByYear.mono.map((m, idx) => {
+                  const s = serialMonoByYear.ser[idx];
+                  if (!m && !s) return null;
+                  const year = minYear + idx;
+                  const x = xC(year);
+                  const hm = (m / smMax) * 150;
+                  const hs = (s / smMax) * 150;
+                  return (
+                    <g key={year}>
+                      <rect x={x} y={150 - hm} width={Math.max(w - 0.3, 0.6)} height={hm} fill="#2563eb" />
+                      <rect x={x} y={150 - hm - hs} width={Math.max(w - 0.3, 0.6)} height={hs} fill="#b91c1c" />
+                    </g>
+                  );
+                })}
+                {cmpTicks.map((y) => (
+                  <text key={y} x={xC(y)} y={150 + 14} textAnchor="middle" fontSize={11} className="fill-gray-400">{y}</text>
+                ))}
+              </svg>
+            );
+          })()}
+          <div className="flex flex-wrap gap-x-4 mt-2 text-[11px] text-gray-600 dark:text-gray-400">
+            <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#2563eb" }} />Monographs</span>
+            <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#b91c1c" }} />Serials</span>
+          </div>
+        </div>
+
+        {/* Top cities (dynamic) */}
+        <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
+          <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-1">Top places</h2>
+          <p className="text-[11px] text-gray-400 mb-3">Most imprints in the current view (reflects all filters above).</p>
+          <BarRows data={topCitiesInView} color="#b91c1c" />
+        </div>
+
+        {/* By state (dynamic) */}
+        <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
+          <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-1">By state</h2>
+          <p className="text-[11px] text-gray-400 mb-3">Imprints grouped by U.S. state (current view).</p>
+          <BarRows data={stateCounts.slice(0, 12)} color="#0d9488" />
+        </div>
+
+        {/* Top authors (corpus-wide) */}
+        <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
+          <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-1">Most prolific authors / editors</h2>
+          <p className="text-[11px] text-gray-400 mb-3">Across the whole corpus.</p>
+          <BarRows data={topAuthors} color="#7c3aed" />
+        </div>
+
+        {/* Top printers/publishers (corpus-wide) */}
+        <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm">
+          <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-1">Printers &amp; publishers</h2>
+          <p className="text-[11px] text-gray-400 mb-3">Across the whole corpus.</p>
+          <BarRows data={topContributors} color="#d97706" />
+        </div>
+
+        {/* Digitization coverage by decade */}
+        <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-4 shadow-sm lg:col-span-2">
+          <h2 className="text-[11px] uppercase tracking-widest font-black text-gray-500 dark:text-gray-400 mb-1">Digitization coverage by decade</h2>
+          <p className="text-[11px] text-gray-400 mb-3">Share of each decade's imprints with a digital copy on file.</p>
+          {(() => {
+            const H = 140;
+            const n = digitizedByDecade.length || 1;
+            const bw = CW / n;
+            const digMax = Math.max(1, ...digitizedByDecade.map((d) => d.total));
+            return (
+              <svg viewBox={`0 0 ${CW} ${H + 20}`} className="w-full">
+                {digitizedByDecade.map((d, i) => {
+                  const x = i * bw;
+                  const hTotal = (d.total / digMax) * H;
+                  const hDigi = (d.digi / digMax) * H;
+                  return (
+                    <g key={d.decade}>
+                      <rect x={x + 1} y={H - hTotal} width={bw - 2} height={hTotal} fill="#e5e7eb" className="dark:fill-gray-700" />
+                      <rect x={x + 1} y={H - hDigi} width={bw - 2} height={hDigi} fill="#059669">
+                        <title>{`${d.decade}s — ${d.digi}/${d.total} digitized (${Math.round(d.pct * 100)}%)`}</title>
+                      </rect>
+                      {i % 2 === 0 && (
+                        <text x={x + bw / 2} y={H + 14} textAnchor="middle" fontSize={10} className="fill-gray-400">{d.decade}</text>
+                      )}
+                    </g>
+                  );
+                })}
+              </svg>
+            );
+          })()}
+          <div className="flex flex-wrap gap-x-4 mt-2 text-[11px] text-gray-600 dark:text-gray-400">
+            <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: "#059669" }} />Digitized</span>
+            <span className="inline-flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-gray-200 dark:bg-gray-700" />Not yet</span>
+          </div>
+        </div>
+      </div>
+
       {/* ---------------------- Narrative: growth over time ---------------------- */}
       <div className="bg-white dark:bg-[#1e1e1e] border border-[#e5e7eb] dark:border-[#2f2f2f] rounded-lg p-5 shadow-sm">
         <h2
