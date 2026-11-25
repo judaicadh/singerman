@@ -69,7 +69,7 @@ async function main() {
 				startDate,
 				endDate,
 				iframe: item['dcterms:hasFormat'],
-				description: item['dcterms:description'] || item['Description'] || '',
+				description: item['Description'] || '',
 				languages,
 				place: item['dcterms:spatial'] || '',
 				languagetitle: item['Language (Title)'],
